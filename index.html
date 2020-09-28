@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dungeon saga quest builder</title>
+</head>
+<link rel="icon" href="assets/icon.png">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css">
+<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+<script src="js/jquery/jquery-3.4.1.min.js"></script>
+<script src="js/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+<script src="js/html2canvas/html2canvas.js"></script>
+<script src="js/html2canvas/jspdf.debug.js"></script>
+<script src="js/fileSaver/FileSaver.js"></script>
+<script>if (window.module) module = window.module;</script>
+
+<!--script for the editor in the overview-->
+<script src="js/editor_logic.js"></script>
+
+
+<!--scripts for the map editor-->
+<script type="text/javascript" src="js/mapEditorScripts/dragLogic.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/bootstrap_page.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/tilesGenerator.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/changeTilesGroups.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/html2pdfLogic.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="css/style-main.css">
+<link rel="stylesheet" type="text/css" href="css/style-editor.css">
+<link rel="stylesheet" type="text/css" href="css/style-modals.css">
+
+<script>
+    var appType = "web";
+    
+    window.onload = function () {
+        setTimeout(() => {
+            bootstrap_page();
+        }, 200);
+    };
+    
+</script>
+
+
+
+<body>   
+    <div id="whole-mission-overview" style="display: block">
+        <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
+        <img id="export_project_pdf_button" src="assets/exportPDF.png" onclick="exportProjectToPDF()">
+        <div id="first-page" class="main-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="bootstrap-padding-left" class="col-1">
+                    
+                    </div>
+                    <div id="main-content" class="col-11">
+                        <div class="row" id="title-row">
+                            <div id="main-page-section-1" class="col-12">
+                                <p placeholder="insert title of mission here" id="main-page-introduction-section-title" 
+                                class="title cap-first-letter" contenteditable="true">Title of the adventure</p>
+                                <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
+                                lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
+                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet,
+                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet</div>
+                            </div>
+                        </div>
+
+                        <img src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
+
+                        <div class="row">
+                            <div id="main-page-section-2" class="col-4">
+                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The heroes</label>
+                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                            </div>   
+                            <div id="main-page-section-3" class="col-4">
+                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The demon</label>
+                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                            </div>    
+                            <div id="main-page-section-4" class="col-4">
+                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">Victory conditions</label>
+                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                            </div>      
+                        </div>
+
+                        <div class="row">
+                            <div id="special-rules" class="col-12">
+                                <label id="special-rules-title" contenteditable="true">SPECIAL RULES: POTIONS NOT PERMITTED FOR WARRIORS</label>
+                                <div contenteditable="true">Players that use a warrior character can't use potions unless for the behaviour of a special effect.
+                                    Healing with objects is not allowed too for warriors.
+                                    Once a hero is dead (whatever hero), he can revive just after rolling 5 on a response dice roll. This can be done just once per turn.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bootstrap-padding-right" class="col-0">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="second-page" class="main-page" style="display: none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="bootstrap-padding-left" class="col-0">
+                    
+                    </div>
+                    <div id="main-content" class="col-11">
+                        <div class="row" id="title-row">
+                            <div id="main-page-section-1" class="tactical_tips_box" class="col-12">
+                                <p id="main-page-introduction-section-title" class="tactical-tips-title" contenteditable="true" >TACTICAL TIPS</p>
+                                <hr style="height: 1px; background-color: #991111; border: none;">
+                                <div contenteditable="true">from the moment that the warriors can't be healed in any way...is better to use warriors in another way.
+                                    In this encounter magiciants will be defeating the boss and warriors will be doing something else...</div>
+                            </div>
+                        </div>
+
+                        <img id="map-on-project" src="assets/sample_map.png" onclick="open_map_editor()">
+                    </div>
+                    <div id="bootstrap-padding-right" class="col-1">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="map-editor" style="display: none">
+
+        
+        <div class="modal fade" id="outputModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-full" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">review project before exporting</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <h3 aria-hidden="true">×</h3>
+                        </button>
+                    </div>
+                    <div class="modal-body p-4 funny_scrollbar_blue" id="result">
+                        <div class="row">
+                            <div class="col-6">
+                                
+                                <h5>background color</h5>
+                                <input id="black_checkbox" onclick="setBlackBackground()" class="checkmark" type="radio"
+                                    name="background_color"> <label class="labelBig">black (improve readability)</label><br>
+                                <input id="white_checkbox" onclick="setWhiteBackground()" class="checkmark" type="radio"
+                                    name="background_color"><label class="labelBig">white (save ink when
+                                    printing)</label><br>
+                                <input id="smoky_checkbox" onclick="setSmokyBackground()" class="checkmark" type="radio"
+                                    checked="checked" name="background_color"> <label class="labelBig">smoky (as original
+                                    questbook)</label><br>
+                                <br>
+                                <br>
+                                <h2 class="labelBig">adapt the dungeon to fit A4 page</h2>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="labelBig">zoom</label>
+                                    </div>    
+                                    <div class="col-8">
+                                        <input class="rounded_range" type="range" max="2.0" min="0.5"
+                                        step="0.5" value="1.5" id="zoomScaling" onchange="scaleRes()"></input>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="labelBig">margin left</label>
+                                    </div> 
+                                    <div class="col-8">
+                                        <input class="rounded_range" type="range" max="200" min="-200"
+                                        step="20" value="0" id="marginLeft" onmouseup="setMarginLeft()"
+                                        ontouchend="setMarginLeft()"></input>
+                                    </div>   
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="labelBig">margin top</label>
+                                    </div> 
+                                    <div class="col-8">
+                                        <input class="rounded_range" type="range" max="200" min="-200"
+                                        step="20" value="0" id="marginTop" onmouseup="setMarginTop()"
+                                        ontouchend="setMarginTop()"></input>
+                                    </div>   
+                                </div>
+                                <button class="exportPDFButton" onclick="exportMapToPDF()">export to PDF</button>
+                                    
+                            </div>
+                            <div class="col-6">
+                                <img class="half_window_image" id="mapRendered" src="assets/loading.gif"></img>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                            </div>
+                            -->
+                </div>
+            </div>
+        </div>
+        
+        <div id="output" style="display: none;"></div>
+
+
+        <div class="topMenuBar">
+            <div id="editor_controls" style="display: flex;">
+                <button class="blueButton" onclick="goToExport()">export PDF</button>
+                <!--
+                <input  id="searchBar" class="searchBar" type="text" placeholder="search" oninput="searchItems()">
+                <button class="blueButton" onclick="goToExport()">export PDF</button>
+                <button class="blueButton" onclick="savePage()">save project</button>
+                <button class="blueButton" onclick="loadSaveList()">load project</button>
+                <label id="zoomDescr">zoom:</label>
+                <label id="zoom">0.5</label>
+                <button class="blueButton" onclick="increaseUiZoom()">map zoom +</button>
+                <button class="blueButton" onclick="decreaseUiZoom()">map zoom -</button>
+                -->
+                <button id="exit-map-editor-button" onclick="exitMapEditor()">EXIT MAP EDITOR MODE</button>
+            </div>
+        </div>
+
+        <div id="application">
+            <div id="" class="sidebar-container">
+                    
+                <div id="tilesSelectorBar">
+                    <button style="width:100%;" class="blueButton" id="flipSetButton" onclick="loadBaseB()">flip</button>
+                </div>
+                    
+                <div class="sidenav" id="baseA" style="visibility: ''">
+                    
+                    <img src="assets/tiles/baseA/QRN1_33_A.png" set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_33_A" image="QRN1_33_A" tags="QRN1_33_A"
+                        x_slots="3" y_slots="3"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img src="assets/tiles/baseA/QRN1_12_A.png" set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_12_A" image="QRN1_12_A" tags="QRN1_12_A"
+                        x_slots="1" y_slots="2"
+                        style="position: absolute; cursor: move; " onMap="no">
+
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRNT1_45_A" image="QRNT1_45_A" tags="QRNT1_45_A"
+                        x_slots="4" y_slots="5"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_22_A" image="QRN1_22_A" tags="QRN1_22_A"
+                        x_slots="2" y_slots="2"
+                        style="position: absolute; cursor: move;" onMap="no">
+                    
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN2_22_A" image="QRN2_22_A" tags="QRN2_22_A"
+                        x_slots="2" y_slots="2"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_23_A" image="QRN1_23_A" tags="QRN1_23_A"
+                        x_slots="2" y_slots="3"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_66_A" image="QRN1_66_A" tags="QRN1_66_A"
+                        x_slots="6" y_slots="6"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseA" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN-tile-6x4-A" image="QRN-tile-6x4-A" tags="QRN-tile-6x4-A"
+                        x_slots="6" y_slots="4"
+                        style="position: absolute; cursor: move;" onMap="no">
+                </div>
+                
+
+
+                <div class="sidenav" id="baseB" style="visibility: hidden;">
+                    
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_33_B" image="QRN1_33_B" tags="QRN1_33_B"
+                        x_slots="3" y_slots="3"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_12_B" image="QRN1_12_B" tags="QRN1_12_B"
+                        x_slots="1" y_slots="2"
+                        style="position: absolute; cursor: move; " onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRNT1_45_B" image="QRNT1_45_B" tags="QRNT1_45_B"
+                        x_slots="4" y_slots="5"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_22_B" image="QRN1_22_B" tags="QRN1_22_B"
+                        x_slots="2" y_slots="2"
+                        style="position: absolute; cursor: move;" onMap="no">
+                    
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN2_22_B" image="QRN2_22_B" tags="QRN2_22_B"
+                        x_slots="2" y_slots="2"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_23_B" image="QRN1_23_B" tags="QRN1_23_B"
+                        x_slots="2" y_slots="3"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN1_66_B" image="QRN1_66_B" tags="QRN1_66_B"
+                        x_slots="6" y_slots="6"
+                        style="position: absolute; cursor: move;" onMap="no">
+
+                    <img set="baseB" orientation="0" single="yes" pieceType="tile"
+                        oncontextmenu="return false;" id="QRN-tile-6x4-B" image="QRN-tile-6x4-B" tags="QRN-tile-6x4-B"
+                        x_slots="6" y_slots="4"
+                        style="position: absolute; cursor: move;" onMap="no">
+                </div>
+
+
+
+
+            </div>
+
+
+            <!--width="4096" height="3084"-->
+            <div id="canvasContainer" class="canvasContainer">
+                <canvas id="canvasDragShower" width="4096" height="3084"></canvas>
+            </div>
+
+
+            <div id="map" scale="1" class="map funny_scrollbar_blue" onscroll="adjustCanvasScroll()">
+                <label style="position: absolute; top: 3024px;" pieceType="placeholder" id="placeholder">.</label>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

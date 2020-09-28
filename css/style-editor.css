@@ -1,0 +1,110 @@
+:root {
+    --top-bar-height: 36px;
+    --tiles-selector-bar-height: 42px;
+    --bottom-bar-height: 4vw;
+    --bottom-bar-zoomed-height: 8vw;
+    --sidenav-width: 12vw;
+    --bottom-canvas-margin: 0px;
+    --bottom-map-margin: 0px;
+    --search-bar-lenght: 20vw;
+    --dice-div-height: 372px;
+    --dice-div-width: 290px;
+    --dice-face-size: 72px;
+    --scale: 1;
+}
+
+body{
+    overscroll-behavior: contain;
+    height: 100%;
+    width: 100%;
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    touch-action: manipulation;
+}
+
+.sidebar-container{
+    height: 100%;
+    width: var(--sidenav-width);
+}
+
+.sidenav {
+    margin-top : var(--tiles-selector-bar-height);
+    height: calc(100% - var(--tiles-selector-bar-height));
+    width:inherit;
+    overflow-y : auto;
+    overflow-x : hidden;
+    position: fixed; 
+    z-index: 1;
+    top: 0; 
+    left: 0;
+    background-color: #111;
+}
+
+.topMenuBar{
+    display: flex;
+    top: 0px;
+    margin-left: var(--sidenav-width);
+    height: var(--top-bar-height);
+    background-color: black;
+    z-index: 1;
+}
+
+#tilesSelectorBar{
+    height: var(--tiles-selector-bar-height); /* Full-height: remove this if you want "auto" height */
+    width:inherit;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 5; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #000; /* Black */
+}
+
+.map{
+    height: calc(100vh - var(--bottom-map-margin) - var(--top-bar-height));
+    width: calc(100vw - var(--sidenav-width)); /* Set the width of the sidebar */
+    overflow-y : auto;
+    overflow-x : auto;
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: var(--top-bar-height); /* Stay at the top */
+    left: var(--sidenav-width);
+    opacity: 1;
+    background-attachment:local;
+}
+
+.map[scale='0.25']{
+    background-image: url('../assets/background_025.jpg');
+}
+
+.map[scale='0.5']{
+    background-image: url('../assets/background_050.jpg');
+}
+
+.map[scale='0.75']{
+    background-image: url('../assets/background_075.jpg');
+}
+
+.map[scale='1']{
+    background-image: url('../assets/background_blank.png');
+}
+
+.map img{
+    -moz-transform:scale(var( --scale));
+    -webkit-transform:scale(var( --scale));
+    transform:scale(var( --scale));
+    transform-origin: 0 0;
+}
+
+.canvasContainer{
+    z-index: 99;
+    height: calc(100vh - var(--bottom-canvas-margin) - var(--top-bar-height));
+    width: 100%;
+    overflow-y : hidden;
+    overflow-x : hidden;
+    position: fixed; 
+    top: calc(var(--top-bar-height));
+    left: var(--sidenav-width);
+    pointer-events: none;
+}

@@ -1,0 +1,120 @@
+
+
+#switch_page_button{
+    position: fixed;
+    right:    2vh;
+    bottom:   2vh;
+    width: 8vh;
+    height: 8vh;
+}
+
+#switch_page_button:hover{
+    cursor: pointer;
+}
+
+#export_project_pdf_button{
+    position: fixed;
+    right:    2vh;
+    bottom:   12vh;
+    width: 10vw;
+    height: 8vh;
+}
+
+#export_project_pdf_button:hover{
+    cursor: pointer;
+}
+
+#first-page{
+    background-image: url("../assets/Fond-parchemin-2.jpg");
+}
+
+#second-page{
+    background-image: url("../assets/Fond-parchemin-3.jpg");
+}
+
+.main-page{
+    width: 21cm;
+    min-height: 29.7cm;
+    max-height: 29.7cm;
+    padding: 1cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+    /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, serif;*/
+    font-family: Georgia, serif;
+    font-size: 18px;
+}
+
+.title{
+    font-size: xx-large;
+    text-decoration-line: underline;
+    font-style: italic;
+    font-weight: bold;
+    width:100%;
+}
+
+/*not very good behaviour...*/
+/*
+#main-page-introduction-section-title:empty:not(:focus)::after {
+    content: attr(placeholder);
+}
+*/
+/*
+.cap-first-letter::first-letter {
+    text-transform: capitalize;
+    font-size: 200%;
+    margin-top: 200px;
+    margin-right: 5pt;
+    text-decoration-line: none;
+}
+*/
+
+#special-rules{
+    color: white;
+    font-weight: bold;
+    background: rgb(56,22,3);
+    background: linear-gradient(90deg, rgba(56,22,3,1) 0%, rgba(66,0,2,1) 35%, rgba(74,12,10,1) 100%);
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 4px #00000099;
+}
+#special-rules-title{
+    margin-top: 4px;
+    text-decoration-line: underline;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.sub{
+    font-size: x-large;
+}
+
+/*second sheet*/
+.tactical_tips_box{
+    border-style: solid;
+    padding:8px;
+}
+
+.tactical-tips-title{
+    font-weight: bold;
+    color: #991111;
+}
+
+
+/*map editor*/
+#map-editor-div{
+    border-style: solid;
+}
+
+#map-on-project{
+    border-style: solid;
+    max-width: 100%;
+}
+
+#map-on-project:hover{
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
