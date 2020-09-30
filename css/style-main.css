@@ -71,6 +71,7 @@ body{
     position: fixed;
     z-index: 1;
     height: 100vh;
+    color: white;
 }
 
 .pages-container{
@@ -93,6 +94,7 @@ body{
     height: 100%;
     background-repeat: no-repeat;
     background-size: 100%;
+    padding: 16px;
     
 }
 
@@ -227,4 +229,8 @@ body{
 .map-on-project-container:hover{
     cursor: pointer;
     filter: brightness(120%);
+}
+
+#resize-map-on-project:hover{
+    cursor: pointer;
 }

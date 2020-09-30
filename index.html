@@ -56,9 +56,17 @@
                 <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
                 <button id="export_project_pdf_button" onclick="exportProjectToPDF()">PDF</button>
                 <hr>
+                <label>PAGE ZOOM</label>
                 <div style="display: flex;">
                     <button class="zoom-button" onclick="projectZoom('-')">-</button>
                     <button class="zoom-button" onclick="projectZoom('+')">+</button>
+                </div>
+
+                <hr>
+                <label>MAP DIMENSIONS</label>
+                <div style="display: flex;">
+                    <button class="zoom-button" onclick="mapOnProjectZoom('-')">-</button>
+                    <button class="zoom-button" onclick="mapOnProjectZoom('+')">+</button>
                 </div>
             </div>
 
@@ -137,7 +145,7 @@
                                         <div class="map-on-project-container" onclick="open_map_editor()">
                                             <img id="map-on-project" src="assets/sample_map.png">
                                         </div>
-
+                                        
 
                                         <div class="row" id="title-row">
                                             <div id="main-page-section-2" class="in-the-end" class="col-12">

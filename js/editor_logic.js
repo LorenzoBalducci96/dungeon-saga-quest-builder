@@ -81,3 +81,11 @@ function projectZoom(moreOrLess){
         document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }
 }
+
+function mapOnProjectZoom(moreOrLess){
+    if(moreOrLess == "-"){
+        document.getElementById("map-on-project").style.height = document.getElementById("map-on-project").offsetHeight*0.9 + "px"
+    }else if(moreOrLess == "+"){
+        document.getElementById("map-on-project").style.height = document.getElementById("map-on-project").offsetHeight*1.1 + "px"
+    }
+}
