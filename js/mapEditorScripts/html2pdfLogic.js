@@ -7,22 +7,61 @@ var marginTop = 0;
 
 function exportProjectToPDF(){
     let pdfDocument = new jsPDF('potrait');
+    //pdfDocument.internal.scaleFactor = 30;
+    projectZoom("0");
     
+    /*
+    var pdf = new jsPDF('l', 'in', 'a4');
+        pdf.internal.scaleFactor = 30;
+        pdf.addHTML($('#print-area')[0], function () {
+            pdf.save(calendarName);
+        });
+        */
+    
+    /*
+    var element = document.getElementById('first-page');
+    html2pdf(element, {
+                    margin: 0,
+                    filename: 'myfile.pdf',
+                    image: { type: 'png', quality: 2 },
+                    html2canvas: { scale: 16, logging: true },
+                    jsPDF: { unit: 'cm', format: 'a4' }
+    });
+    */
+
+    /*
     document.getElementById("first-page").style.display = "block";
-    html2canvas(document.getElementById("first-page")).then(function (first_page_canvas) {
-        pdfDocument.addImage(first_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
+    pdfDocument.addHTML(document.getElementById("first-page"), function() {
         document.getElementById("second-page").style.display = "block";
         pdfDocument.addPage();
-        html2canvas(document.getElementById("second-page")).then(function (second_page_canvas) {
-            
-            pdfDocument.addImage(second_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
+        pdfDocument.addHTML(document.getElementById("second-page"), function() {
             active_actual_page();
             pdfDocument.save('dungeon.pdf');
         });
     });
-
+    */
     
-    //pdfDocument.save('dungeon.pdf');
+    //with html2canvas for every page
+    
+    //activePage(1)
+    html2canvas(document.getElementById("first-page")).then(function (first_page_canvas) {
+        pdfDocument.addImage(first_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
+        document.getElementById("second-page").style.display = "block";
+        pdfDocument.addPage();
+        //activePage(2)
+        //document.getElementById("second-page").style.transform = "scaleX(-1)";
+        html2canvas(document.getElementById("second-page")).then(function (second_page_canvas) {
+            canvasContext = second_page_canvas.getContext('2d');
+            canvasContext.translate(second_page_canvas.width, 0);
+            canvasContext.scale(-1, 1);
+            canvasContext.drawImage(second_page_canvas,0,0);
+            pdfDocument.addImage(second_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
+            //active_actual_page();
+            pdfDocument.save('dungeon.pdf');
+        });
+    });
+    
+
 }
 
 function exportMapToPDF() {
@@ -83,8 +122,11 @@ function createOutputDivForPrint() {
     var pageWidth = maxX - minX
     var pageHeight = maxY - minY
 
-    document.getElementById("output").style.width = pdfPageWidth + "px";
-    document.getElementById("output").style.height = pdfPageHeight + "px";
+    //document.getElementById("output").style.width = pdfPageWidth + "px";
+    //document.getElementById("output").style.height = pdfPageHeight + "px";
+
+    document.getElementById("output").style.width = pageWidth + "px";
+    document.getElementById("output").style.height = pageHeight + "px";
 
 
     document.getElementById("output").style.display = "block"

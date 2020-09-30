@@ -12,8 +12,10 @@
 <script src="js/jquery/jquery-3.4.1.min.js"></script>
 <script src="js/jquery/jquery-ui.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+
 <script src="js/html2canvas/html2canvas.js"></script>
 <script src="js/html2canvas/jspdf.debug.js"></script>
+<script src="https://cdn.bootcss.com/html2pdf.js/0.9.1/html2pdf.js"></script> 
 <script src="js/fileSaver/FileSaver.js"></script>
 <script>if (window.module) module = window.module;</script>
 
@@ -47,82 +49,113 @@
 
 
 
-<body>   
-    <div id="whole-mission-overview" style="display: block">
-        <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
-        <img id="export_project_pdf_button" src="assets/exportPDF.png" onclick="exportProjectToPDF()">
-        <div id="first-page" class="main-page">
-            <div class="container-fluid">
-                <div class="row">
-                    <div id="bootstrap-padding-left" class="col-1">
-                    
-                    </div>
-                    <div id="main-content" class="col-11">
-                        <div class="row" id="title-row">
-                            <div id="main-page-section-1" class="col-12">
-                                <p placeholder="insert title of mission here" id="main-page-introduction-section-title" 
-                                class="title cap-first-letter" contenteditable="true">Title of the adventure</p>
-                                <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
-                                lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
-                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet,
-                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet</div>
-                            </div>
-                        </div>
+<body>
+    <div id="whole-mission-overview" style="display: block;">
+        <div style="display: inline-flex; width:100%">
+            <div class="editor-menu col-1 px-1">
+                <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
+                <button id="export_project_pdf_button" onclick="exportProjectToPDF()">PDF</button>
+                <hr>
+                <div style="display: flex;">
+                    <button class="zoom-button" onclick="projectZoom('-')">-</button>
+                    <button class="zoom-button" onclick="projectZoom('+')">+</button>
+                </div>
+                
+                
+                
+                
+            </div>
 
-                        <img src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
+            <div class="pages-container col-11">
+                <div id="flip-pages" disply="text-align: center;">
+                    <div id="pages-inner" disply="text-align: center;">
+                        <div id="first-page" class="main-page">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div id="bootstrap-padding-left" class="col-1">
+                                    
+                                    </div>
+                                    <div id="main-content" class="col-11">
+                                        <div class="row" id="title-row">
+                                            <div id="main-page-section-1" class="col-12">
+                                                <p placeholder="insert title of mission here" id="main-page-introduction-section-title" 
+                                                class="title cap-first-letter" contenteditable="true">Title of the adventure</p>
+                                                <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
+                                                lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
+                                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet,
+                                                lorem ipsum dolor sit amet,lorem ipsum dolor sit amet</div>
+                                            </div>
+                                        </div>
 
-                        <div class="row">
-                            <div id="main-page-section-2" class="col-4">
-                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The heroes</label>
-                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
-                            </div>   
-                            <div id="main-page-section-3" class="col-4">
-                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The demon</label>
-                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
-                            </div>    
-                            <div id="main-page-section-4" class="col-4">
-                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">Victory conditions</label>
-                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
-                            </div>      
-                        </div>
+                                        <img src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
 
-                        <div class="row">
-                            <div id="special-rules" class="col-12">
-                                <label id="special-rules-title" contenteditable="true">SPECIAL RULES: POTIONS NOT PERMITTED FOR WARRIORS</label>
-                                <div contenteditable="true">Players that use a warrior character can't use potions unless for the behaviour of a special effect.
-                                    Healing with objects is not allowed too for warriors.
-                                    Once a hero is dead (whatever hero), he can revive just after rolling 5 on a response dice roll. This can be done just once per turn.
+                                        <div class="row">
+                                            <div id="main-page-section-2" class="col-4">
+                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The heroes</label>
+                                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                                            </div>   
+                                            <div id="main-page-section-3" class="col-4">
+                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The demon</label>
+                                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                                            </div>    
+                                            <div id="main-page-section-4" class="col-4">
+                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">Victory conditions</label>
+                                                <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
+                                            </div>      
+                                        </div>
+
+                                        <div class="row">
+                                            <div id="special-rules" class="col-12">
+                                                <label id="special-rules-title" contenteditable="true">SPECIAL RULES: POTIONS NOT PERMITTED FOR WARRIORS</label>
+                                                <div contenteditable="true">Players that use a warrior character can't use potions unless for the behaviour of a special effect.
+                                                    Healing with objects is not allowed too for warriors.
+                                                    Once a hero is dead (whatever hero), he can revive just after rolling 5 on a response dice roll. This can be done just once per turn.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="bootstrap-padding-right" class="col-0">
+                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="bootstrap-padding-right" class="col-0">
                     
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div id="second-page" class="main-page">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div id="bootstrap-padding-left" class="col-0">
+                                    
+                                    </div>
+                                    <div id="main-content" class="col-11">
+                                        <div class="row" id="title-row">
+                                            <div id="main-page-section-1" class="tactical_tips_box" class="col-12">
+                                                <p id="main-page-introduction-section-title" class="tactical-tips-title" contenteditable="true" >TACTICAL TIPS</p>
+                                                <hr style="height: 1px; background-color: #991111; border: none;">
+                                                <div contenteditable="true">from the moment that the warriors can't be healed in any way...is better to use warriors in another way.
+                                                    In this encounter magiciants will be defeating the boss and warriors will be doing something else...</div>
+                                            </div>
+                                        </div>
+                                        <div class="map-on-project-container" onclick="open_map_editor()">
+                                            <img id="map-on-project" src="assets/sample_map.png">
+                                        </div>
 
-        <div id="second-page" class="main-page" style="display: none;">
-            <div class="container-fluid">
-                <div class="row">
-                    <div id="bootstrap-padding-left" class="col-0">
-                    
-                    </div>
-                    <div id="main-content" class="col-11">
-                        <div class="row" id="title-row">
-                            <div id="main-page-section-1" class="tactical_tips_box" class="col-12">
-                                <p id="main-page-introduction-section-title" class="tactical-tips-title" contenteditable="true" >TACTICAL TIPS</p>
-                                <hr style="height: 1px; background-color: #991111; border: none;">
-                                <div contenteditable="true">from the moment that the warriors can't be healed in any way...is better to use warriors in another way.
-                                    In this encounter magiciants will be defeating the boss and warriors will be doing something else...</div>
+
+                                        <div class="row" id="title-row">
+                                            <div id="main-page-section-2" class="in-the-end" class="col-12">
+                                                <p id="main-page-introduction-section-title" class="in-the-end-title" contenteditable="true" >In the end</p>
+                                                <hr style="height: 1px; background-color: #991111; border: none;">
+                                                <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.
+                                                    lorem ipsum dolor sit amet lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="bootstrap-padding-right" class="col-1">
+                                    
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <img id="map-on-project" src="assets/sample_map.png" onclick="open_map_editor()">
-                    </div>
-                    <div id="bootstrap-padding-right" class="col-1">
-                    
                     </div>
                 </div>
             </div>
@@ -132,8 +165,6 @@
 
 
     <div id="map-editor" style="display: none">
-
-        
         <div class="modal fade" id="outputModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-full" role="document">
                 <div class="modal-content">
@@ -226,7 +257,7 @@
         </div>
 
         <div id="application">
-            <div id="" class="sidebar-container">
+            <div class="sidebar-container">
                     
                 <div id="tilesSelectorBar">
                     <button style="width:100%;" class="blueButton" id="flipSetButton" onclick="loadBaseB()">flip</button>

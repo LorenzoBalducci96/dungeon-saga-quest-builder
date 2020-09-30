@@ -11,6 +11,24 @@ setsLists = ["baseA", "baseB"]
 
 var margin_of_tiles_on_sidenav = 8
 
+
+function detectBrowser() { 
+    if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) {
+        return 'Opera';
+    } else if(navigator.userAgent.indexOf("Chrome") != -1 ) {
+        return 'Chrome';
+    } else if(navigator.userAgent.indexOf("Safari") != -1) {
+        return 'Safari';
+    } else if(navigator.userAgent.indexOf("Firefox") != -1 ){
+        return 'Firefox';
+    } else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
+        return 'IE';
+    } else {
+        return 'Unknown';
+    }
+} 
+
+
 function rearrangeAllTilesAfterResizing(){
     setsLists.forEach(setName => {
         this.rearrangeTilesAfterResize(setName)
@@ -38,6 +56,27 @@ function initCanvasDragShower(elmnt) {
 }
 
 function bootstrap_page() {
+    zoomed = document.getElementById("first-page");
+    /*
+    zoomed = document.getElementById("first-page");
+    if (! ('zoom' in document.createElement('div').style)) {
+        setInterval(() => {
+            const scale = Number(zoomed.getAttribute('data-zoom'))
+            zoomed.style.transform = 'none !important'
+            zoomed.style.marginRight = '0 !important'
+            zoomed.style.marginBottom = '0 !important'
+            const width = zoomed.clientWidth
+            const height = zoomed.clientHeight
+            zoomed.style.transform = `scale(${scale})`
+            zoomed.style.transformOrigin = 'top left'
+            const pullUp = height - height * scale
+            const pullLeft = width - width * scale
+            zoomed.style.marginBottom = `${-pullUp}px`
+            zoomed.style.marginRight = `${-pullLeft}px`
+          
+        }, 100)
+      }
+    */
    
     //scale = getComputedStyle(document.documentElement).getPropertyValue('--scale');
     //applyUiZoom();

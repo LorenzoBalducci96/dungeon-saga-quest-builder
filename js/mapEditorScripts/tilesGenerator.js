@@ -38,7 +38,6 @@ function rotateBase64Image180deg(base64Image, elmnt) {
         //offScreenCanvasCtx.translate(img.height, img.width);
         offScreenCanvasCtx.rotate(Math.PI);
         offScreenCanvasCtx.translate(-offScreenCanvas.width, -offScreenCanvas.height);
-            
         offScreenCanvasCtx.drawImage(img, 0, 0);
 
         elmnt.src = offScreenCanvas.toDataURL("image/png");

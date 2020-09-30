@@ -1,11 +1,28 @@
+:root {
+    --zoom-editor: 1;
+    --menu-width: 12vw;
+}
 
+body{
+    overscroll-behavior: contain;
+
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    touch-action: manipulation;
+}
 
 #switch_page_button{
+    width: 100%;
+    /*
     position: fixed;
     right:    2vh;
     bottom:   2vh;
     width: 8vh;
     height: 8vh;
+    */
 }
 
 #switch_page_button:hover{
@@ -13,30 +30,76 @@
 }
 
 #export_project_pdf_button{
+    width: 100%;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    font-weight: bolder;
+    /*
     position: fixed;
     right:    2vh;
     bottom:   12vh;
     width: 10vw;
-    height: 8vh;
+    height: 8vh;  
+    */
 }
 
-#export_project_pdf_button:hover{
-    cursor: pointer;
+#zoom-bar{
+    position:fixed;
+    bottom:8px;
 }
 
-#first-page{
-    background-image: url("../assets/Fond-parchemin-2.jpg");
+.zoom-button{
+    width: 49%;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
 }
 
-#second-page{
-    background-image: url("../assets/Fond-parchemin-3.jpg");
+
+.editor-menu{
+    /*
+    height: 100vh;
+    width: var(--menu-width);
+    */
+    background-color: #111;
+}
+
+.pages-container{
+    /*
+    height: 100vh;
+    width: calc(100vw - var(--menu-width));
+    */
+    background-image: url("../assets/wood.png");
+    background-repeat: repeat-y;
+    background-size: 100%;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    /*overflow: auto;*/
 }
 
 .main-page{
+    /*zoom: 0.5;*/
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+}
+
+#pages-inner{
+    /*firefox only*/
+    /*
+    transform: scale(var(--zoom-editor));
+    transform-origin: left top;
+    */
+    zoom: var(--zoom-editor);/*all browsers*/
+    
     width: 21cm;
     min-height: 29.7cm;
     max-height: 29.7cm;
-    padding: 1cm;
     margin: 1cm auto;
     border: 1px #D3D3D3 solid;
     border-radius: 5px;
@@ -46,8 +109,37 @@
     /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, serif;*/
     font-family: Georgia, serif;
     font-size: 18px;
+
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+/*
+#pages-inner:hover{
+    transform: rotateY(-180deg);
+}
+*/
+
+/*tiles rotating is handled in javascript with a transform over pages-inner*/
+#first-page{
+    background-image: url("../assets/Fond-parchemin-2.jpg");
+
+    position: absolute;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
 }
 
+#second-page{
+    background-image: url("../assets/Fond-parchemin-3.jpg");
+    position: absolute;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+
+    transform: rotateY(-180deg);
+}
+
+
+/*STYLE OF DIFFERENT ELEMENTS INSIDE THE PAGES*/
 .title{
     font-size: xx-large;
     text-decoration-line: underline;
@@ -102,6 +194,15 @@
     color: #991111;
 }
 
+.in-the-end{
+    border-style: solid;
+    padding:8px;
+}
+
+.in-the-end-title{
+    font-weight: bold;
+    color: #991111;
+}
 
 /*map editor*/
 #map-editor-div{
@@ -109,12 +210,18 @@
 }
 
 #map-on-project{
-    border-style: solid;
     max-width: 100%;
 }
 
-#map-on-project:hover{
+.map-on-project-container{
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.map-on-project-container:hover{
     cursor: pointer;
     filter: brightness(120%);
 }
-
