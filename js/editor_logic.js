@@ -35,6 +35,19 @@ function activePage(pageToSet){
     }
 }
 
+function activeActualPage(){
+    if(actual_page == 1){
+        page_rotateY = 0
+        page_translate = 0;
+        document.getElementById("pages-inner").style.transform = get_page_transform_string();
+    }
+    else if(actual_page == 2){
+        page_rotateY = -180
+        page_translate = -100;
+        document.getElementById("pages-inner").style.transform = get_page_transform_string();
+    }
+}
+
 function open_map_editor(){
     //document.getElementById("second-page").style.display = "none";
     document.getElementById("whole-mission-overview").style.display = "none";

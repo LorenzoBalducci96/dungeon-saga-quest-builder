@@ -62,13 +62,15 @@ body{
     font-weight: bolder;
 }
 
-
 .editor-menu{
     /*
     height: 100vh;
     width: var(--menu-width);
     */
     background-color: #111;
+    position: fixed;
+    z-index: 1;
+    height: 100vh;
 }
 
 .pages-container{

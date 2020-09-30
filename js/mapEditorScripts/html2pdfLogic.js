@@ -43,7 +43,7 @@ function exportProjectToPDF(){
     
     //with html2canvas for every page
     
-    //activePage(1)
+    activePage(1)
     html2canvas(document.getElementById("first-page")).then(function (first_page_canvas) {
         pdfDocument.addImage(first_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
         document.getElementById("second-page").style.display = "block";
@@ -56,7 +56,7 @@ function exportProjectToPDF(){
             canvasContext.scale(-1, 1);
             canvasContext.drawImage(second_page_canvas,0,0);
             pdfDocument.addImage(second_page_canvas.toDataURL("image/png"), 'PNG', 0, 0, 210, 297);
-            //active_actual_page();
+            activeActualPage();
             pdfDocument.save('dungeon.pdf');
         });
     });

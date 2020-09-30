@@ -51,7 +51,7 @@
 
 <body>
     <div id="whole-mission-overview" style="display: block;">
-        <div style="display: inline-flex; width:100%">
+        <div style="display: flex; width:100%">
             <div class="editor-menu col-1 px-1">
                 <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
                 <button id="export_project_pdf_button" onclick="exportProjectToPDF()">PDF</button>
@@ -60,11 +60,9 @@
                     <button class="zoom-button" onclick="projectZoom('-')">-</button>
                     <button class="zoom-button" onclick="projectZoom('+')">+</button>
                 </div>
-                
-                
-                
-                
             </div>
+
+            <div class="col-1"></div><!--padding-->
 
             <div class="pages-container col-11">
                 <div id="flip-pages" disply="text-align: center;">
