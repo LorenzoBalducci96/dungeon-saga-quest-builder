@@ -14,6 +14,11 @@ body{
     touch-action: manipulation;
 }
 
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
 #switch_page_button{
     width: 100%;
     /*
@@ -90,12 +95,8 @@ body{
 }
 
 #pages-inner{
-    /*firefox only*/
-    /*
-    transform: scale(var(--zoom-editor));
-    transform-origin: left top;
-    */
-    zoom: var(--zoom-editor);/*all browsers*/
+    transform-origin: center top;
+    /*zoom: var(--zoom-editor);*//*all browsers*/
     
     width: 21cm;
     min-height: 29.7cm;

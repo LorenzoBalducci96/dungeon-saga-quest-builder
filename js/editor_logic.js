@@ -1,30 +1,13 @@
 var actual_page = 1;
-/*
-function changePage(){
-    if(actual_page == 1){
-        actual_page = 2;
-        active_actual_page();
-    }
-    else if(actual_page == 2){
-        actual_page = 1;
-        active_actual_page();
-    }
-}
 
-function active_actual_page(){
-    if(actual_page == 1){
-        document.getElementById("first-page").style.display = "block";
-        document.getElementById("second-page").style.display = "none";
-        document.getElementById("switch_page_button").src = "assets/next_page.png"
-    }
-    else if(actual_page == 2){
-        document.getElementById("first-page").style.display = "none";
-        document.getElementById("second-page").style.display = "block";
-        document.getElementById("switch_page_button").src = "assets/previous_page.png"
+var page_rotateY = 0;
+var page_translate = 0;
+var page_scale = 1;
 
-    }
+function get_page_transform_string(){
+    return ("rotateY(" + page_rotateY + 
+    "deg) scale(" + page_scale + ")");// translate(" + parseInt(page_translate*page_scale) + "%)";
 }
-*/
 
 function changePage(){
     if(actual_page == 1){
@@ -41,22 +24,14 @@ function changePage(){
 
 function activePage(pageToSet){
     if(pageToSet == 1){
-        document.getElementById("pages-inner").style.transform = "rotateY(0)"
+        page_rotateY = 0
+        page_translate = 0;
+        document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }
     else if(pageToSet == 2){
-        document.getElementById("pages-inner").style.transform = "rotateY(-180deg)"
-        if(detectBrowser() == "Firefox"){
-            document.getElementById("pages-inner").style.transform += "translate(-100%)"
-        }
-    }
-}
-
-function active_actual_page(){
-    if(actual_page == 1){
-        document.getElementById("pages-inner").style.transform = "rotateY(0)"
-    }
-    else if(actual_page == 2){
-        document.getElementById("pages-inner").style.transform = "rotateY(-180deg)"
+        page_rotateY = -180
+        page_translate = -100;
+        document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }
 }
 
@@ -78,16 +53,18 @@ function projectZoom(moreOrLess){
         alert("sorry...zoom is not available in firefox, you can use ctrl+mouse wheel")
     }
     */
-    actualZoom = parseFloat(getComputedStyle(document.body).getPropertyValue('--zoom-editor'));
     if(moreOrLess == '+'){
-        if(actualZoom < 1.2){
-            document.body.style.setProperty('--zoom-editor', actualZoom + 0.1);
+        if(page_scale < 1.2){
+            page_scale += 0.1;
+            document.getElementById("pages-inner").style.transform = get_page_transform_string();
         } 
     }else if(moreOrLess == "-"){
-        if(actualZoom > 0.5){
-            document.body.style.setProperty('--zoom-editor', actualZoom - 0.1);
+        if(page_scale > 0.5){
+            page_scale -= 0.1;
+            document.getElementById("pages-inner").style.transform = get_page_transform_string();
         }
     }else if(moreOrLess == "0"){
-        document.body.style.setProperty('--zoom-editor', 1);
+        page_scale = 1;
+        document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }
 }
