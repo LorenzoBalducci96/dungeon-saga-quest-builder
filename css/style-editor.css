@@ -63,12 +63,14 @@
     left: var(--sidenav-width);
     opacity: 1;
     background-attachment:local;
+    background-image: url('../assets/background_plain.png');
 }
 
 .map[scale='0.25']{
     background-image: url('../assets/background_025.jpg');
 }
 
+/*
 .map[scale='0.5']{
     background-image: url('../assets/background_050.jpg');
 }
@@ -76,10 +78,7 @@
 .map[scale='0.75']{
     background-image: url('../assets/background_075.jpg');
 }
-
-.map[scale='1']{
-    background-image: url('../assets/background_plain.png');
-}
+*/
 
 .map img{
     -moz-transform:scale(var( --scale));

@@ -29,6 +29,7 @@
 <script type="text/javascript" src="js/mapEditorScripts/tilesGenerator.js"></script>
 <script type="text/javascript" src="js/mapEditorScripts/changeTilesGroups.js"></script>
 <script type="text/javascript" src="js/mapEditorScripts/html2pdfLogic.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/scaleUi.js"></script>
 
 
 
@@ -142,7 +143,7 @@
                                                     In this encounter magiciants will be defeating the boss and warriors will be doing something else...</div>
                                             </div>
                                         </div>
-                                        <div class="map-on-project-container" onclick="open_map_editor()">
+                                        <div id="map-on-project-container" class="map-on-project-container" onclick="open_map_editor()">
                                             <img id="map-on-project" src="assets/sample_map.png">
                                         </div>
                                         
@@ -247,18 +248,23 @@
 
         <div class="topMenuBar">
             <div id="editor_controls" style="display: flex;">
-                <button class="blueButton" onclick="goToExport()">export PDF</button>
+                <button class="blueButton" onclick="goToExport()">return to editor</button>
+                
+                <button class="blueButton" onclick="decreaseUiZoom()">map zoom -</button>
+                <label id="zoom">1.0</label>
+                <button class="blueButton" onclick="increaseUiZoom()">map zoom +</button>
                 <!--
                 <input  id="searchBar" class="searchBar" type="text" placeholder="search" oninput="searchItems()">
                 <button class="blueButton" onclick="goToExport()">export PDF</button>
                 <button class="blueButton" onclick="savePage()">save project</button>
                 <button class="blueButton" onclick="loadSaveList()">load project</button>
                 <label id="zoomDescr">zoom:</label>
-                <label id="zoom">0.5</label>
+                
                 <button class="blueButton" onclick="increaseUiZoom()">map zoom +</button>
                 <button class="blueButton" onclick="decreaseUiZoom()">map zoom -</button>
-                -->
+                
                 <button id="exit-map-editor-button" onclick="exitMapEditor()">EXIT MAP EDITOR MODE</button>
+                -->
             </div>
         </div>
 

@@ -1,5 +1,6 @@
 function increaseUiZoom(){
     actualZoom = parseFloat(document.getElementById("zoom").innerHTML);
+    
     //we want to support just resolutions that we want
     if(actualZoom == 0.25){
         actualZoom = 0.5;

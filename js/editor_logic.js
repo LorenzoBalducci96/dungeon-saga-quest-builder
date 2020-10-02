@@ -1,4 +1,5 @@
 var actual_page = 1;
+var send_email = true;
 
 var page_rotateY = 0;
 var page_translate = 0;
@@ -86,6 +87,8 @@ function mapOnProjectZoom(moreOrLess){
     if(moreOrLess == "-"){
         document.getElementById("map-on-project").style.height = document.getElementById("map-on-project").offsetHeight*0.9 + "px"
     }else if(moreOrLess == "+"){
-        document.getElementById("map-on-project").style.height = document.getElementById("map-on-project").offsetHeight*1.1 + "px"
+        if(document.getElementById("map-on-project").offsetWidth*1.1 < document.getElementById("map-on-project-container").offsetWidth){
+            document.getElementById("map-on-project").style.height = document.getElementById("map-on-project").offsetHeight*1.1 + "px"
+        }
     }
 }
