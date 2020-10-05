@@ -517,7 +517,6 @@ function attachDragLogic(elmnt) {//setup the callbacks
 }
 
 function startRotateMultipleElements() {
-
     let i = 0;
     for (i = 0; i < selectedPieces.length; i++) {
         let newTop = (selectedPieces[0].offsetTop +
@@ -533,7 +532,7 @@ function startRotateMultipleElements() {
     }
 
     selectedPieces.forEach(elmnt => {
-        rotateElement(elmnt)
+        rotateElement(elmnt);
     });
 
     returnOnMap(selectedPieces);

@@ -55,7 +55,6 @@ function decreaseUiZoom(){
         document.getElementById("zoom").innerHTML = "0.75";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
-
         rearrangeElementsAfterZoomMap(1.0, actualZoom);
     }
 }

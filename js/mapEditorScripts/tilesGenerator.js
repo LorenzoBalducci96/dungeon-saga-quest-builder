@@ -1,13 +1,12 @@
-function setImage(elmnt){
+var loading = 0;
+
+async function setImage(elmnt){
     if(elmnt.getAttribute("orientation") == "90"){
         rotateBase64Image90deg(getTileSrcPath(elmnt.getAttribute("set"), elmnt.getAttribute("image"), "0"), true, elmnt)
-            
     }else if(elmnt.getAttribute("orientation") == "180"){
         rotateBase64Image180deg(getTileSrcPath(elmnt.getAttribute("set"), elmnt.getAttribute("image"), "0"), elmnt)
-        
     }else if(elmnt.getAttribute("orientation") == "270"){
         rotateBase64Image90deg(getTileSrcPath(elmnt.getAttribute("set"), elmnt.getAttribute("image"), "0"), false, elmnt)
-    
     }else if(elmnt.getAttribute("orientation") == "0"){
         elmnt.src = getTileSrcPath(elmnt.getAttribute("set"), elmnt.getAttribute("image"), elmnt.getAttribute("orientation"))
     }
@@ -24,13 +23,14 @@ function getTileSrcPath(setName, imageName, orientation){
 }
 
 function rotateBase64Image180deg(base64Image, elmnt) {
+
     // create an off-screen canvas
-    var offScreenCanvas = document.createElement('canvas');
-    offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+    let offScreenCanvas = document.createElement('canvas');
+    let offScreenCanvasCtx = offScreenCanvas.getContext('2d');
 
     // cteate Image
-    var img = new Image();
-    img.onload = function create(){
+    let img = new Image();
+    img.onload = function (){
         offScreenCanvas.height = img.height;
         offScreenCanvas.width = img.width;
     
@@ -39,7 +39,6 @@ function rotateBase64Image180deg(base64Image, elmnt) {
         offScreenCanvasCtx.rotate(Math.PI);
         offScreenCanvasCtx.translate(-offScreenCanvas.width, -offScreenCanvas.height);
         offScreenCanvasCtx.drawImage(img, 0, 0);
-
         elmnt.src = offScreenCanvas.toDataURL("image/png");
     };
     img.src = base64Image;
@@ -47,17 +46,15 @@ function rotateBase64Image180deg(base64Image, elmnt) {
 
 function rotateBase64Image90deg(base64Image, isClockwise, elmnt) {
     // create an off-screen canvas
-    var offScreenCanvas = document.createElement('canvas');
-    offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+    let offScreenCanvas = document.createElement('canvas');
+    let offScreenCanvasCtx = offScreenCanvas.getContext('2d');
 
     // cteate Image
-    var img = new Image();
-
-    img.onload = function create(){
+    let img = new Image();
+    img.onload = function (){
         // set its dimension to rotated size
         offScreenCanvas.height = img.width;
         offScreenCanvas.width = img.height;
-        
         // rotate and draw source image into the off-screen canvas:
         if (isClockwise) { 
             offScreenCanvasCtx.rotate(90 * Math.PI / 180);
@@ -67,7 +64,6 @@ function rotateBase64Image90deg(base64Image, isClockwise, elmnt) {
             offScreenCanvasCtx.translate(-offScreenCanvas.height, 0);
         }
         offScreenCanvasCtx.drawImage(img, 0, 0);
-
         // encode image to data-uri with base64
         elmnt.src = offScreenCanvas.toDataURL("image/png");
     }

@@ -92,18 +92,18 @@
 }
 
 .map[scale='0.25']{
-    background-image: url('../assets/background_025.jpg');
+    background-image: url('../assets/background_plain_025.png');
 }
 
-/*
+
 .map[scale='0.5']{
-    background-image: url('../assets/background_050.jpg');
+    background-image: url('../assets/background_plain_050.png');
 }
 
 .map[scale='0.75']{
-    background-image: url('../assets/background_075.jpg');
+    background-image: url('../assets/background_plain_075.png');
 }
-*/
+
 
 .map img{
     -moz-transform:scale(var( --scale));
