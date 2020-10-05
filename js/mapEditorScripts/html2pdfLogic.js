@@ -46,6 +46,7 @@ function exportProjectToPDF(send_email){
     
     let pdfDocument = new jsPDF('potrait');
     
+    activePage(1)
     html2canvas(document.getElementById("first-page"),{scrollY: -window.scrollY}).then(function (first_page_canvas) {
         var img = first_page_canvas.toDataURL();
         pdfDocument.addImage(first_page_canvas.toDataURL("image/jpeg", PDF_export_quality), 'JPEG', 0, 0, 210, 297);
@@ -59,7 +60,7 @@ function exportProjectToPDF(send_email){
             canvasContext.scale(-1, 1);
             canvasContext.drawImage(second_page_canvas,0,0);
             pdfDocument.addImage(second_page_canvas.toDataURL("image/jpeg", PDF_export_quality), 'JPEG', 0, 0, 210, 297);
-            activeActualPage();
+            //activeActualPage();
 
             if(send_email){
                 pdfBase64 = pdfDocument.output('datauristring');
@@ -182,6 +183,7 @@ async function goToExport() {
     //document.getElementById("mapRendered").src="assets/loading.gif"
     //$("#outputModal").modal('show');
 //    $('#outputModal').on('show.bs.modal', function (e) {
+    resetMapScale();
         setTimeout(() => {  
             createOutputDivForPrint();
             //createImg('mapRendered'); 
@@ -223,29 +225,4 @@ function setMarginLeft() {
 function setMarginTop() {
     marginTop = parseInt(document.getElementById("marginTop").value)
     goToExport();
-}
-
-function setWhiteBackground() {
-    if (document.getElementById("output").style.backgroundColor != "white") {
-        document.getElementById("output").style.backgroundImage = "none";
-        document.getElementById("output").style.backgroundColor = "white";
-        goToExport('mapRendered');
-    }
-}
-
-function setBlackBackground() {
-    if (document.getElementById("output").style.backgroundColor != "black") {
-        document.getElementById("output").style.backgroundImage = "none";
-        document.getElementById("output").style.backgroundColor = "black";
-        goToExport('mapRendered');
-    }
-}
-
-function setSmokyBackground() {
-    //if (document.getElementById("output").style.backgroundImage != "url('assets/pdf_background.jpg')") {
-        document.getElementById("output").style.backgroundColor = "none";
-        //document.getElementById("output").style.backgroundImage = "url('assets/pdf_background.jpg')";
-        document.getElementById("output").style.backgroundImage = getSmokyBackground();
-        goToExport('mapRendered');
-    //}
 }

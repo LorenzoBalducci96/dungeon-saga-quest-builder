@@ -1,62 +1,50 @@
 function increaseUiZoom(){
-    actualZoom = parseFloat(document.getElementById("zoom").innerHTML);
+    previousZoom = scale;
     
     //we want to support just resolutions that we want
-    if(actualZoom == 0.25){
-        actualZoom = 0.5;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "0.50";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        rearrangeElementsAfterZoomMap(0.25, actualZoom);
-    }else if(actualZoom == 0.5){
-        actualZoom = 0.75;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "0.75";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        
-        rearrangeElementsAfterZoomMap(0.5, actualZoom);
-    }else if(actualZoom == 0.75){
-        actualZoom = 1.0;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "1.00";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        rearrangeElementsAfterZoomMap(0.75, actualZoom);
+    if(previousZoom == 0.25){
+        scale = 0.5;
+        document.getElementById("zoom").innerHTML = " 50%";
+    }else if(previousZoom == 0.5){
+        scale = 0.75;
+        document.getElementById("zoom").innerHTML = " 75%";
+    }else if(previousZoom == 0.75){
+        scale = 1.0;
+        document.getElementById("zoom").innerHTML = "100%";
     }else if(actualZoom == 1){
         return;
     }
+    document.documentElement.style.setProperty('--scale', scale);
+    document.getElementById("map").setAttribute("scale", scale);
+    rearrangeElementsAfterZoomMap(previousZoom, scale);
 }
 
 function decreaseUiZoom(){
-    actualZoom = parseFloat(document.getElementById("zoom").innerHTML);
+    previousZoom = scale;
     //we want to support just resolutions that we want
-    
-    if(actualZoom == 0.25){
+    if(previousZoom == 1){
+        scale = 0.75;
+        document.getElementById("zoom").innerHTML = " 75%";
+    }else if(previousZoom == 0.75){
+        scale = 0.50;
+        document.getElementById("zoom").innerHTML = " 50%";
+    }else if(previousZoom == 0.50){
+        scale = 0.25;
+        document.getElementById("zoom").innerHTML = " 25%";
+    }else if(actualZoom == 0.25){
         return;
-    }else if(actualZoom == 0.5){
-        actualZoom = 0.25;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "0.25";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        rearrangeElementsAfterZoomMap(0.5, actualZoom);
-    }else if(actualZoom == 0.75){
-        actualZoom = 0.50;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "0.50";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        rearrangeElementsAfterZoomMap(0.75, actualZoom);
-    }else if(actualZoom == 1){
-        actualZoom = 0.75;
-        scale = actualZoom;
-        document.getElementById("zoom").innerHTML = "0.75";
-        document.documentElement.style.setProperty('--scale', actualZoom);
-        document.getElementById("map").setAttribute("scale", actualZoom);
-        rearrangeElementsAfterZoomMap(1.0, actualZoom);
     }
+    document.documentElement.style.setProperty('--scale', scale);
+    document.getElementById("map").setAttribute("scale", scale);
+    rearrangeElementsAfterZoomMap(previousZoom, scale);
+}
+
+function resetMapScale(){
+    old_zoom = scale;
+    scale = 1;
+    document.documentElement.style.setProperty('--scale', scale);
+    document.getElementById("map").setAttribute("scale", scale);
+    rearrangeElementsAfterZoomMap(old_zoom, scale);
 }
 
 function applyUiZoom(){

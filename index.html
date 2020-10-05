@@ -197,23 +197,29 @@
     <div id="whole-mission-overview" style="opacity: 0; display:none">
         <div style="display: flex; width:100%">
             <div class="editor-menu col-1 px-1">
-                <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
-                <button id="export_project_pdf_button" onclick="finishProjectOptions()">PDF</button>
-                <hr>
-                <label>PAGE ZOOM</label>
-                <div style="display: flex;">
-                    <button class="zoom-button" onclick="projectZoom('-')">-</button>
-                    <button class="zoom-button" onclick="projectZoom('+')">+</button>
+                <div style="padding:8px; margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
+                    <label>switch page</label>
+                    <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
                 </div>
-
-                <hr>
-                <label>MAP DIMENSIONS</label>
-                <div style="display: flex;">
-                    <button class="zoom-button" onclick="mapOnProjectZoom('-')">-</button>
-                    <button class="zoom-button" onclick="mapOnProjectZoom('+')">+</button>
+                
+                <div style="padding:8px;  margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
+                    <label>page zoom</label>
+                    <div style="display: flex;">
+                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('-')">-</button>
+                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('+')">+</button>
+                    </div>
                 </div>
-
-                <button id="return-to-menu" onclick="returnToMenu()">return to menu</button>
+                <div style="padding:8px; border-color: gray; border-style: solid; border-width: thin;">
+                    <label>map dimension</label>
+                    <div style="display: flex;">
+                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('-')">-</button>
+                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('+')">+</button>
+                    </div>
+                </div>
+                <div style="position: absolute; bottom:2px;">
+                    <button id="export_project_pdf_button" class="old_button" style="margin-bottom: 8px; padding: 2px; width: 90%;" onclick="finishProjectOptions()">PDF</button>
+                    <button id="return-to-menu" class="old_button" style="padding:2px; width: 90%"  onclick="returnToMenu()">return to menu</button>
+                </div>
             </div>
 
             <div class="col-1"></div><!--padding-->
@@ -320,7 +326,7 @@
         <div class="topMenuBar">
             <div id="editor_controls">
                 <label class="label_on_top_menu">map_zoom:</label>
-                <label class="label_on_top_menu" id="zoom">1.00</label>
+                <label class="label_on_top_menu" id="zoom">100%</label>
                 <button class="old_button map_editor_menu_button" style="padding-left:10px; padding-right:10px; font-weight: bolder;" onclick="decreaseUiZoom()">-</button>
                 <button class="old_button map_editor_menu_button" style="padding-left:10px; padding-right:10px; font-weight: bolder;" onclick="increaseUiZoom()">+</button>
                 <div style="width: 100%; display: flex; justify-content: flex-end;">
@@ -365,6 +371,8 @@
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnMinions" onclick="loadQrnMinions()">Minions</button>
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnFurnitures" onclick="loadQrnFurnitures()">Furnitures</button>
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnLocks" onclick="loadQrnLocks()">Locks</button>
+                        <button class="innerMenuButton" style="width:90%;" id="loadQrnTraps" onclick="loadQrnTraps()">Traps</button>
+                    
                     </div>
                 </div>
                     
@@ -480,45 +488,69 @@
 
 
                 <div class="sidenav" id="qrnLocks" style="visibility: hidden;">
-<image src="assets/tiles/qrnLocks/chest-Lock-red-1.png" set="qrnLocks" image="chest-Lock-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-red-2.png" set="qrnLocks" image="chest-Lock-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-red-3.png" set="qrnLocks" image="chest-Lock-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-red-4.png" set="qrnLocks" image="chest-Lock-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-4" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-red-5.png" set="qrnLocks" image="chest-Lock-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-5" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-yellow-1.png" set="qrnLocks" image="chest-Lock-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-yellow-2.png" set="qrnLocks" image="chest-Lock-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/chest-Lock-yellow-3.png" set="qrnLocks" image="chest-Lock-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-red-1.png" set="qrnLocks" image="door-large-door-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-red-2.png" set="qrnLocks" image="door-large-door-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-red-3.png" set="qrnLocks" image="door-large-door-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-red-4.png" set="qrnLocks" image="door-large-door-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-4" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-red-5.png" set="qrnLocks" image="door-large-door-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-5" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-yellow-1.png" set="qrnLocks" image="door-large-door-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-yellow-2.png" set="qrnLocks" image="door-large-door-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-large-door-yellow-3.png" set="qrnLocks" image="door-large-door-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-purple-2.png" set="qrnLocks" image="door-small-door-purple-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-purple-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-purple-3.png" set="qrnLocks" image="door-small-door-purple-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-purple-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-red-1.png" set="qrnLocks" image="door-small-door-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-red-2.png" set="qrnLocks" image="door-small-door-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-red-3.png" set="qrnLocks" image="door-small-door-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-red-4.png" set="qrnLocks" image="door-small-door-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-4" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-red-5.png" set="qrnLocks" image="door-small-door-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-5" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-yellow-1.png" set="qrnLocks" image="door-small-door-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-yellow-2.png" set="qrnLocks" image="door-small-door-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/door-small-door-yellow-3.png" set="qrnLocks" image="door-small-door-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-crush-1.png" set="qrnLocks" image="Token-lock-crush-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-crush-2.png" set="qrnLocks" image="Token-lock-crush-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-crush-3.png" set="qrnLocks" image="Token-lock-crush-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-crush-4.png" set="qrnLocks" image="Token-lock-crush-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-4" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-crush-5.png" set="qrnLocks" image="Token-lock-crush-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-5" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-magical-1.png" set="qrnLocks" image="Token-lock-magical-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-magical-2.png" set="qrnLocks" image="Token-lock-magical-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-magical-3.png" set="qrnLocks" image="Token-lock-magical-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-pick-1.png" set="qrnLocks" image="Token-lock-pick-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-pick-2.png" set="qrnLocks" image="Token-lock-pick-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-pick-3.png" set="qrnLocks" image="Token-lock-pick-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-3" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnLocks/Token-lock-pick-4.png" set="qrnLocks" image="Token-lock-pick-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-4" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-red-1.png" set="qrnLocks" image="chest-Lock-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-red-2.png" set="qrnLocks" image="chest-Lock-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-red-3.png" set="qrnLocks" image="chest-Lock-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-red-4.png" set="qrnLocks" image="chest-Lock-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-red-5.png" set="qrnLocks" image="chest-Lock-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-5_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-yellow-1.png" set="qrnLocks" image="chest-Lock-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-yellow-2.png" set="qrnLocks" image="chest-Lock-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/chest-Lock-yellow-3.png" set="qrnLocks" image="chest-Lock-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-yellow-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-red-1.png" set="qrnLocks" image="door-large-door-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-red-2.png" set="qrnLocks" image="door-large-door-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-red-3.png" set="qrnLocks" image="door-large-door-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-red-4.png" set="qrnLocks" image="door-large-door-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-red-5.png" set="qrnLocks" image="door-large-door-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-red-5_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-yellow-1.png" set="qrnLocks" image="door-large-door-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-yellow-2.png" set="qrnLocks" image="door-large-door-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-large-door-yellow-3.png" set="qrnLocks" image="door-large-door-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-large-door-yellow-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-purple-2.png" set="qrnLocks" image="door-small-door-purple-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-purple-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-purple-3.png" set="qrnLocks" image="door-small-door-purple-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-purple-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-red-1.png" set="qrnLocks" image="door-small-door-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-red-2.png" set="qrnLocks" image="door-small-door-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-red-3.png" set="qrnLocks" image="door-small-door-red-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-red-4.png" set="qrnLocks" image="door-small-door-red-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-red-5.png" set="qrnLocks" image="door-small-door-red-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-red-5_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-yellow-1.png" set="qrnLocks" image="door-small-door-yellow-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-yellow-2.png" set="qrnLocks" image="door-small-door-yellow-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/door-small-door-yellow-3.png" set="qrnLocks" image="door-small-door-yellow-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="door-small-door-yellow-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-crush-1.png" set="qrnLocks" image="Token-lock-crush-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-crush-2.png" set="qrnLocks" image="Token-lock-crush-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-crush-3.png" set="qrnLocks" image="Token-lock-crush-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-crush-4.png" set="qrnLocks" image="Token-lock-crush-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-crush-5.png" set="qrnLocks" image="Token-lock-crush-5" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-crush-5_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-magical-1.png" set="qrnLocks" image="Token-lock-magical-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-magical-2.png" set="qrnLocks" image="Token-lock-magical-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-magical-3.png" set="qrnLocks" image="Token-lock-magical-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-magical-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-pick-1.png" set="qrnLocks" image="Token-lock-pick-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-pick-2.png" set="qrnLocks" image="Token-lock-pick-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-pick-3.png" set="qrnLocks" image="Token-lock-pick-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnLocks/Token-lock-pick-4.png" set="qrnLocks" image="Token-lock-pick-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
+
+                <div class="sidenav" id="qrnTraps" style="visibility: hidden;">
+<image src="assets/tiles/qrnTraps/marker-Trap-Asphyxiant-gas-DS.png" set="qrnTraps" image="marker-Trap-Asphyxiant-gas-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Asphyxiant-gas-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-ball.png" set="qrnTraps" image="marker-Trap-ball" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-ball_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Cage-DS.png" set="qrnTraps" image="marker-Trap-Cage-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Cage-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-DS.png" set="qrnTraps" image="marker-Trap-dart-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned-DS.png" set="qrnTraps" image="marker-Trap-dart-poisoned-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-poisoned-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned.png" set="qrnTraps" image="marker-Trap-dart-poisoned" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-poisoned_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-large-pit.png" set="qrnTraps" image="marker-Trap-large-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-large-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-pit-DS.png" set="qrnTraps" image="marker-Trap-pit-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-pit-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-pit.png" set="qrnTraps" image="marker-Trap-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-poisoned-dart-DS.png" set="qrnTraps" image="marker-Trap-poisoned-dart-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-poisoned-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Poisonous-spore-DS.png" set="qrnTraps" image="marker-Trap-Poisonous-spore-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Poisonous-spore-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-quagmire-DS.png" set="qrnTraps" image="marker-Trap-quagmire-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-quagmire-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-sharp-blade-DS.png" set="qrnTraps" image="marker-Trap-sharp-blade-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-sharp-blade-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-small-pit.png" set="qrnTraps" image="marker-Trap-small-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-small-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Sort.png" set="qrnTraps" image="marker-Trap-Sort" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Sort_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Spider-Web.png" set="qrnTraps" image="marker-Trap-Spider-Web" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Spider-Web_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-spike-pit.png" set="qrnTraps" image="marker-Trap-spike-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-spike-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-stunner-DS.png" set="qrnTraps" image="marker-Trap-stunner-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-stunner-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+
+                </div>
+
+
             </div>
 
 

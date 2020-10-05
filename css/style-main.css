@@ -118,38 +118,9 @@ body{
     cursor: pointer;
 }
 
-#export_project_pdf_button{
-    width: 100%;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-    font-weight: bolder;
-}
-
-#return-to-menu{
-    width: 100%;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-    font-weight: bolder;
-}
-
 #zoom-bar{
     position:fixed;
     bottom:8px;
-}
-
-.zoom-button{
-    width: 49%;
-    border-radius: 5px;
-    background-color: #991111;
-    color: white;
-    font-weight: bolder;
-}
-
-.zoom-button:hover{
-    background-color: #bb5555;
-    color: white;
 }
 
 .editor-menu{

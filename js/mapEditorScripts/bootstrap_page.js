@@ -7,7 +7,7 @@ var tiles = [];
 var offsetTopTiles = [];
 var count = 0;
 
-setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", "qrnLocks"];
+setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", "qrnLocks", "qrnTraps"];
 
 var margin_of_tiles_on_sidenav = 8
 

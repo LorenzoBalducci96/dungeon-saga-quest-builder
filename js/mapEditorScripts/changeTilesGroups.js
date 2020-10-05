@@ -36,6 +36,7 @@ function setDefault(){
     document.getElementById("loadQrnMinions").style.opacity = "0.9";
     document.getElementById("loadQrnFurnitures").style.opacity = "0.9";
     document.getElementById("loadQrnLocks").style.opacity = "0.9";
+    document.getElementById("loadQrnTraps").style.opacity = "0.9";
 }
 
 function loadQrnB() {
@@ -91,4 +92,13 @@ function loadQrnLocks(){
     setDefault();
     document.getElementById("loadQrnLocks").style.opacity = "0.5";
     activeSet = "qrnLocks"
+}
+
+function loadQrnTraps(){
+    document.getElementById(activeSet).style.visibility = "hidden"
+    document.getElementById("qrnTraps").style.visibility = ""
+
+    setDefault();
+    document.getElementById("loadQrnTraps").style.opacity = "0.5";
+    activeSet = "qrnTraps"
 }
