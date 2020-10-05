@@ -1,10 +1,12 @@
 .modal-full {
-    margin-top: 1vh !important; 
+    margin-top: 4vh !important; 
     margin-bottom: 0px !important; 
     min-width: 92vw;
     margin-left: 4vw;
 }
-
+.modal-full.label{
+    font-weight: bold;
+}
 .modal-full .modal-header {
     padding-top: 4px;
     padding-bottom: 4px;
@@ -13,12 +15,14 @@
 }
 
 .modal-full .modal-body {
-    height: 84vh;
     width: 100%;
 }
 
-.half_window_image{
-    height: 76vh;
-    max-width: 100%;
-    float: right;
+.modal-content {
+    box-shadow: 0px 0px 4px 4px #00000099;
+    border-radius: .2em;
+    border: 2px solid #220405;
+    background-image: url('../assets/smog_background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }

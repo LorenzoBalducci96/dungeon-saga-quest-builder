@@ -4,7 +4,8 @@ var pdfPageWidth = 1240; var pdfPageHeight = 1754; //150dpi
 //var pdfPageWidth =  2480;var pdfPageHeight = 3508; //300dpi
 var marginLeft = 0;
 var marginTop = 0;
-var PDF_export_quality = 0.9; //between 0.1 and 1... 0.9 is about 380kb, 0.8 is about 250kb
+var PDF_export_quality = 0.92; //between 0.1 and 1... 0.9 is about 380kb, 0.8 is about 250kb
+var fixed_pdf_quality_for_mail = 0.90;
 
 var pdfBase64;
 
@@ -20,17 +21,33 @@ function ajaxF(jsn_str) {
     // If the response is received completely, alert response
     request.onreadystatechange =()=>{
         if(request.readyState ==4){
+            if(request.responseText == "401"){
+                
+            }
             alert(request.responseText); // coursesweb.net
         }
     }
 }
 
-function exportProjectToPDF(){
-    let pdfDocument = new jsPDF('potrait');
-    //pdfDocument.internal.scaleFactor = 30;
+function finishProjectOptions(){
     projectZoom("0");
-    activePage(1)
-    html2canvas(document.getElementById("first-page")).then(function (first_page_canvas) {
+    activePage(1);
+    $("#loading-modal").modal("show");
+    window.scrollTo(0,0);
+}
+
+function exportProjectToPDF(send_email){
+    if(send_email){
+        document.getElementById("pdfExportQuality").value = fixed_pdf_quality_for_mail;
+    }
+    PDF_export_quality = parseFloat(document.getElementById("pdfExportQuality").value);
+    document.getElementById("close-modal-button").style.visibility = "hidden";
+    document.getElementById("loading-div").style.visibility = "";
+    
+    let pdfDocument = new jsPDF('potrait');
+    
+    html2canvas(document.getElementById("first-page"),{scrollY: -window.scrollY}).then(function (first_page_canvas) {
+        var img = first_page_canvas.toDataURL();
         pdfDocument.addImage(first_page_canvas.toDataURL("image/jpeg", PDF_export_quality), 'JPEG', 0, 0, 210, 297);
         document.getElementById("second-page").style.display = "block";
         pdfDocument.addPage();
@@ -52,6 +69,8 @@ function exportProjectToPDF(){
                 ajaxF(data);
             }
             pdfDocument.save('dungeon.pdf');
+            document.getElementById("close-modal-button").style.visibility = "";
+            document.getElementById("loading-div").style.visibility = "hidden";
         });
     });
 }
@@ -160,7 +179,7 @@ function createOutputDivForPrint() {
 async function goToExport() {
     //document.getElementById('mapRendered').style.display = "none";
     //document.getElementById('loadingPDFRotatingSVG').style.display = "inherit";
-    document.getElementById("mapRendered").src="assets/loading.gif"
+    //document.getElementById("mapRendered").src="assets/loading.gif"
     //$("#outputModal").modal('show');
 //    $('#outputModal').on('show.bs.modal', function (e) {
         setTimeout(() => {  

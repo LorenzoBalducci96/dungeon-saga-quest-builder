@@ -1,5 +1,4 @@
 var actual_page = 1;
-var send_email = true;
 
 var page_rotateY = 0;
 var page_translate = 0;
@@ -49,16 +48,56 @@ function activeActualPage(){
     }
 }
 
+
+
+
+function startNewQuest(){
+    document.getElementById("main-menu").style.opacity = 0;
+    setTimeout(function(){
+        document.getElementById("whole-mission-overview").style.display = "block";
+        document.getElementById("main-menu").style.display = "none";
+        setTimeout(function(){
+            document.getElementById("whole-mission-overview").style.opacity = 1;
+        },100)
+    }, 500);
+}
+
+function returnToMenu(){
+    document.getElementById("whole-mission-overview").style.opacity = 0;
+    setTimeout(function(){
+        document.getElementById("main-menu").style.display = "block";
+        document.getElementById("whole-mission-overview").style.display = "none";
+        setTimeout(function(){
+            document.getElementById("main-menu").style.opacity = 1;
+        }, 100)
+    }, 500);
+}
+
 function open_map_editor(){
-    //document.getElementById("second-page").style.display = "none";
-    document.getElementById("whole-mission-overview").style.display = "none";
-    document.getElementById("map-editor").style.display = "block";
-    rearrangeAllTilesAfterResizing();//it's not a resizing but when the editor is in display:none, tiles won't be put in correct position
+    document.getElementById("whole-mission-overview").style.opacity = 0;
+    setTimeout(function(){
+        document.getElementById("map-editor").style.display = "block";
+        document.getElementById("whole-mission-overview").style.display = "none";
+        rearrangeAllTilesAfterResizing();//it's not a resizing but when the editor is in display:none, tiles won't be put in correct position
+        setTimeout(function(){
+            document.getElementById("map-editor").style.opacity = 1;
+
+        }, 100)
+    }, 500);
+    
 }
 
 function exitMapEditor(){
-    document.getElementById("whole-mission-overview").style.display = "block";
-    document.getElementById("map-editor").style.display = "none";
+
+    document.getElementById("map-editor").style.opacity = 0;
+    setTimeout(function(){
+        document.getElementById("map-editor").style.display = "none";
+        document.getElementById("whole-mission-overview").style.display = "block";
+        setTimeout(function(){
+            document.getElementById("whole-mission-overview").style.opacity = 1;
+
+        }, 100)
+    }, 500);
 }
 
 function projectZoom(moreOrLess){

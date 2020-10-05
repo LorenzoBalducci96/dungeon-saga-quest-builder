@@ -1,6 +1,7 @@
 :root {
     --zoom-editor: 1;
     --menu-width: 12vw;
+    --transition-time: 0.5s;
 }
 
 body{
@@ -12,11 +13,94 @@ body{
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     touch-action: manipulation;
+
+    background-image: url("../assets/wood.png");
+    background-repeat: repeat-y;
+    background-size: 100%;
+    
 }
 
 [contenteditable] {
     -webkit-user-select: text;
     user-select: text;
+}
+
+#main-menu{
+    height: 100vh;
+    overflow-y: scroll;
+    transition: opacity var(--transition-time);
+}
+
+#whole-mission-overview{
+    transition: opacity var(--transition-time);
+}
+
+#map-editor{
+    transition: opacity var(--transition-time);
+}
+
+
+
+
+.old_button {
+	box-shadow: 0px 0px 0px 2px #420609;
+	background:linear-gradient(to bottom, #4f0c10 5%, #290103 100%);
+	background-color:#4f0c10;
+	border-radius:10px;
+	border:1px solid #3d0005;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:12px 37px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5c2a14;
+}
+.old_button:hover {
+	background:linear-gradient(to bottom, #290103 5%, #4f0c10 100%);
+	background-color:#290103;
+}
+.old_button:active {
+	position:relative;
+	top:1px;
+}
+
+.label_output_modal{
+    font-size: 18px;
+}
+
+.old_label{
+    font-size: 18px;
+    margin-top:4px; 
+    width:100%;
+    text-align: center;
+    color: #4A0A0A;
+}
+
+
+       
+
+
+
+.menu-box{
+    background-image: url("../assets/smog_background.png");
+    background-repeat: repeat-y;
+    background-size: 100%;
+    box-shadow: 0px 0px 4px 4px #00000099;
+    border-radius: .2em;
+    border: 2px solid #220405;
+    width:100%;
+    margin-top: 8vh;
+    height: 86vh;
+    /*
+    border: 40px solid transparent;
+    border-width: 40px 10px 0px;
+    -moz-border-image: url("../assets/corner360.png") 34 18 1 29 repeat;
+    -webkit-border-image: url("../assets/corner360.png") 34 18 1 29 repeat;
+    -o-border-image: url("../assets/corner360.png") 34 18 1 29 repeat;
+    border-image: url("../assets/corner360.png") 34 18 1 29 repeat;
+    */
 }
 
 #switch_page_button{
@@ -40,13 +124,14 @@ body{
     background-color: red;
     color: white;
     font-weight: bolder;
-    /*
-    position: fixed;
-    right:    2vh;
-    bottom:   12vh;
-    width: 10vw;
-    height: 8vh;  
-    */
+}
+
+#return-to-menu{
+    width: 100%;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    font-weight: bolder;
 }
 
 #zoom-bar{
@@ -84,9 +169,6 @@ body{
     height: 100vh;
     width: calc(100vw - var(--menu-width));
     */
-    background-image: url("../assets/wood.png");
-    background-repeat: repeat-y;
-    background-size: 100%;
     min-height: 100vh;
     height: 100%;
     width: 100%;
@@ -157,22 +239,6 @@ body{
     font-weight: bold;
     width:100%;
 }
-
-/*not very good behaviour...*/
-/*
-#main-page-introduction-section-title:empty:not(:focus)::after {
-    content: attr(placeholder);
-}
-*/
-/*
-.cap-first-letter::first-letter {
-    text-transform: capitalize;
-    font-size: 200%;
-    margin-top: 200px;
-    margin-right: 5pt;
-    text-decoration-line: none;
-}
-*/
 
 #special-rules{
     color: white;

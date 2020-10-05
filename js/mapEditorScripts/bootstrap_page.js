@@ -7,7 +7,7 @@ var tiles = [];
 var offsetTopTiles = [];
 var count = 0;
 
-setsLists = ["baseA", "baseB"]
+setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", "qrnLocks"];
 
 var margin_of_tiles_on_sidenav = 8
 
@@ -126,7 +126,7 @@ function bootstrap_page() {
         //document.getElementById("loadingOverlay").style.display = "none";
         //document.getElementById("application").style.visibility = "";
         
-    }, 200);
+    }, 2000);
 }
 
 function loadAndArrangeTiles(blockId) {
@@ -180,12 +180,12 @@ function arrangeTiles(blockId) {
             placeholderImage.id = "placeholder_" + document.getElementById(tiles[c]).getAttribute("image");
             placeholderImage.style.zIndex = "-2"
             placeholderImage.style.opacity = "0.4"
-            placeholderImage.style.maxWidth = "100%"//document.getElementById(tiles[c]).offsetWidth + "px"
+            placeholderImage.style.width = "100%"//document.getElementById(tiles[c]).offsetWidth + "px"
             placeholderImage.style.height = "auto"//document.getElementById(tiles[c]).offsetHeight + "px"
             document.getElementById(blockId).appendChild(placeholderImage);
             document.getElementById(tiles[c]).style.top = (offsetTopTiles[c]) + "px";
             document.getElementById(tiles[c]).style.left = "0px";
-            document.getElementById(tiles[c]).style.maxWidth = "100%";
+            document.getElementById(tiles[c]).style.width = "100%";
         } else {
             offsetTopTiles[c] = offsetTopTiles[c - 1];
             document.getElementById(tiles[c]).style.top = document.getElementById(

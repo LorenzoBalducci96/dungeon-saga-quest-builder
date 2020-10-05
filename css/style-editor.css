@@ -10,6 +10,11 @@
     --dice-div-height: 372px;
     --dice-div-width: 290px;
     --dice-face-size: 72px;
+
+    --inner-menu-height: 50vh;
+    --inner-menu-width: 12vw;
+
+
     --scale: 1;
 }
 
@@ -41,6 +46,26 @@
     height: var(--top-bar-height);
     background-color: black;
     z-index: 1;
+}
+
+.label_on_top_menu{
+    padding-top: 4px;
+    color: white;
+}
+
+.map_editor_menu_button{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 12px;
+}
+
+#editor_controls{
+    display: flex;
+    width: 100%;
+}
+
+#editor_controls *{
+    margin-left: 8px;
 }
 
 #tilesSelectorBar{
@@ -97,4 +122,34 @@
     top: calc(var(--top-bar-height));
     left: var(--sidenav-width);
     pointer-events: none;
+}
+
+#innerMenu{
+    /*height: var(--inner-menu-height);*/
+    position: absolute;
+    overflow: auto;
+    width: var(--inner-menu-width);
+    background-image: url("../assets/smog_background.png");
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 2px #420609;
+}
+
+#generalMenuContainer{
+    position: absolute;
+}
+
+#generalMenu{
+    overflow: auto;
+    width: var(--inner-menu-width);
+    background-image: url("../assets/smog_background.png");
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 2px #420609;
+}
+
+.innerMenuButton{
+    background-color: #581619;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    opacity: 0.9;
+    color: white;
 }

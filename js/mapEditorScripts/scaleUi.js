@@ -5,14 +5,14 @@ function increaseUiZoom(){
     if(actualZoom == 0.25){
         actualZoom = 0.5;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "0.50";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
         rearrangeElementsAfterZoomMap(0.25, actualZoom);
     }else if(actualZoom == 0.5){
         actualZoom = 0.75;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "0.75";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
         
@@ -20,7 +20,7 @@ function increaseUiZoom(){
     }else if(actualZoom == 0.75){
         actualZoom = 1.0;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "1.00";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
         rearrangeElementsAfterZoomMap(0.75, actualZoom);
@@ -38,21 +38,21 @@ function decreaseUiZoom(){
     }else if(actualZoom == 0.5){
         actualZoom = 0.25;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "0.25";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
         rearrangeElementsAfterZoomMap(0.5, actualZoom);
     }else if(actualZoom == 0.75){
         actualZoom = 0.50;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "0.50";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
         rearrangeElementsAfterZoomMap(0.75, actualZoom);
     }else if(actualZoom == 1){
         actualZoom = 0.75;
         scale = actualZoom;
-        document.getElementById("zoom").innerHTML = actualZoom;
+        document.getElementById("zoom").innerHTML = "0.75";
         document.documentElement.style.setProperty('--scale', actualZoom);
         document.getElementById("map").setAttribute("scale", actualZoom);
 

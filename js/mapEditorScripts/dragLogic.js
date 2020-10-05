@@ -304,14 +304,17 @@ function endMoveElement(pieces, multipleElementsDragging) {
                 elmnt.style.left = placeholderImage.offsetLeft + "px";
                 elmnt.style.width = placeholderImage.offsetWidth + "px";//100%;
 
-                var tileFace = ""
-                if (elmnt.id.charAt(elmnt.id.length - 1) == 'A') {
-                    tileFace = 'B'
-                } else if (elmnt.id.charAt(elmnt.id.length - 1) == 'B') {
-                    tileFace = 'A'
+                if(elmnt.getAttribute("flippable") == "yes"){
+                    var tileFace = ""
+                    if (elmnt.id.charAt(elmnt.id.length - 1) == 'A') {
+                        tileFace = 'B'
+                    } else if (elmnt.id.charAt(elmnt.id.length - 1) == 'B') {
+                        tileFace = 'A'
+                    }
+                    var placeholderOtherSide = document.getElementById(elmnt.id.substring(0, elmnt.id.length - 1) + tileFace);
+                    placeholderOtherSide.style.visibility = "";
                 }
-                var placeholderOtherSide = document.getElementById(elmnt.id.substring(0, elmnt.id.length - 1) + tileFace);
-                placeholderOtherSide.style.visibility = "";
+
             } else {
                 var placeholderImage = document.getElementById("placeholder_" + elmnt.getAttribute("image"));//elmnt.id.substr(0, elmnt.id.lastIndexOf("_") + 1) + "1");
                 elmnt.parentNode.removeChild(elmnt);
@@ -330,7 +333,7 @@ function endMoveElement(pieces, multipleElementsDragging) {
                     placeholderOtherSide.style.visibility = "hidden";
                 }
             }
-            if (multipleElementsDragging == "yes" || elmnt.getAttribute("pieceType") == "tile") {
+            if (multipleElementsDragging == "yes" || elmnt.getAttribute("snap") == "yes") {
                 snap(elmnt)
             }
 
@@ -338,7 +341,6 @@ function endMoveElement(pieces, multipleElementsDragging) {
                 elmnt.style.zIndex = "-1";
             else
                 elmnt.style.zIndex = "2";
-            
         }
     });
     returnOnMap(pieces);
@@ -346,14 +348,12 @@ function endMoveElement(pieces, multipleElementsDragging) {
 tapedTwice = false;
 
 function attachDragLogic(elmnt) {//setup the callbacks
-    /*
     if(elmnt.offsetHeight === 0){//if image is not loaded yet (often occur if appType=web and we are using base64 images)
         setTimeout(() => {
-            dragElement(elmnt)
+            attachDragLogic(elmnt)
         }, 200);
         return;
     }
-    */
     
     tiles[count] = elmnt.getAttribute("id");
     count++;
@@ -471,7 +471,7 @@ function attachDragLogic(elmnt) {//setup the callbacks
                 backup.style.zIndex = "0";
                 backup.id = elmnt.id.substr(0, elmnt.id.lastIndexOf("_") + 1) + (parseInt(elmnt.id.match(/(\d+)$/)[0], 10) + 1);
                 backup.setAttribute("onMap", "no");
-                dragElement(backup);
+                attachDragLogic(backup);
             }
         }
     }
