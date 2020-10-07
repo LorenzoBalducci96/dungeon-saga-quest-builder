@@ -52,10 +52,25 @@ function login(){
                             document.getElementById("message_modal_label").innerHTML = "username or password invalid"
                             $("#message_modal").modal("show");
                         }else if(response['status'] == "200"){
-                            document.getElementById("send_pdf_nonce").value = response['nonce'];
-                            document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF"
-                            $("#message_modal").modal("show");
-                            $('#instant_login_modal').modal('hide');
+                            request = new XMLHttpRequest();
+                            request.open('GET', 'get_nonce.php', true); // set the request
+                            //sends data as json
+                            request.setRequestHeader('Content-type', 'application/json');
+                            
+                            request.onreadystatechange =()=>{
+                                if(request.readyState ==4){
+                                    response = JSON.parse(request.responseText);
+                                    if(response['status'] == "200"){
+                                        document.getElementById("send_pdf_nonce").value = response['nonce'];
+                                        document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF"
+                                        $("#message_modal").modal("show");
+                                        $('#instant_login_modal').modal('hide');
+                                    }else{
+                                        alert(request.responseText);
+                                    }
+                                }
+                            }
+                            request.send();
                         }else{
                             alert(request.responseText);
                         }
