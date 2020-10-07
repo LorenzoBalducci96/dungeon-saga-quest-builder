@@ -9,30 +9,12 @@ var fixed_pdf_quality_for_mail = 0.90;
 
 var pdfBase64;
 
-function ajaxF(jsn_str) {
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP'); // XMLHttpRequest object
 
-    request.open('POST', 'send_email_pdf.php', true); // set the request
-    //sends data as json
-    request.setRequestHeader('Content-type', 'application/json');
-    request.send(jsn_str);
-
-    // Check request status
-    // If the response is received completely, alert response
-    request.onreadystatechange =()=>{
-        if(request.readyState ==4){
-            if(request.responseText == "401"){
-                
-            }
-            alert(request.responseText); // coursesweb.net
-        }
-    }
-}
 
 function finishProjectOptions(){
     projectZoom("0");
     activePage(1);
-    $("#loading-modal").modal("show");
+    $("#loading_modal").modal("show");
     window.scrollTo(0,0);
 }
 
@@ -41,8 +23,8 @@ function exportProjectToPDF(send_email){
         document.getElementById("pdfExportQuality").value = fixed_pdf_quality_for_mail;
     }
     PDF_export_quality = parseFloat(document.getElementById("pdfExportQuality").value);
-    document.getElementById("close-modal-button").style.visibility = "hidden";
-    document.getElementById("loading-div").style.visibility = "";
+    document.getElementById("close_modal_loading_button").style.visibility = "hidden";
+    document.getElementById("loading_div").style.visibility = "";
     
     let pdfDocument = new jsPDF('potrait');
     
@@ -63,15 +45,19 @@ function exportProjectToPDF(send_email){
             //activeActualPage();
 
             if(send_email){
+                let author_email = document.getElementById("author-email").innerHTML;
                 pdfBase64 = pdfDocument.output('datauristring');
                 var data = JSON.stringify({
-                    "pdf" : pdfBase64
+                    "pdf" : pdfBase64,
+                    "authorEmail": author_email,
+                    "security" : document.getElementById("send_pdf_nonce").value
                 });
                 ajaxF(data);
+            }else{
+                pdfDocument.save('dungeon.pdf');
+                document.getElementById("close_modal_loading_button").style.visibility = "";
+                document.getElementById("loading_div").style.visibility = "hidden";
             }
-            pdfDocument.save('dungeon.pdf');
-            document.getElementById("close-modal-button").style.visibility = "";
-            document.getElementById("loading-div").style.visibility = "hidden";
         });
     });
 }
@@ -185,6 +171,7 @@ async function goToExport() {
 //    $('#outputModal').on('show.bs.modal', function (e) {
     resetMapScale();
         setTimeout(() => {  
+            document.getElementById("map-on-project").src = "assets/loading.gif"
             createOutputDivForPrint();
             //createImg('mapRendered'); 
             createImg("map-on-project");

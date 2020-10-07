@@ -42,6 +42,7 @@ function decreaseUiZoom(){
 function resetMapScale(){
     old_zoom = scale;
     scale = 1;
+    document.getElementById("zoom").innerHTML = "100%";
     document.documentElement.style.setProperty('--scale', scale);
     document.getElementById("map").setAttribute("scale", scale);
     rearrangeElementsAfterZoomMap(old_zoom, scale);
@@ -58,7 +59,9 @@ function rearrangeElementsAfterZoomMap(oldZoom, newZoom){
         let scaleFactor = newZoom/oldZoom;
         elmnt.style.top = elmnt.offsetTop*scaleFactor + "px";
         elmnt.style.left = elmnt.offsetLeft*scaleFactor + "px";
-        snap(elmnt);
+        if(elmnt.getAttribute("snap") == "yes"){
+            snap(elmnt);
+        }
     });
     document.querySelectorAll("[piecetype='text'][onmap='yes']").forEach(elmnt => {
         let scaleFactor = newZoom/oldZoom;

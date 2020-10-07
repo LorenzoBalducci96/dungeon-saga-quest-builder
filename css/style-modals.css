@@ -18,11 +18,20 @@
     width: 100%;
 }
 
-.modal-content {
+.modal-smog-content {
     box-shadow: 0px 0px 4px 4px #00000099;
     border-radius: .2em;
     border: 2px solid #220405;
     background-image: url('../assets/smog_background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.modal-smog-dark {
+    box-shadow: 0px 0px 4px 4px #00000099;
+    border-radius: .2em;
+    border: 2px solid #220405;
+    background-image: url('../assets/smog_background_dark.png');
     background-repeat: no-repeat;
     background-size: cover;
 }

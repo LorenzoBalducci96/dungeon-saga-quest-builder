@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -21,6 +20,8 @@
 
 <!--script for the editor in the overview-->
 <script src="js/editor_logic.js"></script>
+<script type="text/javascript" src="js/backend.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
 
 
 <!--scripts for the map editor-->
@@ -33,12 +34,17 @@
 
 
 
+
+
 <link rel="stylesheet" type="text/css" href="css/style-main.css">
 <link rel="stylesheet" type="text/css" href="css/style-editor.css">
 <link rel="stylesheet" type="text/css" href="css/style-modals.css">
 <link rel="stylesheet" type="text/css" href="css/range.css">
 
 <script>
+    if(detectBrowser() == "IE"){
+        alert("sorry, internet explorer not supported")
+    }
     var appType = "web";
     
     window.onload = function () {
@@ -46,43 +52,73 @@
             bootstrap_page();
         }, 200);
     };
+
+    /*this piece of code allow multiple bootstrap modal on top of each other*/
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
+
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
     
 </script>
 
 
 
 <body>
-    <!--
-    <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<?php
+        require_once("../wp-load.php");
+        wp_nonce_field( 'send_pdf_nonce', 'send_pdf_nonce' );
+?>
+
+    <div class="modal fade" id="message_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <h2>Login Form</h2>
-                <form action="<?php echo get_option('home'); ?>/wp-login.php" method="post">
-                <input type="text" name="log" id="log" value="<?php echo wp_specialchars(stripslashes($user_login), 1) ?>" size="20" />
-                <input type="password" name="pwd" id="pwd" size="20" />
-                <input type="submit" name="submit" value="Send" class="button" />
-                <p>
-                <label for="rememberme"><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> Remember me</label>
-                <input type="hidden" name="redirect_to" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-                </p>
-                </form>
-                <a href="<?php echo home_url(); ?>/wp-login.php?action=lostpassword">Recover password</a>
-                <?php } else { ?>
-                <a href="<?php echo wp_logout_url(); ?>">logout</a><br />
-                <a href="http://phprocks.letsnurture.com/">admin</a>
+            <div class="modal-content modal-smog-dark">
+                <div class="modal-body">
+                    <label id="message_modal_label"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="confirm_message_button" class="btn btn-default" 
+                    data-dismiss="modal">ok</button>
+                </div>
             </div>
         </div>
     </div>
-    -->
+    
+    <div class="modal fade" id="instant_login_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-smog-dark">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ops...seems you are no logged in</h4>
+                    <button id="close-modal-login-button" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h3 aria-hidden="true">×</h3>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <label>for uploading you pdf to the forum you must be logged in. Login to the forum for upload you pdf</label>
+                    <input id="login_email" type="text" placeholder="email@email.com" size="20" />
+                    <input id="login_password" type="password" size="20" />
+                    <br>
+                    <button class="old_button" style="padding:2px; width:100%;" onclick="login()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
-    <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="loading_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-full" role="document">
-            <div class="modal-content">
+            <div class="modal-content modal-smog-content">
 
                 <div class="modal-header">
                     <h4 class="modal-title">finish project</h4>
-                    <button id="close-modal-button" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="close_modal_loading_button" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <h3 aria-hidden="true">×</h3>
                     </button>
                 </div>
@@ -135,9 +171,9 @@
                         </div>
                     </div>
                     
-                    <div class="row align-items-center" id="loading-div" style="width: 100%; text-align: center; visibility: hidden;">
+                    <div class="row align-items-center" id="loading_div" style="width: 100%; text-align: center; visibility: hidden;">
                         <div class="col-6 offset-2">
-                            <label>
+                            <label style="font-size: 24px;">
                                 PLEASE WAIT    
                             </label>    
                         </div>
@@ -196,24 +232,26 @@
 
     <div id="whole-mission-overview" style="opacity: 0; display:none">
         <div style="display: flex; width:100%">
-            <div class="editor-menu col-1 px-1">
-                <div style="padding:8px; margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
-                    <label>switch page</label>
-                    <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
-                </div>
-                
-                <div style="padding:8px;  margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
-                    <label>page zoom</label>
-                    <div style="display: flex;">
-                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('-')">-</button>
-                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('+')">+</button>
+            <div class="editor-menu col-15 px-1">
+                <div class="top-container-bar" style="overflow: auto;">
+                    <div style="padding:8px; margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
+                        <label>turn page</label>
+                        <img id="switch_page_button" src="assets/next_page.png" onclick="changePage()">
                     </div>
-                </div>
-                <div style="padding:8px; border-color: gray; border-style: solid; border-width: thin;">
-                    <label>map dimension</label>
-                    <div style="display: flex;">
-                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('-')">-</button>
-                        <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('+')">+</button>
+                    
+                    <div style="padding:8px;  margin-bottom: 2px; border-color: gray; border-style: solid; border-width: thin;">
+                        <label>page zoom</label>
+                        <div style="display: flex;">
+                            <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('-')">-</button>
+                            <button class="old_button" style="width: 49%; padding: 2px;" onclick="projectZoom('+')">+</button>
+                        </div>
+                    </div>
+                    <div style="padding:8px; border-color: gray; border-style: solid; border-width: thin;">
+                        <label>map zoom</label>
+                        <div style="display: flex;">
+                            <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('-')">-</button>
+                            <button class="old_button" style="width: 49%; padding: 2px;" onclick="mapOnProjectZoom('+')">+</button>
+                        </div>
                     </div>
                 </div>
                 <div style="position: absolute; bottom:2px;">
@@ -222,9 +260,9 @@
                 </div>
             </div>
 
-            <div class="col-1"></div><!--padding-->
+            
 
-            <div class="pages-container col-11">
+            <div class="pages-container col-105 offset-15">
                 <div id="flip-pages" disply="text-align: center;">
                     <div id="pages-inner" disply="text-align: center;">
                         <div id="first-page" class="main-page">
@@ -249,22 +287,22 @@
 
                                         <div class="row">
                                             <div id="main-page-section-2" class="col-4">
-                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The heroes</label>
+                                                <div id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The heroes</div>
                                                 <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
                                             </div>   
                                             <div id="main-page-section-3" class="col-4">
-                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The demon</label>
+                                                <div id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">The demon</div>
                                                 <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
                                             </div>    
                                             <div id="main-page-section-4" class="col-4">
-                                                <label id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">Victory conditions</label>
+                                                <div id="main-page-introduction-section-title" class="title sub cap-first-letter" contenteditable="true">Victory conditions</div>
                                                 <div contenteditable="true">The heroes start the mission in the start point as shown in the map.</div>
                                             </div>      
                                         </div>
 
                                         <div class="row">
                                             <div id="special-rules" class="col-12">
-                                                <label id="special-rules-title" contenteditable="true">SPECIAL RULES: POTIONS NOT PERMITTED FOR WARRIORS</label>
+                                                <div id="special-rules-title" contenteditable="true">SPECIAL RULES: POTIONS NOT PERMITTED FOR WARRIORS</div>
                                                 <div contenteditable="true">Players that use a warrior character can't use potions unless for the behaviour of a special effect.
                                                     Healing with objects is not allowed too for warriors.
                                                     Once a hero is dead (whatever hero), he can revive just after rolling 5 on a response dice roll. This can be done just once per turn.
@@ -281,9 +319,8 @@
                     
                         <div id="second-page" class="main-page">
                             <div class="container-fluid">
-                                <div class="row">
+                                <div class="row" style="height: 100%;">
                                     <div id="bootstrap-padding-left" class="col-0">
-                                    
                                     </div>
                                     <div id="main-content" class="col-11">
                                         <div class="row" id="title-row">
@@ -297,14 +334,22 @@
                                         <div id="map-on-project-container" class="map-on-project-container" onclick="open_map_editor()">
                                             <img id="map-on-project" src="assets/sample_map.png">
                                         </div>
-                                        
-
                                         <div class="row" id="title-row">
                                             <div id="main-page-section-2" class="in-the-end" class="col-12">
                                                 <p id="main-page-introduction-section-title" class="in-the-end-title" contenteditable="true" >In the end</p>
                                                 <hr style="height: 1px; background-color: #991111; border: none;">
                                                 <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.
                                                     lorem ipsum dolor sit amet lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.</div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="position: absolute; bottom: 0px; width:100%;">
+                                            <div style="width:100%; display: flex">
+                                                <label>Email:</label>
+                                                <div id="author-email" style="min-width: 40px; margin-left: 2px;" contenteditable="true">red_dragon@gmail.com</div>
+                                                <div style="width:100%; display: flex; justify-content: flex-end;">
+                                                    <label style="float:left">Nickname:</label>
+                                                    <div id="author-nickname" style="float:left; min-width: 40px; margin-left: 2px;" contenteditable="true">Red Dragon</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -332,18 +377,6 @@
                 <div style="width: 100%; display: flex; justify-content: flex-end;">
                     <button style="float: right;" class="old_button map_editor_menu_button" onclick="goToExport()">return to editor</button>
                 </div>
-                <!--
-                <input  id="searchBar" class="searchBar" type="text" placeholder="search" oninput="searchItems()">
-                <button class="blueButton" onclick="goToExport()">export PDF</button>
-                <button class="blueButton" onclick="savePage()">save project</button>
-                <button class="blueButton" onclick="loadSaveList()">load project</button>
-                <label id="zoomDescr">zoom:</label>
-                
-                <button class="old_button" onclick="increaseUiZoom()">map zoom +</button>
-                <button class="old_button" onclick="decreaseUiZoom()">map zoom -</button>
-                
-                <button id="exit-map-editor-button" onclick="exitMapEditor()">EXIT MAP EDITOR MODE</button>
-                -->
             </div>
         </div>
 
@@ -360,7 +393,6 @@
 
 
             <div class="sidebar-container">
-                    
                 <div id="tilesSelectorBar" style="text-align: center;">
                     <button id="triggerInnerMenuButton" style="width: 90%; padding-top: 2px; padding-bottom: 2px;"  class="old_button" 
                     onclick="triggerInnerMenu()">↓</button>
@@ -372,10 +404,11 @@
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnFurnitures" onclick="loadQrnFurnitures()">Furnitures</button>
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnLocks" onclick="loadQrnLocks()">Locks</button>
                         <button class="innerMenuButton" style="width:90%;" id="loadQrnTraps" onclick="loadQrnTraps()">Traps</button>
-                    
+                        <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadQrnMarkers()">Markers</button>
+                        <button class="innerMenuButton" style="width:90%;" id="loadQrnBosses" onclick="loadQrnBosses()">Bosses</button>
                     </div>
                 </div>
-                    
+
                 <div class="sidenav" id="qrnA" style="visibility: ''">
 <image src="assets/tiles/qrnA/QRN-tile-3x4-A.png" set="qrnA" image="QRN-tile-3x4-A" orientation="0" flippable="yes" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="QRN-tile-3x4-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnA/QRN-tile-3x6-A.png" set="qrnA" image="QRN-tile-3x6-A" orientation="0" flippable="yes" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="QRN-tile-3x6-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -430,8 +463,6 @@
 <image src="assets/tiles/qrnB/QRN-tileT02-4x5-B.png" set="qrnB" image="QRN-tileT02-4x5-B" orientation="0" flippable="yes" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="QRN-tileT02-4x5-B" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnB/QRN-tileY-3x3-B.png" set="qrnB" image="QRN-tileY-3x3-B" orientation="0" flippable="yes" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="QRN-tileY-3x3-B" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-            
-
                 <div class="sidenav" id="qrnHeroes" style="visibility: hidden;">
 <image src="assets/tiles/qrnHeroes/hero-Danor-human-sorcerer.png" set="qrnHeroes" image="hero-Danor-human-sorcerer" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Danor-human-sorcerer" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnHeroes/hero-Madriga-elve-ranger.png" set="qrnHeroes" image="hero-Madriga-elve-ranger" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Madriga-elve-ranger" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -439,8 +470,13 @@
 <image src="assets/tiles/qrnHeroes/hero-Rordin-dwarf-warrior.png" set="qrnHeroes" image="hero-Rordin-dwarf-warrior" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Rordin-dwarf-warrior" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnHeroes/starting-position-hero.png" set="qrnHeroes" image="starting-position-hero" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="starting-position-hero_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-
-
+                <div class="sidenav" id="qrnBosses" style="visibility: hidden;">
+<image src="assets/tiles/qrnBosses/Boss-Elshara-Banshee.png" set="qrnBosses" image="Boss-Elshara-Banshee" flippable="no" orientation="0" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="Boss-Elshara-Banshee_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnBosses/Boss-Grund-king-dwarf-undead.png" set="qrnBosses" image="Boss-Grund-king-dwarf-undead" flippable="no" orientation="0" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="Boss-Grund-king-dwarf-undead_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnBosses/Boss-Hoggar-Chaman-Troll-undead.png" set="qrnBosses" image="Boss-Hoggar-Chaman-Troll-undead" flippable="no" orientation="0" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="Boss-Hoggar-Chaman-Troll-undead_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnBosses/Boss-Mortibris-human-Necromancer.png" set="qrnBosses" image="Boss-Mortibris-human-Necromancer" flippable="no" orientation="0" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="Boss-Mortibris-human-Necromancer_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnBosses/starting-position-boss.png" set="qrnBosses" image="starting-position-boss" flippable="no" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="starting-position-boss_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>    
+                </div>
                 <div class="sidenav" id="qrnMinions" style="visibility: hidden;">
 <image src="assets/tiles/qrnMinions/Minion-bone-pile.png" set="qrnMinions" image="Minion-bone-pile" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="Minion-bone-pile_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMinions/Minion-dwarf-Revenant.png" set="qrnMinions" image="Minion-dwarf-Revenant" orientation="0" flippable="no" single="no" pieceType="tile" snap="no" oncontextmenu="return false;" id="Minion-dwarf-Revenant_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -454,8 +490,6 @@
 <image src="assets/tiles/qrnMinions/Minion-zombies-armored.png" set="qrnMinions" image="Minion-zombies-armored" orientation="0" flippable="no" single="no" pieceType="tile" snap="no" oncontextmenu="return false;" id="Minion-zombies-armored_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMinions/starting-position-Minion-undead.png" set="qrnMinions" image="starting-position-Minion-undead" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="starting-position-Minion-undead_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-
-
                 <div class="sidenav" id="qrnFurnitures" style="visibility: hidden;">
 <image src="assets/tiles/qrnFurnitures/door-large-Lock-red.png" set="qrnFurnitures" image="door-large-Lock-red" orientation="0" flippable="no" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="door-large-Lock-red" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnFurnitures/door-large-Lock-yellow.png" set="qrnFurnitures" image="door-large-Lock-yellow" orientation="0" flippable="no" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="door-large-Lock-yellow" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -485,8 +519,6 @@
 <image src="assets/tiles/qrnFurnitures/furniture-well-1_2.png" set="qrnFurnitures" image="furniture-well-1_2" orientation="0" flippable="no" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="furniture-well-1_2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnFurnitures/furniture-well-2.png" set="qrnFurnitures" image="furniture-well-2" orientation="0" flippable="no" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="furniture-well-2" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-
-
                 <div class="sidenav" id="qrnLocks" style="visibility: hidden;">
 <image src="assets/tiles/qrnLocks/chest-Lock-red-1.png" set="qrnLocks" image="chest-Lock-red-1" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnLocks/chest-Lock-red-2.png" set="qrnLocks" image="chest-Lock-red-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="chest-Lock-red-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -527,30 +559,50 @@
 <image src="assets/tiles/qrnLocks/Token-lock-pick-3.png" set="qrnLocks" image="Token-lock-pick-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnLocks/Token-lock-pick-4.png" set="qrnLocks" image="Token-lock-pick-4" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-lock-pick-4_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-
                 <div class="sidenav" id="qrnTraps" style="visibility: hidden;">
-<image src="assets/tiles/qrnTraps/marker-Trap-Asphyxiant-gas-DS.png" set="qrnTraps" image="marker-Trap-Asphyxiant-gas-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Asphyxiant-gas-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-ball.png" set="qrnTraps" image="marker-Trap-ball" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-ball_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-Cage-DS.png" set="qrnTraps" image="marker-Trap-Cage-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Cage-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-dart-DS.png" set="qrnTraps" image="marker-Trap-dart-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned-DS.png" set="qrnTraps" image="marker-Trap-dart-poisoned-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-poisoned-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned.png" set="qrnTraps" image="marker-Trap-dart-poisoned" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-dart-poisoned_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-large-pit.png" set="qrnTraps" image="marker-Trap-large-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-large-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-pit-DS.png" set="qrnTraps" image="marker-Trap-pit-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-pit-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-pit.png" set="qrnTraps" image="marker-Trap-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-poisoned-dart-DS.png" set="qrnTraps" image="marker-Trap-poisoned-dart-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-poisoned-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-Poisonous-spore-DS.png" set="qrnTraps" image="marker-Trap-Poisonous-spore-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Poisonous-spore-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-quagmire-DS.png" set="qrnTraps" image="marker-Trap-quagmire-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-quagmire-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-sharp-blade-DS.png" set="qrnTraps" image="marker-Trap-sharp-blade-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-sharp-blade-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-small-pit.png" set="qrnTraps" image="marker-Trap-small-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-small-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-Sort.png" set="qrnTraps" image="marker-Trap-Sort" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Sort_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-Spider-Web.png" set="qrnTraps" image="marker-Trap-Spider-Web" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Spider-Web_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-spike-pit.png" set="qrnTraps" image="marker-Trap-spike-pit" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-spike-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-<image src="assets/tiles/qrnTraps/marker-Trap-stunner-DS.png" set="qrnTraps" image="marker-Trap-stunner-DS" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-stunner-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-
+<image src="assets/tiles/qrnTraps/marker-Trap-Asphyxiant-gas-DS.png" set="qrnTraps" image="marker-Trap-Asphyxiant-gas-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-Asphyxiant-gas-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-ball.png" set="qrnTraps" image="marker-Trap-ball" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-ball_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Cage-DS.png" set="qrnTraps" image="marker-Trap-Cage-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-Cage-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-DS.png" set="qrnTraps" image="marker-Trap-dart-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned-DS.png" set="qrnTraps" image="marker-Trap-dart-poisoned-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-dart-poisoned-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-dart-poisoned.png" set="qrnTraps" image="marker-Trap-dart-poisoned" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-dart-poisoned_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-large-pit.png" set="qrnTraps" image="marker-Trap-large-pit" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-large-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-pit-DS.png" set="qrnTraps" image="marker-Trap-pit-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-pit-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-pit.png" set="qrnTraps" image="marker-Trap-pit" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-poisoned-dart-DS.png" set="qrnTraps" image="marker-Trap-poisoned-dart-DS" orientation="0" single="no" flippable="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-poisoned-dart-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Poisonous-spore-DS.png" set="qrnTraps" image="marker-Trap-Poisonous-spore-DS" orientation="0" single="no" flippable="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="marker-Trap-Poisonous-spore-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-quagmire-DS.png" set="qrnTraps" image="marker-Trap-quagmire-DS" orientation="0" single="no" pieceType="tile" snap="yes"  flippable="no" oncontextmenu="return false;" id="marker-Trap-quagmire-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-sharp-blade-DS.png" set="qrnTraps" image="marker-Trap-sharp-blade-DS" orientation="0" single="no" pieceType="tile" snap="yes"  flippable="no" oncontextmenu="return false;" id="marker-Trap-sharp-blade-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-small-pit.png" set="qrnTraps" image="marker-Trap-small-pit" orientation="0" single="no" pieceType="tile" snap="yes"  flippable="no" oncontextmenu="return false;" id="marker-Trap-small-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Sort.png" set="qrnTraps" image="marker-Trap-Sort" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-Sort_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-Spider-Web.png" set="qrnTraps" image="marker-Trap-Spider-Web" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-Spider-Web_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-spike-pit.png" set="qrnTraps" image="marker-Trap-spike-pit" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-spike-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnTraps/marker-Trap-stunner-DS.png" set="qrnTraps" image="marker-Trap-stunner-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-stunner-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
-
-
+                <div class="sidenav" id="qrnMarkers" style="visibility: hidden;">
+<image src="assets/tiles/qrnMarkers/Point-A.png" set="qrnMarkers" image="Point-A" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-A_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-B.png" set="qrnMarkers" image="Point-B" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-B_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-C.png" set="qrnMarkers" image="Point-C" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-C_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-D.png" set="qrnMarkers" image="Point-D" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-D_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-de-Sortie-hero-HD-2.png" set="qrnMarkers" image="Point-de-Sortie-hero-HD-2" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-de-Sortie-hero-HD-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-de-Sortie-hero-HD-3.png" set="qrnMarkers" image="Point-de-Sortie-hero-HD-3" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-de-Sortie-hero-HD-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-de-Sortie-hero-HD.png" set="qrnMarkers" image="Point-de-Sortie-hero-HD" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-de-Sortie-hero-HD_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-E.png" set="qrnMarkers" image="Point-E" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-E_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Point-F.png" set="qrnMarkers" image="Point-F" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-F_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/QRN-marker-colapse.png" set="qrnMarkers" image="QRN-marker-colapse" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="QRN-marker-colapse_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/QRN-marker-rift.png" set="qrnMarkers" image="QRN-marker-rift" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="QRN-marker-rift_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-divine-magic.png" set="qrnMarkers" image="Token-divine-magic" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-divine-magic_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Aeromancie.png" set="qrnMarkers" image="Token-magic-Aeromancie" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Aeromancie_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Bard.png" set="qrnMarkers" image="Token-magic-Bard" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Bard_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-common.png" set="qrnMarkers" image="Token-magic-common" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-common_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Druidic.png" set="qrnMarkers" image="Token-magic-Druidic" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Druidic_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Geomancy.png" set="qrnMarkers" image="Token-magic-Geomancy" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Geomancy_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Hydromancy.png" set="qrnMarkers" image="Token-magic-Hydromancy" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Hydromancy_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Necromancy.png" set="qrnMarkers" image="Token-magic-Necromancy" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Necromancy_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-Pyromancie.png" set="qrnMarkers" image="Token-magic-Pyromancie" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Pyromancie_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-magic-sorcery.png" set="qrnMarkers" image="Token-magic-sorcery" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-sorcery_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/qrnMarkers/Token-Major-magic.png" set="qrnMarkers" image="Token-Major-magic" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-Major-magic_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                </div>
             </div>
 
 

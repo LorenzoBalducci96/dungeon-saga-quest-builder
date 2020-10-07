@@ -37,6 +37,8 @@ function setDefault(){
     document.getElementById("loadQrnFurnitures").style.opacity = "0.9";
     document.getElementById("loadQrnLocks").style.opacity = "0.9";
     document.getElementById("loadQrnTraps").style.opacity = "0.9";
+    document.getElementById("loadQrnMarkers").style.opacity = "0.9";
+    document.getElementById("loadQrnBosses").style.opacity = "0.9";
 }
 
 function loadQrnB() {
@@ -101,4 +103,22 @@ function loadQrnTraps(){
     setDefault();
     document.getElementById("loadQrnTraps").style.opacity = "0.5";
     activeSet = "qrnTraps"
+}
+
+function loadQrnMarkers(){
+    document.getElementById(activeSet).style.visibility = "hidden"
+    document.getElementById("qrnMarkers").style.visibility = ""
+
+    setDefault();
+    document.getElementById("loadQrnMarkers").style.opacity = "0.5";
+    activeSet = "qrnMarkers"
+}
+
+function loadQrnBosses(){
+    document.getElementById(activeSet).style.visibility = "hidden"
+    document.getElementById("qrnBosses").style.visibility = ""
+
+    setDefault();
+    document.getElementById("loadQrnBosses").style.opacity = "0.5";
+    activeSet = "qrnBosses"
 }

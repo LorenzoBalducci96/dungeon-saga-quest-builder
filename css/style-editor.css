@@ -30,7 +30,7 @@
     margin-top : var(--tiles-selector-bar-height);
     height: calc(100% - var(--tiles-selector-bar-height));
     width:inherit;
-    overflow-y : auto;
+    overflow-y : scroll;
     overflow-x : hidden;
     position: fixed; 
     z-index: 1;

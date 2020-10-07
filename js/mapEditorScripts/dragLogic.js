@@ -337,7 +337,7 @@ function endMoveElement(pieces, multipleElementsDragging) {
                 snap(elmnt)
             }
 
-            if (elmnt.getAttribute("single") == "yes")
+            if (elmnt.getAttribute("flippable") == "yes")
                 elmnt.style.zIndex = "-1";
             else
                 elmnt.style.zIndex = "2";

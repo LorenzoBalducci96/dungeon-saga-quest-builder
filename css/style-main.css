@@ -2,6 +2,9 @@
     --zoom-editor: 1;
     --menu-width: 12vw;
     --transition-time: 0.5s;
+
+    --editor-menu-width: 120px;
+    --pages-container-width: calc(100vw - var(--editor-menu-width))
 }
 
 body{
@@ -104,7 +107,9 @@ body{
 }
 
 #switch_page_button{
-    width: 100%;
+    
+    height: 40px;
+    width: auto;
     /*
     position: fixed;
     right:    2vh;
@@ -125,24 +130,26 @@ body{
 
 .editor-menu{
     /*
-    height: 100vh;
-    width: var(--menu-width);
+    width: var(--editor-menu-width);
     */
     background-color: #111;
     position: fixed;
     z-index: 1;
     height: 100vh;
     color: white;
+
+
 }
 
 .pages-container{
-    /*
-    height: 100vh;
-    width: calc(100vw - var(--menu-width));
-    */
+    position: absolute;
     min-height: 100vh;
     height: 100%;
-    width: 100%;
+
+    /*
+    width: var(--pages-container-width);
+    left: var(--editor-menu-width);
+    */
     /*overflow: auto;*/
 }
 
@@ -153,7 +160,10 @@ body{
     background-repeat: no-repeat;
     background-size: 100%;
     padding: 16px;
-    
+}
+
+.main-page .container-fluid{
+    height: 100%;
 }
 
 #pages-inner{

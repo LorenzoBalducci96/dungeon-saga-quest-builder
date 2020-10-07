@@ -7,27 +7,10 @@ var tiles = [];
 var offsetTopTiles = [];
 var count = 0;
 
-setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", "qrnLocks", "qrnTraps"];
+setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", 
+"qrnLocks", "qrnTraps", "qrnMarkers", "qrnBosses"];
 
 var margin_of_tiles_on_sidenav = 8
-
-
-function detectBrowser() { 
-    if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) {
-        return 'Opera';
-    } else if(navigator.userAgent.indexOf("Chrome") != -1 ) {
-        return 'Chrome';
-    } else if(navigator.userAgent.indexOf("Safari") != -1) {
-        return 'Safari';
-    } else if(navigator.userAgent.indexOf("Firefox") != -1 ){
-        return 'Firefox';
-    } else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
-        return 'IE';
-    } else {
-        return 'Unknown';
-    }
-} 
-
 
 function rearrangeAllTilesAfterResizing(){
     setsLists.forEach(setName => {
