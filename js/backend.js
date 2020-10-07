@@ -30,30 +30,52 @@ function ajaxF(jsn_str) {
 
 function login(){
     var request = new XMLHttpRequest();
-    request.open('POST', 'ajax_login.php', true); // set the request
+    request.open('GET', 'get_nonce.php', true); // set the request
     //sends data as json
     request.setRequestHeader('Content-type', 'application/json');
-    
     request.onreadystatechange =()=>{
         if(request.readyState ==4){
             response = JSON.parse(request.responseText);
-            if(response['status'] == "401"){
-                document.getElementById("message_modal_label").innerHTML = "username or password invalid"
-                $("#message_modal").modal("show");
-            }else if(response['status'] == "200"){
+            if(response['status'] == "200"){
+
                 document.getElementById("send_pdf_nonce").value = response['nonce'];
-                document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF"
-                $("#message_modal").modal("show");
-                $('#instant_login_modal').modal('hide');
-            }else{
-                alert(request.responseText);
+                
+                request = new XMLHttpRequest();
+                request.open('POST', 'ajax_login.php', true); // set the request
+                //sends data as json
+                request.setRequestHeader('Content-type', 'application/json');
+                
+                request.onreadystatechange =()=>{
+                    if(request.readyState ==4){
+                        response = JSON.parse(request.responseText);
+                        if(response['status'] == "401"){
+                            document.getElementById("message_modal_label").innerHTML = "username or password invalid"
+                            $("#message_modal").modal("show");
+                        }else if(response['status'] == "200"){
+                            document.getElementById("send_pdf_nonce").value = response['nonce'];
+                            document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF"
+                            $("#message_modal").modal("show");
+                            $('#instant_login_modal').modal('hide');
+                        }else{
+                            alert(request.responseText);
+                        }
+                    }
+                }
+                jsn_data = JSON.stringify({
+                    "username" : document.getElementById("login_email").value,
+                    "password" : document.getElementById("login_password").value,
+                    "security" : document.getElementById("send_pdf_nonce").value
+                })
+                request.send(jsn_data);
+
             }
         }
     }
-    jsn_data = JSON.stringify({
-        "username" : document.getElementById("login_email").value,
-        "password" : document.getElementById("login_password").value,
-        "security" : document.getElementById("send_pdf_nonce").value
-    })
-    request.send(jsn_data);
+    request.send();
+
+
+
+
+
+    
 }
