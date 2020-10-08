@@ -23,8 +23,9 @@ function exportProjectToPDF(send_email){
         document.getElementById("pdfExportQuality").value = fixed_pdf_quality_for_mail;
     }
     PDF_export_quality = parseFloat(document.getElementById("pdfExportQuality").value);
-    document.getElementById("close_modal_loading_button").style.visibility = "hidden";
-    document.getElementById("loading_div").style.visibility = "";
+    //document.getElementById("close_modal_loading_button").style.visibility = "hidden";
+    //document.getElementById("loading_div").style.visibility = "";
+    $("#please_wait_modal").modal("show");
     
     let pdfDocument = new jsPDF('potrait');
     
@@ -55,8 +56,9 @@ function exportProjectToPDF(send_email){
                 ajaxF(data);
             }else{
                 pdfDocument.save('dungeon.pdf');
-                document.getElementById("close_modal_loading_button").style.visibility = "";
-                document.getElementById("loading_div").style.visibility = "hidden";
+                //document.getElementById("close_modal_loading_button").style.visibility = "";
+                //document.getElementById("loading_div").style.visibility = "hidden";
+                $("#please_wait_modal").modal("hide");
             }
         });
     });

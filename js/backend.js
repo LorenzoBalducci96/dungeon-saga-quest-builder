@@ -21,8 +21,9 @@ function ajaxF(jsn_str) {
             }else{
                 alert(request.responseText);
             }
-            document.getElementById("close_modal_loading_button").style.visibility = "";
-            document.getElementById("loading_div").style.visibility = "hidden";
+            //document.getElementById("close_modal_loading_button").style.visibility = "";
+            //document.getElementById("loading_div").style.visibility = "hidden";
+            $("#please_wait_modal").modal("hide");
         }
     }
     request.send(jsn_str);
@@ -37,14 +38,11 @@ function login(){
         if(request.readyState ==4){
             response = JSON.parse(request.responseText);
             if(response['status'] == "200"){
-
                 document.getElementById("send_pdf_nonce").value = response['nonce'];
-                
                 request = new XMLHttpRequest();
                 request.open('POST', 'ajax_login.php', true); // set the request
                 //sends data as json
                 request.setRequestHeader('Content-type', 'application/json');
-                
                 request.onreadystatechange =()=>{
                     if(request.readyState ==4){
                         response = JSON.parse(request.responseText);
@@ -56,7 +54,6 @@ function login(){
                             request.open('GET', 'get_nonce.php', true); // set the request
                             //sends data as json
                             request.setRequestHeader('Content-type', 'application/json');
-                            
                             request.onreadystatechange =()=>{
                                 if(request.readyState ==4){
                                     response = JSON.parse(request.responseText);
@@ -72,7 +69,7 @@ function login(){
                             }
                             request.send();
                         }else{
-                            alert(request.responseText);
+                            alert("unexpected error : " + request.responseText);
                         }
                     }
                 }
@@ -87,10 +84,4 @@ function login(){
         }
     }
     request.send();
-
-
-
-
-
-    
 }

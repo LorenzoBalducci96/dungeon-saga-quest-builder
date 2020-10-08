@@ -76,6 +76,25 @@
         wp_nonce_field( 'send_pdf_nonce', 'send_pdf_nonce' );
 ?>
 
+    <div class="modal fade" id="please_wait_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-smog-dark">
+                <div class="modal-body">
+                    <div class="row align-items-center" style="width: 100%; text-align: center;">
+                        <div class="col-6 offset-1">
+                            <label style="font-size: 24px;">
+                                PLEASE WAIT    
+                            </label>    
+                        </div>
+                        <div class="col-4">
+                            <img src="assets/loading.gif" style="width: 100%;">
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="message_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-smog-dark">
@@ -124,6 +143,17 @@
                 </div>
                 
                 <div class="modal-body p-4 funny_scrollbar_blue" id="result">
+                    
+                    <div class="row" style="margin-top: 8px;">
+                        <div class="col-4">
+                            <button class="old_button" style="width:100%;" onclick="alert('sorry function not yet available');">download backup project</button> 
+                        </div>
+                        <div class="col-8">
+                            <label class="label_output_modal">Download a backup file of you project.
+                            With this file you will be able to restore you project using the reopen quest from
+                            backup button</label>
+                        </div>
+                    </div>
                     <div class="row" style="justify-content: center;">
                         <label class="label_output_modal" >PDF image quality :</label>
                         <label class="label_output_modal" id="pdfExportQualityLabel">0.92</label>
@@ -144,16 +174,6 @@
                     </div>
                     <div class="row" style="margin-top: 8px;">
                         <div class="col-4">
-                            <button class="old_button" style="width:100%;" onclick="alert('sorry function not yet available');">download backup project</button> 
-                        </div>
-                        <div class="col-8">
-                            <label class="label_output_modal">Download a backup file of you project.
-                            With this file you will be able to restore you project using the reopen quest from
-                            backup button</label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 8px;">
-                        <div class="col-4">
                             <button class="old_button" style="width:100%;" onclick="exportProjectToPDF(false)">export PDF</button> 
                         </div>
                         <div class="col-8">
@@ -169,18 +189,7 @@
                             <label class="label_output_modal">Upload the PDF of you project, 
                                 (first download it with the button above here and take a final look)</label>
                         </div>
-                    </div>
-                    
-                    <div class="row align-items-center" id="loading_div" style="width: 100%; text-align: center; visibility: hidden;">
-                        <div class="col-6 offset-2">
-                            <label style="font-size: 24px;">
-                                PLEASE WAIT    
-                            </label>    
-                        </div>
-                        <div class="col-2">
-                            <img src="assets/loading.gif" style="width: 100%;">
-                        </div>
-                    </div>   
+                    </div> 
                 </div>
             </div>
         </div>
@@ -203,27 +212,32 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="row">
-                                    <div class="col-8 offset-2">
-                                        <button onclick="startNewQuest()" class="old_button" style="width:100%; margin-top: 4px;">start creating new quest</button>
+                                    <div class="col-10 offset-1">
+                                        <button onclick="startNewQuest()" class="old_button" style="width:100%; margin-top: 4px;">NEW</button>
                                     </div>
-                                    <div class="col-8 offset-2">
+                                    <div class="col-10 offset-1">
                                         <label class="old_label">you will start creating a new quest</label>    
                                     </div>
                                 </div> 
                             </div>
                             <div class="col-6">
                                 <div class="row">
-                                    <div class="col-8 offset-2">
+                                    <div class="col-10 offset-1">
                                         <button class="old_button" style="width:100%;  margin-top: 4px;"
-                                        onclick="alert('sorry function not yet available');">reopen quest from backup</button>
+                                        onclick="alert('sorry function not yet available');">OPEN</button>
                                     </div>
-                                    <div class="col-8 offset-2">
+                                    <div class="col-10 offset-1">
                                         <label class="old_label">restore one of you backup files previously downloaded</label>    
                                     </div>
                                 </div>                 
                             </div>
                         </div>
-                        <label style="position: absolute; bottom:2px; text-align: center; width:100%">version 1.0</label>
+                        <div style="position: absolute; bottom:2px; width:100%;">
+                        <button class="old_button" style="margin-left:4px;" onclick="document.location='../'">EXIT</button>
+                        <label style="text-align: center; width:100%;">version 1.1</label>
+                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -255,7 +269,7 @@
                     </div>
                 </div>
                 <div style="position: absolute; bottom:2px;">
-                    <button id="export_project_pdf_button" class="old_button" style="margin-bottom: 8px; padding: 2px; width: 90%;" onclick="finishProjectOptions()">PDF</button>
+                    <button id="export_project_pdf_button" class="old_button" style="margin-bottom: 8px; padding: 2px; width: 90%;" onclick="finishProjectOptions()">FINISH</button>
                     <button id="return-to-menu" class="old_button" style="padding:2px; width: 90%"  onclick="returnToMenu()">return to menu</button>
                 </div>
             </div>

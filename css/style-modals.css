@@ -22,7 +22,7 @@
     box-shadow: 0px 0px 4px 4px #00000099;
     border-radius: .2em;
     border: 2px solid #220405;
-    background-image: url('../assets/smog_background.png');
+    background-image: url('../assets/smog_background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -31,7 +31,7 @@
     box-shadow: 0px 0px 4px 4px #00000099;
     border-radius: .2em;
     border: 2px solid #220405;
-    background-image: url('../assets/smog_background_dark.png');
+    background-image: url('../assets/smog_background_dark.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }

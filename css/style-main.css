@@ -17,7 +17,7 @@ body{
     -ms-user-select: none; /* Internet Explorer/Edge */
     touch-action: manipulation;
 
-    background-image: url("../assets/wood.png");
+    background-image: url("../assets/wood.jpg");
     background-repeat: repeat-y;
     background-size: 100%;
     
@@ -87,7 +87,7 @@ body{
 
 
 .menu-box{
-    background-image: url("../assets/smog_background.png");
+    background-image: url("../assets/smog_background.jpg");
     background-repeat: repeat-y;
     background-size: 100%;
     box-shadow: 0px 0px 4px 4px #00000099;
@@ -269,7 +269,8 @@ body{
 #map-on-project{
     max-width: 100%;
     max-height: 23cm;
-    min-height: 6cm;
+    min-height: 4cm;
+    object-fit: contain;
 }
 
 .map-on-project-container{

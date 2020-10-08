@@ -88,20 +88,20 @@
     left: var(--sidenav-width);
     opacity: 1;
     background-attachment:local;
-    background-image: url('../assets/background_plain.png');
+    background-image: url('../assets/background_plain.jpg');
 }
 
 .map[scale='0.25']{
-    background-image: url('../assets/background_plain_025.png');
+    background-image: url('../assets/background_plain_025.jpg');
 }
 
 
 .map[scale='0.5']{
-    background-image: url('../assets/background_plain_050.png');
+    background-image: url('../assets/background_plain_050.jpg');
 }
 
 .map[scale='0.75']{
-    background-image: url('../assets/background_plain_075.png');
+    background-image: url('../assets/background_plain_075.jpg');
 }
 
 
@@ -129,7 +129,7 @@
     position: absolute;
     overflow: auto;
     width: var(--inner-menu-width);
-    background-image: url("../assets/smog_background.png");
+    background-image: url("../assets/smog_background.jpg");
     border-radius: 4px;
     box-shadow: 0px 0px 0px 2px #420609;
 }
@@ -141,7 +141,7 @@
 #generalMenu{
     overflow: auto;
     width: var(--inner-menu-width);
-    background-image: url("../assets/smog_background.png");
+    background-image: url("../assets/smog_background.jpg");
     border-radius: 4px;
     box-shadow: 0px 0px 0px 2px #420609;
 }
