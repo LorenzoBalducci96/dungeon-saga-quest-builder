@@ -359,7 +359,7 @@
                                         <div class="row" style="position: absolute; bottom: 0px; width:100%;">
                                             <div style="width:100%; display: flex">
                                                 <label>Email:</label>
-                                                <div id="author-email" style="min-width: 40px; margin-left: 2px;" contenteditable="true">red_dragon@gmail.com</div>
+                                                <div id="author-email" style="width:100%; min-width: 40px; margin-left: 2px;" contenteditable="true">red_dragon@gmail.com</div>
                                                 <div style="width:100%; display: flex; justify-content: flex-end;">
                                                     <label style="float:left">Nickname:</label>
                                                     <div id="author-nickname" style="float:left; min-width: 40px; margin-left: 2px;" contenteditable="true">Red Dragon</div>
