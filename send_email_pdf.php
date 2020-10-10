@@ -1,6 +1,6 @@
 <?php
     require_once("../wp-load.php");
-    $email_to = "unexistent@unexistentjjj.it";
+    $email_to = "admin@admin.it";
     $response = json_decode(file_get_contents('php://input'), true);
     //echo wp_verify_nonce( $response['security'], 'send_pdf_nonce');
     if(wp_verify_nonce( $response['security'], 'send_pdf_nonce')){
