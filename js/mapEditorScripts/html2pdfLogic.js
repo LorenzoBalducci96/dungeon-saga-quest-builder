@@ -47,13 +47,15 @@ function exportProjectToPDF(send_email){
 
             if(send_email){
                 let author_email = document.getElementById("author-email").innerHTML;
+                /*
                 pdfBase64 = pdfDocument.output('datauristring');
                 var data = JSON.stringify({
                     "pdf" : pdfBase64,
                     "authorEmail": author_email,
                     "security" : document.getElementById("send_pdf_nonce").value
                 });
-                ajaxF(data);
+                */
+                ajaxF(pdfDocument, author_email);
             }else{
                 pdfDocument.save('dungeon.pdf');
                 //document.getElementById("close_modal_loading_button").style.visibility = "";

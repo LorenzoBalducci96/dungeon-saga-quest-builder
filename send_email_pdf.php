@@ -1,11 +1,10 @@
 <?php
     require_once("../wp-load.php");
-    $email_to = "admin@admin.it";
+    $email_to = "unexistent@unexistentjjj.it";
     $response = json_decode(file_get_contents('php://input'), true);
     //echo wp_verify_nonce( $response['security'], 'send_pdf_nonce');
     if(wp_verify_nonce( $response['security'], 'send_pdf_nonce')){
-        if(is_user_logged_in()){
-            
+        if(is_user_logged_in()){     
             $pdf_base64 =  explode(',', $response['pdf'])[1];
             $data = base64_decode($pdf_base64);
             $fileName = $response['authorEmail'];//filename = mail@mail.it

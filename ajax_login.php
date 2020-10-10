@@ -1,7 +1,7 @@
 <?php
     require_once("../wp-load.php");
     $response = json_decode(file_get_contents('php://input'), true);
-    if(wp_verify_nonce($response['security'], 'send_pdf_nonce')){
+    if(wp_verify_nonce($response['security'], 'instant_login_dsq')){
         $info = array();
         $info['user_login'] = $response['username'];
         $info['user_password'] = $response['password'];
@@ -17,8 +17,8 @@
             //$nonce = wp_create_nonce('send_pdf_nonce');
             echo json_encode(array('status'=>'200'/*, 'nonce'=>$nonce*/));
         }
-        die();
     }else{
         echo json_encode(array('status'=>'440'));
     }
+    die();
 ?>

@@ -1,6 +1,13 @@
 var to_send_jsn_str;
+var login_nonce;
 
-function ajaxF(jsn_str) {
+function ajaxF(pdfDocument, author_email) {
+    pdfBase64 = pdfDocument.output('datauristring'); 
+    var jsn_str = JSON.stringify({
+        "pdf" : pdfBase64,
+        "authorEmail": author_email,
+        "security" : document.getElementById("send_pdf_nonce").value
+    });
     to_send_jsn_str = jsn_str;
     var request = new XMLHttpRequest();
     request.open('POST', 'send_email_pdf.php', true); // set the request
@@ -15,6 +22,7 @@ function ajaxF(jsn_str) {
             }else if(response['status'] == "200"){
                 document.getElementById("message_modal_label").innerHTML = "Thank you, the PDF has been sent"
                 $("#message_modal").modal("show");
+                pdfDocument.save('dungeon.pdf');
             }else if(response['status'] == "500"){
                 document.getElementById("message_modal_label").innerHTML = "sorry, unknown server error, the PDF was not sent"
                 $("#message_modal").modal("show");
@@ -31,14 +39,14 @@ function ajaxF(jsn_str) {
 
 function login(){
     var request = new XMLHttpRequest();
-    request.open('GET', 'get_nonce.php', true); // set the request
+    request.open('POST', 'get_nonce.php', true); // set the request
     //sends data as json
     request.setRequestHeader('Content-type', 'application/json');
     request.onreadystatechange =()=>{
         if(request.readyState ==4){
             response = JSON.parse(request.responseText);
             if(response['status'] == "200"){
-                document.getElementById("send_pdf_nonce").value = response['nonce'];
+                login_nonce = response['nonce'];
                 request = new XMLHttpRequest();
                 request.open('POST', 'ajax_login.php', true); // set the request
                 //sends data as json
@@ -51,7 +59,7 @@ function login(){
                             $("#message_modal").modal("show");
                         }else if(response['status'] == "200"){
                             request = new XMLHttpRequest();
-                            request.open('GET', 'get_nonce.php', true); // set the request
+                            request.open('POST', 'get_nonce.php', true); // set the request
                             //sends data as json
                             request.setRequestHeader('Content-type', 'application/json');
                             request.onreadystatechange =()=>{
@@ -67,7 +75,10 @@ function login(){
                                     }
                                 }
                             }
-                            request.send();
+                            jsn_data = JSON.stringify({
+                                "type" : "pdf"
+                            })
+                            request.send(jsn_data);
                         }else{
                             alert("unexpected error : " + request.responseText);
                         }
@@ -76,12 +87,15 @@ function login(){
                 jsn_data = JSON.stringify({
                     "username" : document.getElementById("login_email").value,
                     "password" : document.getElementById("login_password").value,
-                    "security" : document.getElementById("send_pdf_nonce").value
+                    "security" : login_nonce
                 })
                 request.send(jsn_data);
 
             }
         }
     }
-    request.send();
+    jsn_data = JSON.stringify({
+        "type" : "login"
+    })
+    request.send(jsn_data);
 }

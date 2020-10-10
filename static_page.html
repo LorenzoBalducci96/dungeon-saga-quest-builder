@@ -67,13 +67,10 @@
     });
     
 </script>
+
+
+
 <body>
-
-<?php
-        require_once("../wp-load.php");
-        wp_nonce_field( 'send_pdf_nonce', 'send_pdf_nonce' );
-?>
-
     <div class="modal fade" id="please_wait_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-smog-dark">
@@ -140,57 +137,53 @@
                     </button>
                 </div>
                 
-                <div class="modal-body p-4" id="result">
+                <div class="modal-body p-4 funny_scrollbar_blue" id="result">
                     
-					<div class="row" style="margin-top: 8px;">
-						<div class="col-5 offset-1">
-									<button class="old_button" style="width:100%;" onclick="exportProjectToPDF(true)">UPLOAD PDF</button> 
-						</div>
-                        <div class="col-4 offset-1">
+                    <div class="row" style="margin-top: 8px;">
+                        <div class="col-4">
                             <button class="old_button" style="width:100%;" onclick="alert('sorry function not yet available');">download backup project</button> 
-						</div>
-                    </div>
-
-                    <div style="display:none;">
-                        <div class="row" style="justify-content: center;">
-                                <label class="label_output_modal" >PDF image quality :</label>
-                                <label class="label_output_modal" id="pdfExportQualityLabel">0.92</label>
                         </div>
-                        <div class="row align-items-center">
-                                <div class="col-4">
-                                <label style="width: 100%; text-align: right;">lower file size <-</label>
-                                </div>    
-                                <div class="col-4">
-                                <input type="range" class="rounded_range" id="pdfExportQuality" name="quality" 
-                                step="0.02" min="0.7" max="1" value="0.92" 
-                                onchange="document.getElementById('pdfExportQualityLabel').innerHTML = this.value" 
-                                oninput="document.getElementById('pdfExportQualityLabel').innerHTML = this.value">
-                                </div>
-                                <div class="col-4">
-                                <label style="width: 100%; text-align: left;">-> higher image quality</label>
-                                </div>
-                        </div>
-                        
-                        <div class="row" style="margin-top: 8px;">
-								<div class="col-4">
-										<button class="old_button" style="width:100%;" onclick="exportProjectToPDF(false)">export PDF</button> 
-								</div>
-                                <div class="col-8">
-                                <label class="label_output_modal">Generate and download an A-4 format PDF,
-                                        use the slider above to decide the quality of the output file </label>
-                                </div>
+                        <div class="col-8">
+                            <label class="label_output_modal">Download a backup file of you project.
+                            With this file you will be able to restore you project using the reopen quest from
+                            backup button</label>
                         </div>
                     </div>
-                    
-					<div class="row" style="margin-top: 8px;">
-						<div class="col-5 offset-1">
-							<label class="label_output_modal">Upload the PDF of you project to the community</label>
-						</div>
-						<div class="col-4 offset-1">
-							<label class="label_output_modal">Download a backup file of you project.
-							With this file you will be able to restore you project using the reopen quest from
-							backup button</label>
-						</div>
+                    <div class="row" style="justify-content: center;">
+                        <label class="label_output_modal" >PDF image quality :</label>
+                        <label class="label_output_modal" id="pdfExportQualityLabel">0.92</label>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <label style="width: 100%; text-align: right;">lower file size <-</label>
+                        </div>    
+                        <div class="col-4">
+                            <input type="range" class="rounded_range" id="pdfExportQuality" name="quality" 
+                            step="0.02" min="0.7" max="1" value="0.92" 
+                            onchange="document.getElementById('pdfExportQualityLabel').innerHTML = this.value" 
+                            oninput="document.getElementById('pdfExportQualityLabel').innerHTML = this.value">
+                        </div>
+                        <div class="col-4">
+                            <label style="width: 100%; text-align: left;">-> higher image quality</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <div class="col-4">
+                            <button class="old_button" style="width:100%;" onclick="exportProjectToPDF(false)">export PDF</button> 
+                        </div>
+                        <div class="col-8">
+                            <label class="label_output_modal">Generate and download an A-4 format PDF,
+                                 use the slider above to decide the quality of the output file </label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <div class="col-4">
+                            <button class="old_button" style="width:100%;" onclick="exportProjectToPDF(true)">upload project for contest</button> 
+                        </div>
+                        <div class="col-8">
+                            <label class="label_output_modal">Upload the PDF of you project, 
+                                (first download it with the button above here and take a final look)</label>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -638,5 +631,3 @@
 </body>
 
 </html>
-
-

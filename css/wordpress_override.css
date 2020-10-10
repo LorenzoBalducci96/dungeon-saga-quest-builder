@@ -1,0 +1,12 @@
+#sfsi_plus_floater{
+    display:none;
+    /*
+    z-index: 0 !important;
+    width:auto !important;
+    text-align: left !important; 
+    position:fixed !important;
+    right:30px !important;
+    top:calc(100vh - 200px) !important;
+    */
+  }
+  

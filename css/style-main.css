@@ -18,9 +18,8 @@ body{
     touch-action: manipulation;
 
     background-image: url("../assets/wood.jpg");
-    background-repeat: repeat-y;
+    /*background-repeat: repeat-y;*/
     background-size: 100%;
-    
 }
 
 [contenteditable] {
