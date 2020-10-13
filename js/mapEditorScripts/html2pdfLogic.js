@@ -123,18 +123,15 @@ function createOutputDivForPrint() {
 
     var pageWidth = maxX - minX
     var pageHeight = maxY - minY
-
     //document.getElementById("output").style.width = pdfPageWidth + "px";
     //document.getElementById("output").style.height = pdfPageHeight + "px";
-
     document.getElementById("output").style.width = pageWidth + "px";
     document.getElementById("output").style.height = pageHeight + "px";
-
 
     document.getElementById("output").style.display = "block"
     tilesOnMap.forEach(tile => {
         if (tile.getAttribute("pieceType") == "tile") {//we print just the tiles
-            var copyTile = tile.cloneNode(true);
+            let copyTile = tile.cloneNode(true);
             copyTile.style.width = tile.offsetWidth;
             copyTile.style.height = tile.offsetHeight;
             copyTile.style.left = (tile.offsetLeft - minX + marginLeft)/scale + "px";
@@ -142,27 +139,18 @@ function createOutputDivForPrint() {
             document.getElementById("output").appendChild(copyTile);
         }
         if (tile.getAttribute("pieceType") == "text") {//for the text just print the text and adjust offset height
-            //we have to convert to label because html2canvas has a bug for textarea
-            var label = document.createElement('label');
-            label.style.position = "absolute";
-            label.style.top = (tile.offsetTop + tile.childNodes[3].childNodes[1].offsetTop - minY + marginTop)/scale + "px";
-            label.style.left = (tile.offsetLeft + tile.childNodes[3].childNodes[1].offsetLeft - minX + marginLeft)/scale + "px";
-            label.style.width = tile.childNodes[3].childNodes[1].offsetWidth/scale + "px";
-            label.style.height = tile.childNodes[3].childNodes[1].offsetHeight/scale + "px";
-            label.style.fontSize = parseInt(tile.childNodes[3].childNodes[1].style.fontSize)/scale + "px";
-            /*
-            var style = window.getComputedStyle(tile.childNodes[3].childNodes[1], null).getPropertyValue('font-size');
-            var fontSize = parseFloat(style);
-            label.style.fontSize = fontSize + "px";
-            */
-            label.style.fontWeight = tile.childNodes[3].childNodes[1].style.fontWeight;
-            label.style.color = tile.childNodes[3].childNodes[1].style.color;
-            //label.style.fontFamily = "Impact,Charcoal,sans-serif";
-            //label.style.fontFamily = "Lucida Sans Unicode, Lucida Grande, sans-serif";
-            label.style.fontFamily = "Comic Sans MS, cursive, sans-serif";
-            label.numberOfLines = 0;
-            label.innerHTML = tile.childNodes[3].childNodes[1].value.replace(/\n/g, "<br>");
-            document.getElementById("output").appendChild(label);
+            let card = tile.cloneNode(true);
+            card = card.childNodes[3].childNodes[1];
+            card.style.position = "absolute";
+
+            card.style.top = (tile.offsetTop + tile.childNodes[3].childNodes[1].offsetTop - minY + marginTop)/scale + "px";
+            card.style.left = (tile.offsetLeft + tile.childNodes[3].childNodes[1].offsetLeft - minX + marginLeft)/scale + "px";
+            card.style.width = tile.childNodes[3].childNodes[1].offsetWidth/scale + "px";
+            card.style.height = tile.childNodes[3].childNodes[1].offsetHeight/scale + "px";
+
+            card.style.transform = tile.style.transform;
+            
+            document.getElementById("output").appendChild(card);
         }
     });
 }

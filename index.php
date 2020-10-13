@@ -36,6 +36,7 @@
 <link rel="stylesheet" type="text/css" href="css/style-editor.css">
 <link rel="stylesheet" type="text/css" href="css/style-modals.css">
 <link rel="stylesheet" type="text/css" href="css/range.css">
+<link rel="stylesheet" type="text/css" href="css/text-boxes.css">
 <link rel="stylesheet" type="text/css" href="css/wordpress_override.css">
 
 
@@ -616,6 +617,25 @@
 <image src="assets/tiles/qrnMarkers/Token-magic-Pyromancie.png" set="qrnMarkers" image="Token-magic-Pyromancie" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Pyromancie_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMarkers/Token-magic-sorcery.png" set="qrnMarkers" image="Token-magic-sorcery" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-sorcery_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMarkers/Token-Major-magic.png" set="qrnMarkers" image="Token-Major-magic" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-Major-magic_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                
+
+                    <div class="card" set="qrnMarkers" orientation="0" oncontextmenu="return false;" single="no" pieceType="text"
+                        onMap="no" id="textConfig_1" style="position: absolute; cursor: move; z-index: -1;">
+                        <div class="card-header" single="no" pieceType="text" draggable_trigger="true">
+                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
+                                onclick="incFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">+</button>
+                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
+                                onclick="decFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">-</button>
+                        </div>
+
+                        <div class="card-body funny_scrollbar_blue" single="no" pieceType="text">
+                            <textarea class="text_area_on_card" ontouchend="endResize()" ontouchmove="resizeTextArea(event, this)" id="text_1" style="font-size: 22px; font-weight: bold;" single="no" pieceType="text"
+                                draggable_trigger="false">Special rules</textarea>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
 

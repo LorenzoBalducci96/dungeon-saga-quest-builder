@@ -65,9 +65,11 @@ function rearrangeElementsAfterZoomMap(oldZoom, newZoom){
     });
     document.querySelectorAll("[piecetype='text'][onmap='yes']").forEach(elmnt => {
         let scaleFactor = newZoom/oldZoom;
-        elmnt.childNodes[3].childNodes[1].style.fontSize = parseInt(elmnt.childNodes[3].childNodes[1].style.fontSize)*scaleFactor + "px";
-        //elmnt.style.top = (elmnt.childNodes[3].childNodes[1].offsetTop*scaleFactor + elmnt.childNodes[1].offsetHeight*scaleFactor) + "px";
-        //elmnt.style.left = (elmnt.offsetLeft*scaleFactor) + "px";
+        elmnt.style.transform = "scale(" + newZoom + ")";
+        
+        //elmnt.childNodes[3].childNodes[1].style.fontSize = parseInt(elmnt.childNodes[3].childNodes[1].style.fontSize)*scaleFactor + "px";
+        ////elmnt.style.top = (elmnt.childNodes[3].childNodes[1].offsetTop*scaleFactor + elmnt.childNodes[1].offsetHeight*scaleFactor) + "px";
+        ////elmnt.style.left = (elmnt.offsetLeft*scaleFactor) + "px";
         
         elmnt.style.top = (elmnt.offsetTop*scaleFactor /*- elmnt.childNodes[1].offsetHeight*scaleFactor*/) + "px";
         elmnt.style.left = elmnt.offsetLeft*scaleFactor + "px";

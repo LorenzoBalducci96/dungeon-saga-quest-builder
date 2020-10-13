@@ -1,0 +1,55 @@
+
+.card{
+    background-color: #fff8;
+    transform-origin: left top;
+}
+
+.card:hover{
+    background-color: #fffc;
+}
+
+.card .card-header{
+    padding: 0;
+}
+
+.card .card-body{
+    padding: 0;
+}
+
+.text_area_on_card{
+    width:100%; 
+    max-width: 100%;
+    min-height: 64px;
+    min-width: 64px;
+    resize: both;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+
+    color: white;
+    font-weight: bold;
+    background: rgb(56,22,3);
+    background: linear-gradient(90deg, rgba(56,22,3,1) 0%, rgba(66,0,2,1) 35%, rgba(74,12,10,1) 100%);
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 4px #00000099;
+    border: none;
+}
+
+.card[onmap = "no"] button{
+    visibility: hidden;
+}
+
+.card button{
+    font-size: 16px;
+    height:32px; width:32px; 
+    /*
+    font-size: 1vw;
+    height:3vh; width:3vh; 
+    */
+}
+
+.text_box_button{
+    padding: 0px;
+    margin-top:4px;
+    margin-bottom: 4px;
+    margin-left:2px;
+}
+  
