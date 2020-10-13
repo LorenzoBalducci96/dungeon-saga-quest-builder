@@ -173,8 +173,6 @@ body{
     min-height: 29.7cm;
     max-height: 29.7cm;
     margin: 1cm auto;
-    border: 1px #D3D3D3 solid;
-    border-radius: 5px;
     background-repeat: no-repeat;
     background-size: 100%;
 
@@ -194,6 +192,9 @@ body{
 
 /*tiles rotating is handled in javascript with a transform over pages-inner*/
 #first-page{
+    border-radius: 5px;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
     background-image: url("../assets/Fond-parchemin-2.jpg");
 
     position: absolute;
@@ -202,6 +203,9 @@ body{
 }
 
 #second-page{
+    border-radius: 5px;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
     background-image: url("../assets/Fond-parchemin-3.jpg");
     position: absolute;
     -webkit-backface-visibility: hidden; /* Safari */
