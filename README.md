@@ -32,3 +32,19 @@ When the editing of the map is finished just press return to editor; the edited 
 Use the map zoom buttons in the editor for adjust the map dimension.  
 ![map editor demo](/repo_doc/the_map_editor.png?raw=true "MAP_EDITOR_PAGE")
 
+
+The behaviour of the elements in the map editor is defined by their attribute in the HTML page: 
+flippable = [yes or no] define if the element has another side (in case of a tile, there are 2 side, if one side is in the map the corresponding other cannot be put).
+If is yes, the two pieces must have the same file that ends with A or B like:
+element-of-side-A.png and element-of-side-B.png
+snap = [yes or no] If is no the element can be placed anywhere in the map, if is yes the element “snaps” into a square of the grid.
+single = [yes or no] if is yes the user can put just one in the map (tiles bosses furnitures),
+if is no multiple elements can be placed in the map (markers, minions).
+If an element is single the id attribute must be the piece name without .png,
+id="Boss-Mortibris-human-Necromancer"
+If an element is not single the id must be piece-name_1 like:
+id="markers-that-can-appear-multiple-time-in-the-map_1"
+
+Bacause of this, images resources cannot be named with something_X
+
+
