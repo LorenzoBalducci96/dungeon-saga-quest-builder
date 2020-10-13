@@ -18,18 +18,18 @@ function changePage(){
     else if(actual_page == 2){
         actual_page = 1;
         activePage(1);
-        document.getElementById("switch_page_button").src = "assets/next_page.png"
+        document.getElementById("switch_page_button").src = "assets/next_page.png";
     }
 }
 
 function activePage(pageToSet){
     if(pageToSet == 1){
-        page_rotateY = 0
+        page_rotateY = 0;
         page_translate = 0;
         document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }
     else if(pageToSet == 2){
-        page_rotateY = -180
+        page_rotateY = -180;
         page_translate = -100;
         document.getElementById("pages-inner").style.transform = get_page_transform_string();
     }

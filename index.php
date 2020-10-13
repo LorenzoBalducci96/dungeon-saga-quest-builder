@@ -32,14 +32,12 @@
 <script type="text/javascript" src="js/mapEditorScripts/html2pdfLogic.js"></script>
 <script type="text/javascript" src="js/mapEditorScripts/scaleUi.js"></script>
 
-
-
-
-
 <link rel="stylesheet" type="text/css" href="css/style-main.css">
 <link rel="stylesheet" type="text/css" href="css/style-editor.css">
 <link rel="stylesheet" type="text/css" href="css/style-modals.css">
 <link rel="stylesheet" type="text/css" href="css/range.css">
+<link rel="stylesheet" type="text/css" href="css/wordpress_override.css">
+
 
 <script>
     if(detectBrowser() == "IE"){
@@ -236,7 +234,7 @@
                         </div>
                         <div style="position: absolute; bottom:2px; width:100%;">
                         <button class="old_button" style="margin-left:4px;" onclick="document.location='../'">EXIT</button>
-                        <label style="text-align: center; width:100%;">version 1.1</label>
+                        <label style="text-align: center; width:100%;">version 1.2</label>
                         </div>
                         
                         
@@ -299,7 +297,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
+                                        <img draggable="false" src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
 
                                         <div class="row">
                                             <div id="main-page-section-2" class="col-4">

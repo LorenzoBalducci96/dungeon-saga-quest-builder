@@ -40,6 +40,7 @@
 <link rel="stylesheet" type="text/css" href="css/style-editor.css">
 <link rel="stylesheet" type="text/css" href="css/style-modals.css">
 <link rel="stylesheet" type="text/css" href="css/range.css">
+<link rel="stylesheet" type="text/css" href="css/wordpress_override.css">
 
 <script>
     if(detectBrowser() == "IE"){
@@ -65,10 +66,7 @@
     $(document).on('hidden.bs.modal', '.modal', function () {
         $('.modal:visible').length && $(document.body).addClass('modal-open');
     });
-    
 </script>
-
-
 
 <body>
     <div class="modal fade" id="please_wait_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -78,8 +76,8 @@
                     <div class="row align-items-center" style="width: 100%; text-align: center;">
                         <div class="col-6 offset-1">
                             <label style="font-size: 24px;">
-                                PLEASE WAIT    
-                            </label>    
+                                PLEASE WAIT
+                            </label>
                         </div>
                         <div class="col-4">
                             <img src="assets/loading.gif" style="width: 100%;">
@@ -97,13 +95,13 @@
                     <label id="message_modal_label"></label>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="confirm_message_button" class="btn btn-default" 
+                    <button type="button" id="confirm_message_button" class="btn btn-default"
                     data-dismiss="modal">ok</button>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="instant_login_modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content modal-smog-dark">
@@ -124,7 +122,6 @@
             </div>
         </div>
     </div>
-    
 
     <div class="modal fade" id="loading_modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-full" role="document">
@@ -167,8 +164,7 @@
                             <label style="width: 100%; text-align: left;">-> higher image quality</label>
                         </div>
                     </div>
-                    <div class="row" style="margin-top: 8px;">
-                        <div class="col-4">
+                    <div class="row" style="margin-top: 8px;">                         <div class="col-4">
                             <button class="old_button" style="width:100%;" onclick="exportProjectToPDF(false)">export PDF</button> 
                         </div>
                         <div class="col-8">
