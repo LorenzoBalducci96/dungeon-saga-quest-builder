@@ -270,6 +270,9 @@ function moveElement(oldPosX, oldPosY, clientX, clientY, elmnt) {
             elmnt.style.left = (clientX - (((clientX - oldLeft) * elmnt.offsetWidth) / oldWidth)) + "px";
             elmnt.style.top = (clientY - (((clientY - oldTop) * elmnt.offsetHeight) / oldHeigth) + (document.getElementById(activeSet).scrollTop) - document.getElementById(activeSet).offsetTop) + "px";
             elmnt.setAttribute("onMap", "no")
+            if(elmnt.getAttribute("pieceType") == "text"){
+                elmnt.style.transform = "scale(1)";
+            }
         }
 
     } else if (clientX > document.getElementById(activeSet).offsetWidth) {
@@ -284,6 +287,10 @@ function moveElement(oldPosX, oldPosY, clientX, clientY, elmnt) {
             elmnt.style.left = (clientX - (((clientX - oldLeft) * elmnt.offsetWidth*scale) / oldWidth) - document.getElementById("map").offsetLeft + document.getElementById("map").scrollLeft) + "px";
             elmnt.style.top = (clientY - (((clientY - oldTop) * elmnt.offsetHeight*scale) / oldHeigth) - document.getElementById("map").offsetTop + document.getElementById("map").scrollTop) + "px";
             elmnt.setAttribute("onMap", "yes")
+
+            if(elmnt.getAttribute("pieceType") == "text"){
+                elmnt.style.transform = "scale(" + scale + ")";
+            }
         }
     }
 }
