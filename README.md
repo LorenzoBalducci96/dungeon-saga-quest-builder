@@ -16,6 +16,7 @@ Is possible to edit all the text-areas, the buttons to the left allow to
 3) change dimensions of the map in the second sheet.
 4) The "FINISH" button allow you to conclude the project and export a PDF or download the backup of the project
 5) return to menu
+
 ![first page demo](/repo_doc/first_page.png?raw=true "FIRST_PAGE")
 
 
