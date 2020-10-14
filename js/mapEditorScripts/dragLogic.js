@@ -319,12 +319,14 @@ function moveElement(oldPosX, oldPosY, clientX, clientY, elmnt) {
 }
 
 function endMoveElement(pieces, multipleElementsDragging) {
-    offsetMultipleDrag_x = 0;
-    offsetMultipleDrag_y = 0;
+    let mustApplySnapMultipleElements = true;
+    if(!(multipleElementsDragging == "yes")){
+        mustApplySnapMultipleElements = false;
+    }
+    
     pieces.forEach(elmnt => {
-        var end_top = elmnt.style.offsetTop;
-        var end_left = elmnt.style.offsetLeft;
         if (elmnt.getAttribute("onMap") == "no") {
+            mustApplySnapMultipleElements = false;
             if (elmnt.getAttribute("single") == "yes") {//updating visibility of other side tiles
                 var placeholderImage = document.getElementById("placeholder_" + elmnt.getAttribute("image"));
                 elmnt.setAttribute("onMap", "no");
@@ -346,7 +348,6 @@ function endMoveElement(pieces, multipleElementsDragging) {
                     var placeholderOtherSide = document.getElementById(elmnt.id.substring(0, elmnt.id.length - 1) + tileFace);
                     placeholderOtherSide.style.visibility = "";
                 }
-
             } else {
                 var placeholderImage = document.getElementById("placeholder_" + elmnt.getAttribute("image"));//elmnt.id.substr(0, elmnt.id.lastIndexOf("_") + 1) + "1");
                 elmnt.parentNode.removeChild(elmnt);
@@ -377,7 +378,8 @@ function endMoveElement(pieces, multipleElementsDragging) {
     });
     returnOnMap(pieces);
 
-    if(multipleElementsDragging == "yes"){
+
+    if(mustApplySnapMultipleElements){
         snapMultipleElements(pieces);
     }
 }
@@ -572,6 +574,8 @@ function startRotateMultipleElements() {
         rotateElement(elmnt);
     });
 
+    snapMultipleElements(selectedPieces);
+
 }
 
 function returnOnMap(piecesToReadjust) {
@@ -590,8 +594,8 @@ function returnOnMap(piecesToReadjust) {
 
     translationRight = Math.abs(translationRight)
     translationTop = Math.abs(translationTop)
-    translationRight = (Math.round(translationRight / (72*scale)) * (72*scale));
-    translationTop = (Math.round(translationTop / (72*scale)) * (72*scale));
+    translationRight = (Math.round(translationRight / (pixels_for_one_square*scale)) * (pixels_for_one_square*scale));
+    translationTop = (Math.round(translationTop / (pixels_for_one_square*scale)) * (pixels_for_one_square*scale));
     piecesToReadjust.forEach(elmnt => {
         elmnt.style.left = elmnt.offsetLeft + translationRight + "px"
         elmnt.style.top = elmnt.offsetTop + translationTop + "px"

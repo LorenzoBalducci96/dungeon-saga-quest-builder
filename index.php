@@ -299,7 +299,7 @@
                                             </div>
                                         </div>
 
-                                        <img draggable="false" src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%">
+                                        <img draggable="false" src="assets/gem_spacer.png" id="top-gem-spacer" style="width: 100%; pointer-events: none;">
 
                                         <div class="row">
                                             <div id="main-page-section-2" class="col-4">
