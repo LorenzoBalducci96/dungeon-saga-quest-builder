@@ -7,8 +7,9 @@ var tiles = [];
 var offsetTopTiles = [];
 var count = 0;
 
-setsLists = ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", 
-"qrnLocks", "qrnTraps", "qrnMarkers", "qrnBosses"];
+var setsLists = []; //= ["qrnA", "qrnB", "qrnHeroes", "qrnMinions", "qrnFurnitures", "qrnLocks", "qrnTraps", "qrnMarkers", "qrnBosses"];
+
+
 
 var margin_of_tiles_on_sidenav = 8
 
@@ -39,6 +40,11 @@ function initCanvasDragShower(elmnt) {
 }
 
 function bootstrap_page() {
+    document.querySelectorAll(".sidenav").forEach(element => {
+        setsLists.push(element.getAttribute("id"));
+    });
+    
+    
     zoomed = document.getElementById("first-page");
     /*
     zoomed = document.getElementById("first-page");

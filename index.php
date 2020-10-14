@@ -398,31 +398,35 @@
         </div>
 
         <div id="application">
-
-            <div id="generalMenuContainer">
-                <button id="triggerGeneralMenuButton" style="width: 90%; padding-top: 2px; padding-bottom: 2px;"  class="old_button" 
-                onclick="triggerGeneralMenu()">↑</button>
-                <div id="generalMenu" style="visibility: hidden;">
-                    <button class="innerMenuButton">bla bla bla</button>
-                    <button class="innerMenuButton">lorem ipsum</button>
-                </div>
-            </div>
-
-
             <div class="sidebar-container">
                 <div id="tilesSelectorBar" style="text-align: center;">
                     <button id="triggerInnerMenuButton" style="width: 90%; padding-top: 2px; padding-bottom: 2px;"  class="old_button" 
                     onclick="triggerInnerMenu()">↓</button>
                     <div id="innerMenu" style="visibility: hidden;">
-                        <button class="innerMenuButton" style="width:90%; opacity: 0.5;" id="loadQrnA" onclick="loadQrnA()">side A</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnB" onclick="loadQrnB()">side B</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnHeroes" onclick="loadQrnHeroes()">Heroes</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnMinions" onclick="loadQrnMinions()">Minions</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnFurnitures" onclick="loadQrnFurnitures()">Furnitures</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnLocks" onclick="loadQrnLocks()">Locks</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnTraps" onclick="loadQrnTraps()">Traps</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadQrnMarkers()">Markers</button>
-                        <button class="innerMenuButton" style="width:90%;" id="loadQrnBosses" onclick="loadQrnBosses()">Bosses</button>
+                        <div id="elementsMenu0" setName="base set">
+                            <button class="innerMenuButton" style="width:90%; opacity: 0.5;" id="loadQrnA" onclick="loadElementsGroup('qrnA', this)">side A</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnB" onclick="loadElementsGroup('qrnB', this)">side B</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnHeroes" onclick="loadElementsGroup('qrnHeroes', this)">Heroes</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnMinions" onclick="loadElementsGroup('qrnMinions', this)">Minions</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnFurnitures" onclick="loadElementsGroup('qrnFurnitures', this)">Furnitures</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnLocks" onclick="loadElementsGroup('qrnLocks', this)">Locks</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnTraps" onclick="loadElementsGroup('qrnTraps', this)">Traps</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadElementsGroup('qrnMarkers', this)">Markers</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnBosses" onclick="loadElementsGroup('qrnBosses', this)">Bosses</button>
+                        </div>
+                        
+                        <div id="elementsMenu1" setName="return of valandor" style="display:none">
+                            <button class="innerMenuButton" id="loadRvA" style="width:90%;" onclick="loadElementsGroup('rvA', this)">tiles unique side</button>
+                            <button class="innerMenuButton" id="loadRvHeroes" style="width:90%;" onclick="loadElementsGroup('rvHeroes', this)">Heroes</button>
+                        </div>
+                        <div id="elementsMenu2" setName="the infernal crypt" style="display:none">
+                            <button class="innerMenuButton" style="width:90%;" onclick="loadElementsGroup('qrnTraps', this)">todo</button>
+                        </div>
+                        <div>
+                            <button class="innerMenuButton" onclick="previousElementsMenu()">←</button>
+                            <label id="activeMenuLabel">base set</label>
+                            <button class="innerMenuButton" onclick="nextElementsMenu()">→</button>
+                        </div>
                     </div>
                 </div>
 
@@ -596,6 +600,29 @@
 <image src="assets/tiles/qrnTraps/marker-Trap-spike-pit.png" set="qrnTraps" image="marker-Trap-spike-pit" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-spike-pit_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnTraps/marker-Trap-stunner-DS.png" set="qrnTraps" image="marker-Trap-stunner-DS" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="marker-Trap-stunner-DS_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
+
+                <div class="sidenav" id="rvA" style="visibility: hidden;">
+<image src="assets/tiles/rvA/RV-1.png" set="rvA" image="RV-1" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-2.png" set="rvA" image="RV-2" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-2x2.png" set="rvA" image="RV-2x2" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-2x2_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3+3S.png" set="rvA" image="RV-3+3S" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3+3S_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3.png" set="rvA" image="RV-3" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3L.png" set="rvA" image="RV-3L" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3L_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3x3V.png" set="rvA" image="RV-3x3V" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3x3V_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3x5.png" set="rvA" image="RV-3x5" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3x5_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-3x6.png" set="rvA" image="RV-3x6" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-3x6_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-4T.png" set="rvA" image="RV-4T" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-4T_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-5x2E.png" set="rvA" image="RV-5x2E" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-5x2E_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-5x2TT.png" set="rvA" image="RV-5x2TT" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-5x2TT_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/rvA/RV-7x7rond.png" set="rvA" image="RV-7x7rond" flippable="no" orientation="0" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-7x7rond_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                </div>
+
+                <div class="sidenav" id="rvHeroes" style="visibility: hidden;">
+                    <image src="assets/tiles/rvHeroes/RV-starting-position-hero.png" set="rvHeroes" image="RV-starting-position-hero" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-starting-position-hero_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    <image src="assets/tiles/rvHeroes/RV-hero-Valandor-warrior-sorcerer.png" set="rvHeroes" image="RV-hero-Valandor-warrior-sorcerer" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="RV-hero-Valandor-warrior-sorcerer" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                </div>
+
+
                 <div class="sidenav" id="qrnMarkers" style="visibility: hidden;">
 <image src="assets/tiles/qrnMarkers/Point-A.png" set="qrnMarkers" image="Point-A" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-A_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMarkers/Point-B.png" set="qrnMarkers" image="Point-B" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-B_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>

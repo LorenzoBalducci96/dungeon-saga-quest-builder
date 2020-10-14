@@ -11,8 +11,8 @@
     --dice-div-width: 290px;
     --dice-face-size: 72px;
 
-    --inner-menu-height: 50vh;
-    --inner-menu-width: 12vw;
+    --inner-menu-height: 80vh;
+    --inner-menu-width: 16vw;
 
 
     --scale: 1;
@@ -125,7 +125,7 @@
 }
 
 #innerMenu{
-    /*height: var(--inner-menu-height);*/
+    max-height: var(--inner-menu-height);
     position: absolute;
     overflow: auto;
     width: var(--inner-menu-width);

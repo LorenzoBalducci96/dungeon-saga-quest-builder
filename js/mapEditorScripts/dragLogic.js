@@ -255,6 +255,29 @@ function snap(elmnt) {
     elmnt.style.left = end_left + "px";
 }
 
+function snapMultipleElements(pieces) {
+    offsetMultipleDrag_x = 0;
+    offsetMultipleDrag_y = 0;
+
+    pieces.forEach(elmnt => {
+        if(elmnt.getAttribute("snap") == "yes"){
+            let end_top = parseInt(elmnt.style.top, 10)
+            let end_left = parseInt(elmnt.style.left, 10)
+            
+            end_top = (Math.round((end_top + offset_for_border*scale) / (pixels_for_one_square*scale)) 
+                            * (pixels_for_one_square*scale)) - pixels_for_one_square*scale;
+            end_left = (Math.round((end_left + offset_for_border*scale) / (pixels_for_one_square*scale)) 
+                            * (pixels_for_one_square*scale)) - pixels_for_one_square*scale;
+            offsetMultipleDrag_x = parseInt(elmnt.style.left, 10) - end_left;
+            offsetMultipleDrag_y = parseInt(elmnt.style.top, 10) - end_top;
+        }
+    });
+    pieces.forEach(elmnt => {
+        elmnt.style.top = elmnt.offsetTop - offsetMultipleDrag_y + "px";
+        elmnt.style.left = elmnt.offsetLeft - offsetMultipleDrag_x + "px";
+    });
+}
+
 function moveElement(oldPosX, oldPosY, clientX, clientY, elmnt) {
     elmnt.style.top = (elmnt.offsetTop - oldPosY) + "px";
     elmnt.style.left = (elmnt.offsetLeft - oldPosX) + "px";
@@ -296,6 +319,8 @@ function moveElement(oldPosX, oldPosY, clientX, clientY, elmnt) {
 }
 
 function endMoveElement(pieces, multipleElementsDragging) {
+    offsetMultipleDrag_x = 0;
+    offsetMultipleDrag_y = 0;
     pieces.forEach(elmnt => {
         var end_top = elmnt.style.offsetTop;
         var end_left = elmnt.style.offsetLeft;
@@ -340,7 +365,7 @@ function endMoveElement(pieces, multipleElementsDragging) {
                     placeholderOtherSide.style.visibility = "hidden";
                 }
             }
-            if (multipleElementsDragging == "yes" || elmnt.getAttribute("snap") == "yes") {
+            if (!(multipleElementsDragging == "yes") && elmnt.getAttribute("snap") == "yes") {
                 snap(elmnt)
             }
 
@@ -351,6 +376,10 @@ function endMoveElement(pieces, multipleElementsDragging) {
         }
     });
     returnOnMap(pieces);
+
+    if(multipleElementsDragging == "yes"){
+        snapMultipleElements(pieces);
+    }
 }
 tapedTwice = false;
 
@@ -537,12 +566,12 @@ function startRotateMultipleElements() {
         selectedPieces[i].style.top = newTop;
         selectedPieces[i].style.left = newLeft;
     }
+    returnOnMap(selectedPieces);
 
     selectedPieces.forEach(elmnt => {
         rotateElement(elmnt);
     });
 
-    returnOnMap(selectedPieces);
 }
 
 function returnOnMap(piecesToReadjust) {

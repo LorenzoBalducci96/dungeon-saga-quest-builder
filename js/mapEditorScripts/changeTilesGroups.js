@@ -1,4 +1,5 @@
-var activeSet = "qrnA"
+var activeSet = "qrnA";
+var activeMenu = 0;
 var activeArea = "A";
 
 function triggerInnerMenu(){
@@ -26,6 +27,10 @@ function triggerGeneralMenu(){
 //this code is reverted back from the structure that was using JSON logic...now is a bit mess
 
 function setDefault(){
+    document.querySelectorAll(".innerMenuButton").forEach(element => {
+        element.style.opacity = "0.9";
+    });
+    /*
     document.getElementById("loadQrnHeroes").style.visibility = "";
     document.getElementById("loadQrnA").style.visibility = "";
     document.getElementById("loadQrnB").style.visibility = "";
@@ -39,8 +44,41 @@ function setDefault(){
     document.getElementById("loadQrnTraps").style.opacity = "0.9";
     document.getElementById("loadQrnMarkers").style.opacity = "0.9";
     document.getElementById("loadQrnBosses").style.opacity = "0.9";
+    */
 }
 
+function loadElementsGroup(id, button){
+    document.getElementById(activeSet).style.visibility = "hidden"
+    document.getElementById(id).style.visibility = ""
+
+    setDefault();
+    button.style.opacity = "0.5";
+    activeSet = id;
+}
+
+function previousElementsMenu(){
+    let menuToActivate = document.getElementById("elementsMenu" + (activeMenu-1))
+    if(menuToActivate !== null){
+        document.getElementById("elementsMenu" + activeMenu).style.display = "none";
+        menuToActivate.style.display = "block";
+        activeMenu = activeMenu - 1;
+    }
+    document.getElementById("activeMenuLabel").innerHTML = menuToActivate.getAttribute("setName");
+}
+
+
+function nextElementsMenu(){
+    let menuToActivate = document.getElementById("elementsMenu" + (activeMenu+1))
+    if(menuToActivate !== null){
+        document.getElementById("elementsMenu" + activeMenu).style.display = "none";
+        menuToActivate.style.display = "block";
+        activeMenu = activeMenu + 1;
+    }
+    document.getElementById("activeMenuLabel").innerHTML = menuToActivate.getAttribute("setName");
+}
+
+
+/*
 function loadQrnB() {
     document.getElementById(activeSet).style.visibility = "hidden"
     document.getElementById("qrnB").style.visibility = ""
@@ -122,3 +160,5 @@ function loadQrnBosses(){
     document.getElementById("loadQrnBosses").style.opacity = "0.5";
     activeSet = "qrnBosses"
 }
+*/
+
