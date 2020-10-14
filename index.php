@@ -416,16 +416,17 @@
                             <button class="innerMenuButton" style="width:90%;" id="loadQrnFurnitures" onclick="loadElementsGroup('qrnFurnitures', this)">Furnitures</button>
                             <button class="innerMenuButton" style="width:90%;" id="loadQrnLocks" onclick="loadElementsGroup('qrnLocks', this)">Locks</button>
                             <button class="innerMenuButton" style="width:90%;" id="loadQrnTraps" onclick="loadElementsGroup('qrnTraps', this)">Traps</button>
-                            <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadElementsGroup('qrnMarkers', this)">Markers</button>
                             <button class="innerMenuButton" style="width:90%;" id="loadQrnBosses" onclick="loadElementsGroup('qrnBosses', this)">Bosses</button>
                         </div>
                         
                         <div id="elementsMenu1" setName="return of valandor" style="display:none">
                             <button class="innerMenuButton" id="loadRvA" style="width:90%;" onclick="loadElementsGroup('rvA', this)">tiles unique side</button>
                             <button class="innerMenuButton" id="loadRvHeroes" style="width:90%;" onclick="loadElementsGroup('rvHeroes', this)">Heroes</button>
+                            <button class="innerMenuButton" id="loadRvBosses" style="width:90%;" onclick="loadElementsGroup('rvBosses', this)">Bosses</button>
                         </div>
-                        <div id="elementsMenu2" setName="the infernal crypt" style="display:none">
-                            <button class="innerMenuButton" style="width:90%;" onclick="loadElementsGroup('qrnTraps', this)">todo</button>
+                        <div id="elementsMenu2" setName="markers and extra" style="display:none">
+                            <button class="innerMenuButton" style="width:90%;" id="loadTextBoxes" onclick="loadElementsGroup('textBoxes', this)">Text</button>
+                            <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadElementsGroup('qrnMarkers', this)">Markers</button>
                         </div>
                     </div>
                 </div>
@@ -621,7 +622,27 @@
                     <image src="assets/tiles/rvHeroes/RV-starting-position-hero.png" set="rvHeroes" image="RV-starting-position-hero" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-starting-position-hero_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                     <image src="assets/tiles/rvHeroes/RV-hero-Valandor-warrior-sorcerer.png" set="rvHeroes" image="RV-hero-Valandor-warrior-sorcerer" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="RV-hero-Valandor-warrior-sorcerer" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                 </div>
+                <div class="sidenav" id="rvBosses" style="visibility: hidden;">
+                    <image src="assets/tiles/rvBosses/RV-starting-position-boss.png" set="rvBosses" image="RV-starting-position-boss" orientation="0" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="RV-starting-position-boss_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    <image src="assets/tiles/rvBosses/RV-Boss-Bael-Seigneur-demon-undead.png" set="rvBosses" image="RV-Boss-Bael-Seigneur-demon-undead" orientation="0" flippable="no" single="yes" pieceType="tile" snap="no" oncontextmenu="return false;" id="RV-Boss-Bael-Seigneur-demon-undead" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                </div>
 
+                <div class="sidenav" id="textBoxes" style="visibility: hidden;">
+                    <div class="card" set="textBoxes" orientation="0" oncontextmenu="return false;" single="no" pieceType="text"
+                        onMap="no" id="textConfig_1" style="position: absolute; cursor: move; z-index: -1;">
+                        <div class="card-header" single="no" pieceType="text" draggable_trigger="true">
+                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
+                                onclick="incFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">+</button>
+                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
+                                onclick="decFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">-</button>
+                        </div>
+
+                        <div class="card-body funny_scrollbar_blue" single="no" pieceType="text">
+                            <textarea class="text_area_on_card" ontouchend="endResize()" ontouchmove="resizeTextArea(event, this)" id="text_1" style="font-size: 22px; font-weight: bold;" single="no" pieceType="text"
+                                draggable_trigger="false">Special rules</textarea>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="sidenav" id="qrnMarkers" style="visibility: hidden;">
 <image src="assets/tiles/qrnMarkers/Point-A.png" set="qrnMarkers" image="Point-A" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Point-A_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
@@ -646,25 +667,6 @@
 <image src="assets/tiles/qrnMarkers/Token-magic-Pyromancie.png" set="qrnMarkers" image="Token-magic-Pyromancie" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-Pyromancie_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMarkers/Token-magic-sorcery.png" set="qrnMarkers" image="Token-magic-sorcery" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-magic-sorcery_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
 <image src="assets/tiles/qrnMarkers/Token-Major-magic.png" set="qrnMarkers" image="Token-Major-magic" orientation="0" single="no" pieceType="tile" snap="yes" flippable="no" oncontextmenu="return false;" id="Token-Major-magic_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
-                
-
-                    <div class="card" set="qrnMarkers" orientation="0" oncontextmenu="return false;" single="no" pieceType="text"
-                        onMap="no" id="textConfig_1" style="position: absolute; cursor: move; z-index: -1;">
-                        <div class="card-header" single="no" pieceType="text" draggable_trigger="true">
-                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
-                                onclick="incFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">+</button>
-                            <button class="old_button text_box_button" single="no" pieceType="text" draggable_trigger="false"
-                                onclick="decFont(this.parentNode.parentNode.childNodes[3].childNodes[1])">-</button>
-                        </div>
-
-                        <div class="card-body funny_scrollbar_blue" single="no" pieceType="text">
-                            <textarea class="text_area_on_card" ontouchend="endResize()" ontouchmove="resizeTextArea(event, this)" id="text_1" style="font-size: 22px; font-weight: bold;" single="no" pieceType="text"
-                                draggable_trigger="false">Special rules</textarea>
-                        </div>
-                    </div>
-
-
-
                 </div>
             </div>
 

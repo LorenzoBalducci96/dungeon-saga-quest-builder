@@ -378,7 +378,6 @@ function endMoveElement(pieces, multipleElementsDragging) {
     });
     returnOnMap(pieces);
 
-
     if(mustApplySnapMultipleElements){
         snapMultipleElements(pieces);
     }
