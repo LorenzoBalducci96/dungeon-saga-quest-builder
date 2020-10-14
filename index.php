@@ -31,6 +31,7 @@
 <script type="text/javascript" src="js/mapEditorScripts/changeTilesGroups.js"></script>
 <script type="text/javascript" src="js/mapEditorScripts/html2pdfLogic.js"></script>
 <script type="text/javascript" src="js/mapEditorScripts/scaleUi.js"></script>
+<script type="text/javascript" src="js/mapEditorScripts/textBoxesLogic.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/style-main.css">
 <link rel="stylesheet" type="text/css" href="css/style-editor.css">
