@@ -403,6 +403,11 @@
                     <button id="triggerInnerMenuButton" style="width: 90%; padding-top: 2px; padding-bottom: 2px;"  class="old_button" 
                     onclick="triggerInnerMenu()">↓</button>
                     <div id="innerMenu" style="visibility: hidden;">
+                        <div>
+                            <button class="innerMenuButton" style="float:left;" onclick="previousElementsMenu()">←</button>
+                            <label id="activeMenuLabel">base set</label>
+                            <button class="innerMenuButton" style="float:right;" onclick="nextElementsMenu()">→</button>
+                        </div>
                         <div id="elementsMenu0" setName="base set">
                             <button class="innerMenuButton" style="width:90%; opacity: 0.5;" id="loadQrnA" onclick="loadElementsGroup('qrnA', this)">side A</button>
                             <button class="innerMenuButton" style="width:90%;" id="loadQrnB" onclick="loadElementsGroup('qrnB', this)">side B</button>
@@ -421,11 +426,6 @@
                         </div>
                         <div id="elementsMenu2" setName="the infernal crypt" style="display:none">
                             <button class="innerMenuButton" style="width:90%;" onclick="loadElementsGroup('qrnTraps', this)">todo</button>
-                        </div>
-                        <div>
-                            <button class="innerMenuButton" onclick="previousElementsMenu()">←</button>
-                            <label id="activeMenuLabel">base set</label>
-                            <button class="innerMenuButton" onclick="nextElementsMenu()">→</button>
                         </div>
                     </div>
                 </div>
