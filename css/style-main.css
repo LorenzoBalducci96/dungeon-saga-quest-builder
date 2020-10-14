@@ -152,6 +152,11 @@ body{
     /*overflow: auto;*/
 }
 
+*[contenteditable="true"]:hover{
+    border: 2px solid #3d3d3d;
+    margin: -2px;
+}
+
 .main-page{
     /*zoom: 0.5;*/
     width: 100%;
@@ -231,9 +236,10 @@ body{
     background: linear-gradient(90deg, rgba(56,22,3,1) 0%, rgba(66,0,2,1) 35%, rgba(74,12,10,1) 100%);
     border-radius: 5px;
     box-shadow: 0px 0px 4px 4px #00000099;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 #special-rules-title{
-    margin-top: 4px;
     text-decoration-line: underline;
     font-style: italic;
     font-weight: bold;
@@ -245,21 +251,25 @@ body{
 
 /*second sheet*/
 .tactical_tips_box{
+    width: 100%;
     border-style: solid;
     padding:8px;
 }
 
 .tactical-tips-title{
+    width: 100%;
     font-weight: bold;
     color: #991111;
 }
 
 .in-the-end{
+    width: 100%;
     border-style: solid;
     padding:8px;
 }
 
 .in-the-end-title{
+    width: 100%;
     font-weight: bold;
     color: #991111;
 }

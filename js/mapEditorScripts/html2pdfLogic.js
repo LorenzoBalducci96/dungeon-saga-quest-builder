@@ -8,14 +8,20 @@ var PDF_export_quality = 0.92; //between 0.1 and 1... 0.9 is about 380kb, 0.8 is
 var fixed_pdf_quality_for_mail = 0.90;
 
 var pdfBase64;
-
-
+var author_email;
 
 function finishProjectOptions(){
-    projectZoom("0");
-    activePage(1);
-    $("#loading_modal").modal("show");
-    window.scrollTo(0,0);
+    author_email = document.getElementById('author-email').innerHTML.replaceAll('<br>', '').replaceAll('&nbsp;', '').trim();
+    if(validateEmail(author_email)){
+        projectZoom("0");
+        activePage(1);
+        $("#loading_modal").modal("show");
+        window.scrollTo(0,0);
+    }else{
+        document.getElementById("message_modal_label").innerHTML = 
+        "not valid email in the footer of the second page";
+        $("#message_modal").modal("show");
+    }
 }
 
 function exportProjectToPDF(send_email){
@@ -46,7 +52,7 @@ function exportProjectToPDF(send_email){
             //activeActualPage();
 
             if(send_email){
-                let author_email = document.getElementById("author-email").innerHTML;
+                //let author_email = document.getElementById("author-email").innerHTML;
                 /*
                 pdfBase64 = pdfDocument.output('datauristring');
                 var data = JSON.stringify({

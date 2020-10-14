@@ -290,8 +290,8 @@
                                     <div id="main-content" class="col-11">
                                         <div class="row" id="title-row">
                                             <div id="main-page-section-1" class="col-12">
-                                                <p placeholder="insert title of mission here" id="main-page-introduction-section-title" 
-                                                class="title cap-first-letter" contenteditable="true">Title of the adventure</p>
+                                                <div id="main-page-introduction-section-title" class="title cap-first-letter" 
+                                                contenteditable="true">Title of the adventure</div>
                                                 <div contenteditable="true">lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
                                                 lorem ipsum dolor sit amet, lorem ipsum dolor sit amet,
                                                 lorem ipsum dolor sit amet,lorem ipsum dolor sit amet,
@@ -358,14 +358,15 @@
                                                     lorem ipsum dolor sit amet lorem ipsum dolor sit amet, lorem ipsum dolor sit amet.</div>
                                             </div>
                                         </div>
-                                        <div class="row" style="position: absolute; bottom: 0px; width:100%;">
-                                            <div style="width:100%; display: flex">
-                                                <label>Email:</label>
+                                        <div class="row" style="font-size: 15px; position: absolute; bottom: 0px; width:100%; display:block;">
+                                            <div style="float: left; display:flex;">
+                                                <label style="width:auto;">Email:</label>
                                                 <div id="author-email" style="width:100%; min-width: 40px; margin-left: 2px;" contenteditable="true">red_dragon@gmail.com</div>
-                                                <div style="width:100%; display: flex; justify-content: flex-end;">
-                                                    <label style="float:left">Nickname:</label>
-                                                    <div id="author-nickname" style="float:left; min-width: 40px; margin-left: 2px;" contenteditable="true">Red Dragon</div>
-                                                </div>
+                                            </div>
+                                                
+                                            <div  style="float: right; display:flex;">
+                                                <label style="width:auto;">Nickname:</label>
+                                                <div id="author-nickname" style="min-width: 40px; margin-left: 2px;" contenteditable="true">Red_Dragon</div>
                                             </div>
                                         </div>
                                     </div>

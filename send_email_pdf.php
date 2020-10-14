@@ -28,8 +28,8 @@
             }else{
                 echo json_encode(array('status'=>'500'));//unexpected error
             }
-            
             unlink($filePath);
+            
         }else{
             echo json_encode(array('status'=>'401'));//not logged
         }    
