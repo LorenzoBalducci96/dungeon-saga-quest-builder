@@ -61,7 +61,7 @@ function activeActualPage(){
 
 
 
-function startNewQuest(){
+function openEditor(){
     document.getElementById("main-menu").style.opacity = 0;
     setTimeout(function(){
         document.getElementById("whole-mission-overview").style.display = "block";

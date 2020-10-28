@@ -20,7 +20,7 @@ function ajaxF(pdfDocument, author_email) {
             if(response['status'] == "401" || response['status'] == "440"){
                 $("#instant_login_modal").modal("show");
             }else if(response['status'] == "200"){
-                document.getElementById("message_modal_label").innerHTML = "Thank you, the PDF has been sent"
+                document.getElementById("message_modal_label").innerHTML = "Thank you, the PDF has been sent to the community – the download of the file for your own use will start soon"
                 $("#message_modal").modal("show");
                 pdfDocument.save('dungeon.pdf');
             }else if(response['status'] == "500"){
@@ -67,7 +67,7 @@ function login(){
                                     response = JSON.parse(request.responseText);
                                     if(response['status'] == "200"){
                                         document.getElementById("send_pdf_nonce").value = response['nonce'];
-                                        document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF"
+                                        document.getElementById("message_modal_label").innerHTML = "login done, now you can send the PDF and download your own"
                                         $("#message_modal").modal("show");
                                         $('#instant_login_modal').modal('hide');
                                     }else{

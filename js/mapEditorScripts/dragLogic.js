@@ -370,10 +370,7 @@ function endMoveElement(pieces, multipleElementsDragging) {
                 snap(elmnt)
             }
 
-            if (elmnt.getAttribute("flippable") == "yes")
-                elmnt.style.zIndex = "-1";
-            else
-                elmnt.style.zIndex = "2";
+            elmnt.style.zIndex = elmnt.getAttribute("onMapZIndex");
         }
     });
     returnOnMap(pieces);
@@ -460,7 +457,7 @@ function attachDragLogic(elmnt) {//setup the callbacks
                         elementBehind.style.zIndex = "1";
                         triggerMouseEvent(elementBehind, e)
                     }
-                    elmnt.style.zIndex = "-1"
+                    elmnt.style.zIndex = elmnt.getAttribute("onMapZIndex");
                 } else {//else check if we are moving multiple items
                     if (cntrlIsPressed) {
                         if (selectedPieces.includes(elmnt)) {
