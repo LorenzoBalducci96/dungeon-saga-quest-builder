@@ -1,3 +1,39 @@
+<?php
+    // Check if user is logged in 
+    require_once("../wp-load.php");
+    if ( !is_user_logged_in() ){
+        echo "<link rel='stylesheet' type='text/css' href='css/login_page.css'>
+        <link rel='stylesheet' type='text/css' href='css/bootstrap/bootstrap.css'>
+        <script src='js/jquery/jquery-3.4.1.min.js'></script>
+        <script src='js/jquery/jquery-ui.js'></script>
+        <script type='text/javascript' src='js/bootstrap/bootstrap.js'></script>
+
+        <div class='container'>
+            <div class='col-12'>
+                <div class='login_box'>
+                    <label style='margin: 2px;'><strong> Sorry, this application is only available for registered users </strong></label>
+                    <div class='col-12'>
+        
+        ";
+        wp_login_form( array( 'echo' => true ) );
+        echo "<label style='margin: 2px; max-width:100%;'>";
+        echo $_GET["wp-error"];
+        echo "</label>";
+        echo "  
+                    </div>
+                </div>
+            </div>
+        </div>
+        ";
+        
+        die();
+        
+        
+    }
+    
+?>
+
+
 <html>
 
 <head>
@@ -14,7 +50,6 @@
 
 <script src="js/html2canvas/html2canvas.js"></script>
 <script src="js/html2canvas/jspdf.debug.js"></script>
-<script src="https://cdn.bootcss.com/html2pdf.js/0.9.1/html2pdf.js"></script> 
 <script src="js/fileSaver/FileSaver.js"></script>
 <script>if (window.module) module = window.module;</script>
 
@@ -240,7 +275,7 @@
                         </div>
                         <div style="position: absolute; bottom:2px; width:100%;">
                         <button class="old_button" style="margin-left:4px;" onclick="document.location='../'">EXIT</button>
-                        <label style="text-align: center; width:100%;">version 1.2</label>
+                        <label style="text-align: center; width:100%;">version 1.3</label>
                         </div>
                         
                         
@@ -442,7 +477,87 @@
                                 <button class="innerMenuButton" style="width:90%;" id="loadCiBosses" onclick="loadElementsGroup('ciBosses', this)">bosses</button>
                                 <button class="innerMenuButton" style="width:90%;" id="loadCiMarkers" onclick="loadElementsGroup('ciMarkers', this)">markers</button>
                             </div>
-                            <div id="elementsMenu4" setName="markers and extra" style="display:none">
+                            <div id="elementsMenu4" setName="the black fortress" style="display:none">
+                                <button class="innerMenuButton" style="width:90%;" id="loadFnMinions" onclick="loadElementsGroup('fnMinions', this)">Minions</button>
+                            </div>
+                            <div id="elementsMenu5" setName="warlord of galahir" style="display:none">
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgA" onclick="loadElementsGroup('sgA', this)">side A</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgB" onclick="loadElementsGroup('sgB', this)">side B</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgHeroes" onclick="loadElementsGroup('sgHeroes', this)">heroes</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgMinions" onclick="loadElementsGroup('sgMinions', this)">minions</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgBosses" onclick="loadElementsGroup('sgBosses', this)">bosses</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadSgMarkers" onclick="loadElementsGroup('sgMarkers', this)">markers</button>
+                            </div>
+
+                            <div id="elementsMenu6" setName="eye of the abyss" style="display:none">
+                                <button class="innerMenuButton" style="width:90%;" id="loadOaHeroes" onclick="loadElementsGroup('oaHeroes', this)">heroes</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadOaBosses" onclick="loadElementsGroup('oaBosses', this)">bosses</button>
+                            </div>
+
+                            <div id="elementsMenu7" setName="silouhette kings of war" style="display:none">
+                                
+                                <div id="an_inner_menu_group" style="display: none;">
+                                   
+                                    <button class="innerMenuButton" style="width:90%;"  style="disaply: none;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'block';
+                                    document.getElementById('an_inner_menu_group').style.display = 'none';
+                                    ">↑</button>
+                                    <label>nord alleance</label>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadAnHeroes" onclick="loadElementsGroup('anHeroes', this)">heroes</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadAnMinions" onclick="loadElementsGroup('anMinions', this)">minions</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadAnBosses" onclick="loadElementsGroup('anBosses', this)">bosses</button>
+                                </div>
+                                <div id="fa_inner_menu_group" style="display: none;">
+                                   
+                                    <button class="innerMenuButton" style="width:90%;"  style="disaply: none;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'block';
+                                    document.getElementById('fa_inner_menu_group').style.display = 'none';
+                                    ">↑</button>
+                                    <label>Forces of the abyss</label>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadFaHeroes" onclick="loadElementsGroup('faHeroes', this)">heroes</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadFaMinions" onclick="loadElementsGroup('faMinions', this)">minions</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadFaBosses" onclick="loadElementsGroup('faBosses', this)">bosses</button>
+                                </div>
+                                <div id="rt_inner_menu_group" style="display: none;">
+                                    <button class="innerMenuButton" style="width:90%;"  style="disaply: none;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'block';
+                                    document.getElementById('rt_inner_menu_group').style.display = 'none';
+                                    ">↑</button>
+                                    <label>Kingdom of the Trident</label>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadRtMinions" onclick="loadElementsGroup('rtMinions', this)">minions</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadRtBosses" onclick="loadElementsGroup('rtBosses', this)">bosses</button>
+                                </div>
+                                <div id="sa_inner_menu_group" style="display: none;">
+                                    <button class="innerMenuButton" style="width:90%;"  style="disaply: none;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'block';
+                                    document.getElementById('sa_inner_menu_group').style.display = 'none';
+                                    ">↑</button>
+                                    <label>Salamandre</label>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadSaMinions" onclick="loadElementsGroup('saMinions', this)">minions</button>
+                                    <button class="innerMenuButton" style="width:90%;" id="loadSaBosses" onclick="loadElementsGroup('saBosses', this)">bosses</button>
+                                </div>
+                                <div id="inner_menu_main">
+                                    <button class="innerMenuButton" style="width:90%;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'none';
+                                    document.getElementById('an_inner_menu_group').style.display = 'block';
+                                    ">Nord alleance</button>
+                                    <button class="innerMenuButton" style="width:90%;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'none';
+                                    document.getElementById('fa_inner_menu_group').style.display = 'block';
+                                    ">Forces of the abyss</button>
+                                    <button class="innerMenuButton" style="width:90%;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'none';
+                                    document.getElementById('rt_inner_menu_group').style.display = 'block';
+                                    ">Kingdom of the Trident</button>
+                                    <button class="innerMenuButton" style="width:90%;" onclick="
+                                    document.getElementById('inner_menu_main').style.display = 'none';
+                                    document.getElementById('sa_inner_menu_group').style.display = 'block';
+                                    ">Salamandre</button>
+                                </div>
+                                
+                            </div>
+
+                            <div id="elementsMenu8" setName="markers and extra" style="display:none">
                                 <button class="innerMenuButton" style="width:90%;" id="loadTextBoxes" onclick="loadElementsGroup('textBoxes', this)">Text</button>
                                 <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadElementsGroup('qrnMarkers', this)">Markers</button>
                             </div>
@@ -737,6 +852,255 @@
     <image src="assets/tiles/ciMarkers/CI-marker-lava-projection-02.png" set="ciMarkers" image="CI-marker-lava-projection-02" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="CI-marker-lava-projection-02_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
     <image src="assets/tiles/ciMarkers/CI-marker-rose-of-fire1.png" set="ciMarkers" image="CI-marker-rose-of-fire1" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="CI-marker-rose-of-fire1_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                    </div>
+
+                   <div class="sidenav" id="fnMinions" style="visibility: hidden;">
+    <image src="assets/tiles/fnMinions/FN-starting-position-Minion-undead.png" set="fnMinions" image="FN-starting-position-Minion-undead" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="FN-starting-position-Minion-undead_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/fnMinions/FN-Minion-Bat-Swarm.png" set="fnMinions" image="FN-Minion-Bat-Swarm" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="no" oncontextmenu="return false;" id="FN-Minion-Bat-Swarm_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/fnMinions/FN-Minion-Rat.png" set="fnMinions" image="FN-Minion-Rat" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="no" oncontextmenu="return false;" id="FN-Minion-Rat_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/fnMinions/FN-Minion-Spider.png" set="fnMinions" image="FN-Minion-Spider" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="no" oncontextmenu="return false;" id="FN-Minion-Spider_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                   </div>
+
+                   <div class="sidenav" id="sgA" style="visibility: hidden;">
+    <image src="assets/tiles/sgA/SG-tile-1x2-A.png" set="sgA" image="SG-tile-1x2-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-1x2-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-1x3-A.png" set="sgA" image="SG-tile-1x3-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-1x3-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x2-01-A.png" set="sgA" image="SG-tile-2x2-01-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-01-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x2-02-A.png" set="sgA" image="SG-tile-2x2-02-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-02-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x2-L-01-A.png" set="sgA" image="SG-tile-2x2-L-01-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-L-01-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x2-L-02-A.png" set="sgA" image="SG-tile-2x2-L-02-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-L-02-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x3_1-A.png" set="sgA" image="SG-tile-2x3_1-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x3_1-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-2x3_2-A.png" set="sgA" image="SG-tile-2x3_2-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x3_2-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-3x3-A.png" set="sgA" image="SG-tile-3x3-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-3x3-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-3x3-Y-A.png" set="sgA" image="SG-tile-3x3-Y-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-3x3-Y-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-4x4-A.png" set="sgA" image="SG-tile-4x4-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-4x4-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-5x7-01-A.png" set="sgA" image="SG-tile-5x7-01-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-5x7-01-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-5x7-02-A.png" set="sgA" image="SG-tile-5x7-02-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-5x7-02-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgA/SG-tile-7x8-A.png" set="sgA" image="SG-tile-7x8-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes" pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-7x8-A" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="sgB" style="visibility: hidden;">
+    <image src="assets/tiles/sgB/SG-tile-1x2-B.png" set="sgB" image="SG-tile-1x2-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-1x2-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-1x3-B.png" set="sgB" image="SG-tile-1x3-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-1x3-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x2-01-B.png" set="sgB" image="SG-tile-2x2-01-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-01-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x2-02-B.png" set="sgB" image="SG-tile-2x2-02-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-02-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x2-L-01-B.png" set="sgB" image="SG-tile-2x2-L-01-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-L-01-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x2-L-02-B.png" set="sgB" image="SG-tile-2x2-L-02-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x2-L-02-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x3_1-B.png" set="sgB" image="SG-tile-2x3_1-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x3_1-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-2x3_2-B.png" set="sgB" image="SG-tile-2x3_2-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-2x3_2-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-3x3-B.png" set="sgB" image="SG-tile-3x3-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-3x3-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-3x3-Y-B.png" set="sgB" image="SG-tile-3x3-Y-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-3x3-Y-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-4x4-B.png" set="sgB" image="SG-tile-4x4-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-4x4-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-5x7-01-B.png" set="sgB" image="SG-tile-5x7-01-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-5x7-01-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-5x7-02-B.png" set="sgB" image="SG-tile-5x7-02-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-5x7-02-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgB/SG-tile-7x8-B.png" set="sgB" image="SG-tile-7x8-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-tile-7x8-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="sgHeroes" style="visibility: hidden;">
+    <image src="assets/tiles/sgHeroes/SG-starting-position-hero.png" set="sgHeroes" image="SG-starting-position-hero" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-starting-position-hero"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgHeroes/SG-hero-Guraf-warrior-dwarf.png" set="sgHeroes" image="SG-hero-Guraf-warrior-dwarf" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-hero-Guraf-warrior-dwarf"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgHeroes/SG-hero-Hrrath-warrior-Salamander.png" set="sgHeroes" image="SG-hero-Hrrath-warrior-Salamander" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-hero-Hrrath-warrior-Salamander"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgHeroes/SG-hero-Kapoka-Druid-sylvan.png" set="sgHeroes" image="SG-hero-Kapoka-Druid-sylvan" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-hero-Kapoka-Druid-sylvan"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgHeroes/SG-hero-Thesilar-ranger-elve.png" set="sgHeroes" image="SG-hero-Thesilar-ranger-elve" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-hero-Thesilar-ranger-elve"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="sgMinions" style="visibility: hidden;">
+    <image src="assets/tiles/sgMinions/SG-starting-position-Minion-green-skin.png" set="sgMinions" image="SG-starting-position-Minion-green-skin" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-starting-position-Minion-green-skin_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-ax-orc.png" set="sgMinions" image="SG-Minion-ax-orc" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-ax-orc_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-greatax-orc.png" set="sgMinions" image="SG-Minion-greatax-orc" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-greatax-orc_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-mawbeast.png" set="sgMinions" image="SG-Minion-mawbeast" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-mawbeast_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-spitters-Goblins.png" set="sgMinions" image="SG-Minion-spitters-Goblins" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-spitters-Goblins_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-spitters-orc.png" set="sgMinions" image="SG-Minion-spitters-orc" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-spitters-orc_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-swarm-orclins.png" set="sgMinions" image="SG-Minion-swarm-orclins" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-swarm-orclins_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-Troll.png" set="sgMinions" image="SG-Minion-Troll" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-Troll_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-warrior-Goblins-01.png" set="sgMinions" image="SG-Minion-warrior-Goblins-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-warrior-Goblins-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMinions/SG-Minion-warrior-Goblins-02.png" set="sgMinions" image="SG-Minion-warrior-Goblins-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Minion-warrior-Goblins-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="sgBosses" style="visibility: hidden;">
+    <image src="assets/tiles/sgBosses/SG-starting-position-boss.png" set="sgBosses" image="SG-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SG-starting-position-boss_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgBosses/SG-Thrundak-Barbarianorc.png" set="sgBosses" image="SG-Thrundak-Barbarianorc" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Thrundak-Barbarianorc_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="sgMarkers" style="visibility: hidden;">
+    <image src="assets/tiles/sgMarkers/SG-Token-green-rage.png" set="sgMarkers" image="SG-Token-green-rage" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Token-green-rage_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/sgMarkers/SG-Token-merchandise.png" set="sgMarkers" image="SG-Token-merchandise" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SG-Token-merchandise_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="oaHeroes" style="visibility: hidden;">
+    <image src="assets/tiles/oaHeroes/OA-starting-position-hero.png" set="oaHeroes" image="OA-starting-position-hero" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="OA-starting-position-hero"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/oaHeroes/hero-Artakl-watchman-Ghekkotah.png" set="oaHeroes" image="hero-Artakl-watchman-Ghekkotah" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Artakl-watchman-Ghekkotah"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/oaHeroes/hero-Eckter-defender-placoderm.png" set="oaHeroes" image="hero-Eckter-defender-placoderm" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Eckter-defender-placoderm"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/oaHeroes/hero-Jarvis-Necromancer-Ophidian.png" set="oaHeroes" image="hero-Jarvis-Necromancer-Ophidian" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Jarvis-Necromancer-Ophidian"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/oaHeroes/hero-Magnilde-Varangur-demon-huntress.png" set="oaHeroes" image="hero-Magnilde-Varangur-demon-huntress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="hero-Magnilde-Varangur-demon-huntress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="oaBosses" style="visibility: hidden;">
+    <image src="assets/tiles/oaBosses/OA-starting-position-boss.png" set="oaBosses" image="OA-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="OA-starting-position-boss"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/oaBosses/OA-Mau-ti-bu-su-Abyssal-temptress.png" set="oaBosses" image="OA-Mau-ti-bu-su-Abyssal-temptress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="OA-Mau-ti-bu-su-Abyssal-temptress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="anHeroes" style="visibility: hidden;">
+<image src="assets/tiles/anBosses/AN-starting-position-hero.png" set="anHeroes" image="AN-starting-position-hero" orientation="0" onMapZIndex="2" flippable="no" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="AN-starting-position-hero_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Berserker-half-elve-01.png" set="anHeroes" image="AN-hero-Berserker-half-elve-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Berserker-half-elve-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Berserker-half-elve-02.png" set="anHeroes" image="AN-hero-Berserker-half-elve-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Berserker-half-elve-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-clan-dwarfwith-spike.png" set="anHeroes" image="AN-hero-clan-dwarfwith-spike" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-clan-dwarfwith-spike"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-clan-hunter-dwarf-01.png" set="anHeroes" image="AN-hero-clan-hunter-dwarf-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-clan-hunter-dwarf-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-clan-hunter-dwarf-02.png" set="anHeroes" image="AN-hero-clan-hunter-dwarf-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-clan-hunter-dwarf-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Huscarl-01.png" set="anHeroes" image="AN-hero-Huscarl-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Huscarl-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Huscarl-02.png" set="anHeroes" image="AN-hero-Huscarl-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Huscarl-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Ice-huntress.png" set="anHeroes" image="AN-hero-Ice-huntress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Ice-huntress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Ice-Naiads01.png" set="anHeroes" image="AN-hero-Ice-Naiads01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Ice-Naiads01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Ice-Naiads02.png" set="anHeroes" image="AN-hero-Ice-Naiads02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Ice-Naiads02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-ice-queen.png" set="anHeroes" image="AN-hero-ice-queen" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-ice-queen"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-iceblade.png" set="anHeroes" image="AN-hero-iceblade" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-iceblade"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Northern-alliance-lord.png" set="anHeroes" image="AN-hero-Northern-alliance-lord" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Northern-alliance-lord"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Skald-Bard.png" set="anHeroes" image="AN-hero-Skald-Bard" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Skald-Bard"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anHeroes/AN-hero-Thegn.png" set="anHeroes" image="AN-hero-Thegn" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-hero-Thegn"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="anMinions" style="visibility: hidden;">
+<image src="assets/tiles/anMinions/AN-starting-position-Minion-Northern-alliance.png" set="anMinions" image="AN-starting-position-Minion-Northern-alliance" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="AN-starting-position-Minion-Northern-alliance_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion--Thegn-on-Frostfang.png" set="anMinions" image="AN-Minion--Thegn-on-Frostfang" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion--Thegn-on-Frostfang_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Berserker-half-elve-01.png" set="anMinions" image="AN-Minion-Berserker-half-elve-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Berserker-half-elve-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Berserker-half-elve-02.png" set="anMinions" image="AN-Minion-Berserker-half-elve-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Berserker-half-elve-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clan's-dwarfwith-axe.png" set="anMinions" image="AN-Minion-clan's-dwarfwith-axe" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clan's-dwarfwith-axe_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clan's-dwarfwith-spike.png" set="anMinions" image="AN-Minion-clan's-dwarfwith-spike" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clan's-dwarfwith-spike_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clan-hunter-01.png" set="anMinions" image="AN-Minion-clan-hunter-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clan-hunter-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clan-hunter-02.png" set="anMinions" image="AN-Minion-clan-hunter-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clan-hunter-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clan-hunter-dwarf-01.png" set="anMinions" image="AN-Minion-clan-hunter-dwarf-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clan-hunter-dwarf-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clansmen-with-axe-01.png" set="anMinions" image="AN-Minion-clansmen-with-axe-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clansmen-with-axe-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clansmen-with-axe-02.png" set="anMinions" image="AN-Minion-clansmen-with-axe-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clansmen-with-axe-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clansmen-with-sword-01.png" set="anMinions" image="AN-Minion-clansmen-with-sword-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clansmen-with-sword-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clansmen-with-sword-02.png" set="anMinions" image="AN-Minion-clansmen-with-sword-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clansmen-with-sword-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-clansmen-with-two-handed-weapon.png" set="anMinions" image="AN-Minion-clansmen-with-two-handed-weapon" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-clansmen-with-two-handed-weapon_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-elve-du-Clan.png" set="anMinions" image="AN-Minion-elve-du-Clan" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-elve-du-Clan_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-hunter-Clan-dwarf-02.png" set="anMinions" image="AN-Minion-hunter-Clan-dwarf-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-hunter-Clan-dwarf-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Huscarl-01.png" set="anMinions" image="AN-Minion-Huscarl-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Huscarl-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Huscarl-02.png" set="anMinions" image="AN-Minion-Huscarl-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Huscarl-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-ice-elementary.png" set="anMinions" image="AN-Minion-ice-elementary" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-ice-elementary_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Ice-huntress.png" set="anMinions" image="AN-Minion-Ice-huntress" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Ice-huntress_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Ice-Naiads01.png" set="anMinions" image="AN-Minion-Ice-Naiads01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Ice-Naiads01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Ice-Naiads02.png" set="anMinions" image="AN-Minion-Ice-Naiads02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Ice-Naiads02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-ice-queen.png" set="anMinions" image="AN-Minion-ice-queen" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-ice-queen_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-iceblade.png" set="anMinions" image="AN-Minion-iceblade" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-iceblade_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Snow-troll01.png" set="anMinions" image="AN-Minion-Snow-troll01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Snow-troll01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-Snow-troll02.png" set="anMinions" image="AN-Minion-Snow-troll02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-Snow-troll02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anMinions/AN-Minion-tundra-wolf.png" set="anMinions" image="AN-Minion-tundra-wolf" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Minion-tundra-wolf_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="anBosses" style="visibility: hidden;">
+<image src="assets/tiles/anBosses/AN-starting-position-boss.png" set="anBosses" image="AN-starting-position-boss" onMapZIndex="2" flippable="no" orientation="0" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="AN-starting-position-boss_1" style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>    
+<image src="assets/tiles/anBosses/AN-Boss-Berserker-half-elve-01.png" set="anBosses" image="AN-Boss-Berserker-half-elve-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Berserker-half-elve-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Berserker-half-elve-02.png" set="anBosses" image="AN-Boss-Berserker-half-elve-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Berserker-half-elve-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Cold-giant.png" set="anBosses" image="AN-Boss-Cold-giant" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Cold-giant"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Huscarl-01.png" set="anBosses" image="AN-Boss-Huscarl-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Huscarl-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Huscarl-02.png" set="anBosses" image="AN-Boss-Huscarl-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Huscarl-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-ice-elementary.png" set="anBosses" image="AN-Boss-ice-elementary" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-ice-elementary"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Ice-huntress.png" set="anBosses" image="AN-Boss-Ice-huntress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Ice-huntress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Ice-Naiads01.png" set="anBosses" image="AN-Boss-Ice-Naiads01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Ice-Naiads01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Ice-Naiads02.png" set="anBosses" image="AN-Boss-Ice-Naiads02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Ice-Naiads02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-ice-queen.png" set="anBosses" image="AN-Boss-ice-queen" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-ice-queen"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-iceblade.png" set="anBosses" image="AN-Boss-iceblade" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-iceblade"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Northern-alliance-lord.png" set="anBosses" image="AN-Boss-Northern-alliance-lord" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Northern-alliance-lord"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Seigneur-sur-Croc-de-Givre.png" set="anBosses" image="AN-Boss-Seigneur-sur-Croc-de-Givre" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Seigneur-sur-Croc-de-Givre"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Skald-Bard.png" set="anBosses" image="AN-Boss-Skald-Bard" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Skald-Bard"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Snow-trollAlpha.png" set="anBosses" image="AN-Boss-Snow-trollAlpha" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Snow-trollAlpha"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Thegn-on-Frostfang.png" set="anBosses" image="AN-Boss-Thegn-on-Frostfang" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Thegn-on-Frostfang"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/anBosses/AN-Boss-Thegn.png" set="anBosses" image="AN-Boss-Thegn" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="AN-Boss-Thegn"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="faHeroes" style="visibility: hidden;">
+<image src="assets/tiles/faHeroes/FA-starting-position-hero.png" set="faHeroes" image="FA-starting-position-hero" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="FA-starting-position-hero"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-Abyssal-Gargoyls.png" set="faHeroes" image="FA-hero-Abyssal-Gargoyls" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-Abyssal-Gargoyls"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-Abyssal-guardian-01.png" set="faHeroes" image="FA-hero-Abyssal-guardian-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-Abyssal-guardian-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-Abyssal-guardian-02.png" set="faHeroes" image="FA-hero-Abyssal-guardian-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-Abyssal-guardian-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-ChamToken-Abyssal-01.png" set="faHeroes" image="FA-hero-ChamToken-Abyssal-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-ChamToken-Abyssal-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-ChamToken-Abyssal-02.png" set="faHeroes" image="FA-hero-ChamToken-Abyssal-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-ChamToken-Abyssal-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-flamme-carrier.png" set="faHeroes" image="FA-hero-flamme-carrier" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-flamme-carrier"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-Watchmen-Succubs01.png" set="faHeroes" image="FA-hero-Watchmen-Succubs01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-Watchmen-Succubs01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faHeroes/FA-hero-Watchmen-Succubs02.png" set="faHeroes" image="FA-hero-Watchmen-Succubs02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-hero-Watchmen-Succubs02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+
+                    <div class="sidenav" id="faMinions" style="visibility: hidden;">
+    <image src="assets/tiles/faMinions/FA-Minion-Abyssal-Gargoyls.png" set="faMinions" image="FA-Minion-Abyssal-Gargoyls" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Abyssal-Gargoyls_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Abyssal-guardian-01.png" set="faMinions" image="FA-Minion-Abyssal-guardian-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Abyssal-guardian-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Abyssal-guardian-02.png" set="faMinions" image="FA-Minion-Abyssal-guardian-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Abyssal-guardian-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-ChamToken-Abyssal-01.png" set="faMinions" image="FA-Minion-ChamToken-Abyssal-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-ChamToken-Abyssal-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-ChamToken-Abyssal-02.png" set="faMinions" image="FA-Minion-ChamToken-Abyssal-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-ChamToken-Abyssal-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Efrit-01.png" set="faMinions" image="FA-Minion-Efrit-01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Efrit-01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Efrit-02.png" set="faMinions" image="FA-Minion-Efrit-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Efrit-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-flamme-carrier.png" set="faMinions" image="FA-Minion-flamme-carrier" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-flamme-carrier_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Hennequin-Blood-mask.png" set="faMinions" image="FA-Minion-Hennequin-Blood-mask" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Hennequin-Blood-mask_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Hennequin.png" set="faMinions" image="FA-Minion-Hennequin" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Hennequin_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Infernal-Dog-02.png" set="faMinions" image="FA-Minion-Infernal-Dog-02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Infernal-Dog-02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Watchmen-Succubs01.png" set="faMinions" image="FA-Minion-Watchmen-Succubs01" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Watchmen-Succubs01_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/faMinions/FA-Minion-Watchmen-Succubs02.png" set="faMinions" image="FA-Minion-Watchmen-Succubs02" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Minion-Watchmen-Succubs02_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="faBosses" style="visibility: hidden;">
+<image src="assets/tiles/faBosses/FA-starting-position-boss.png" set="faBosses" image="FA-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="FA-starting-position-boss"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss--Abyssal-guardian-01.png" set="faBosses" image="FA-Boss--Abyssal-guardian-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss--Abyssal-guardian-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss--Abyssal-guardian-02.png" set="faBosses" image="FA-Boss--Abyssal-guardian-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss--Abyssal-guardian-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-abyssal-Archdemon.png" set="faBosses" image="FA-Boss-abyssal-Archdemon" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-abyssal-Archdemon"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Abyssal-Chroneas.png" set="faBosses" image="FA-Boss-Abyssal-Chroneas" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Abyssal-Chroneas"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Abyssal-dread.png" set="faBosses" image="FA-Boss-Abyssal-dread" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Abyssal-dread"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Abyssal-Gargoyls.png" set="faBosses" image="FA-Boss-Abyssal-Gargoyls" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Abyssal-Gargoyls"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-abyssal-temptress.png" set="faBosses" image="FA-Boss-abyssal-temptress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-abyssal-temptress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-ChamToken-Abyssal-01.png" set="faBosses" image="FA-Boss-ChamToken-Abyssal-01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-ChamToken-Abyssal-01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-ChamToken-Abyssal-02.png" set="faBosses" image="FA-Boss-ChamToken-Abyssal-02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-ChamToken-Abyssal-02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Drech-nok.png" set="faBosses" image="FA-Boss-Drech-nok" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Drech-nok"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-flamme-carrier.png" set="faBosses" image="FA-Boss-flamme-carrier" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-flamme-carrier"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Hennequin-Masque-de-Sang.png" set="faBosses" image="FA-Boss-Hennequin-Masque-de-Sang" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Hennequin-Masque-de-Sang"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Hennequin.png" set="faBosses" image="FA-Boss-Hennequin" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Hennequin"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Mau-ti-bu-su-Abyssal-temptress.png" set="faBosses" image="FA-Boss-Mau-ti-bu-su-Abyssal-temptress" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Mau-ti-bu-su-Abyssal-temptress"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Roue-des-Ames.png" set="faBosses" image="FA-Boss-Roue-des-Ames" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Roue-des-Ames"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-sorcerer-Abyssal.png" set="faBosses" image="FA-Boss-sorcerer-Abyssal" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-sorcerer-Abyssal"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Watchmen-Succubs01.png" set="faBosses" image="FA-Boss-Watchmen-Succubs01" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Watchmen-Succubs01"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+<image src="assets/tiles/faBosses/FA-Boss-Watchmen-Succubs02.png" set="faBosses" image="FA-Boss-Watchmen-Succubs02" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="FA-Boss-Watchmen-Succubs02"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="rtMinions" style="visibility: hidden;">
+    <image src="assets/tiles/rtMinions/RT-Minion-Starting-position-Trident-realm.png" set="rtMinions" image="RT-Minion-Starting-position-Trident-realm" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="RT-Minion-Starting-position-Trident-realm_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion--baby-giga.png" set="rtMinions" image="RT-Minion--baby-giga" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion--baby-giga_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-Giga.png" set="rtMinions" image="RT-Minion-Giga" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-Giga_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-Harpoon-naiad.png" set="rtMinions" image="RT-Minion-Harpoon-naiad" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-Harpoon-naiad_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-naïad-on-serpent.png" set="rtMinions" image="RT-Minion-naïad-on-serpent" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-naïad-on-serpent_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-placoderm.png" set="rtMinions" image="RT-Minion-placoderm" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-placoderm_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-river-guardian.png" set="rtMinions" image="RT-Minion-river-guardian" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-river-guardian_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-Thuul.png" set="rtMinions" image="RT-Minion-Thuul" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-Thuul_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-warrior-naïad.png" set="rtMinions" image="RT-Minion-warrior-naïad" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-warrior-naïad_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtMinions/RT-Minion-Water-elemental.png" set="rtMinions" image="RT-Minion-Water-elemental" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Minion-Water-elemental_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="rtBosses" style="visibility: hidden;">
+    <image src="assets/tiles/rtBosses/RT-starting-position-boss.png" set="rtBosses" image="RT-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="RT-starting-position-boss_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtBosses/RT-Boss--Naiad-standard-bearer-on-serpent.png" set="rtBosses" image="RT-Boss--Naiad-standard-bearer-on-serpent" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Boss--Naiad-standard-bearer-on-serpent_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtBosses/RT-Boss-Kraken.png" set="rtBosses" image="RT-Boss-Kraken" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Boss-Kraken_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtBosses/RT-Boss-Major-water-elemental.png" set="rtBosses" image="RT-Boss-Major-water-elemental" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Boss-Major-water-elemental_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/rtBosses/RT-Boss-River-guardian-standard-bearer.png" set="rtBosses" image="RT-Boss-River-guardian-standard-bearer" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="RT-Boss-River-guardian-standard-bearer_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="saBosses" style="visibility: hidden;">
+    <image src="assets/tiles/saBosses/SA-starting-position-boss.png" set="saBosses" image="SA-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SA-starting-position-boss"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saBosses/SA-Boss-Fire-elemental-majeur.png" set="saBosses" image="SA-Boss-Fire-elemental-majeur" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Boss-Fire-elemental-majeur"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saBosses/SA-Boss-Hrrath-legendary.png" set="saBosses" image="SA-Boss-Hrrath-legendary" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Boss-Hrrath-legendary"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saBosses/SA-Boss-mercenary-salamander.png" set="saBosses" image="SA-Boss-mercenary-salamander" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Boss-mercenary-salamander"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saBosses/SA-Boss-Salamander-Necromancer.png" set="saBosses" image="SA-Boss-Salamander-Necromancer" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Boss-Salamander-Necromancer"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+                    <div class="sidenav" id="saMinions" style="visibility: hidden;">
+    <image src="assets/tiles/saMinions/SA-Minion-starting-position-Salamander.png" set="saMinions" image="SA-Minion-starting-position-Salamander" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="SA-Minion-starting-position-Salamander_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saMinions/SA-Minion-Fire-elemental.png" set="saMinions" image="SA-Minion-Fire-elemental" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Minion-Fire-elemental_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saMinions/SA-Minion-Ghekkotah.png" set="saMinions" image="SA-Minion-Ghekkotah" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Minion-Ghekkotah_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saMinions/SA-Minion-Great-Axe.png" set="saMinions" image="SA-Minion-Great-Axe" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Minion-Great-Axe_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/saMinions/SA-Minion-warrior-salamander.png" set="saMinions" image="SA-Minion-warrior-salamander" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Minion-warrior-salamander_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
+
+
+
+
+
+
 
 
                     <div class="sidenav" id="textBoxes" style="visibility: hidden;">

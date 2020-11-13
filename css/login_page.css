@@ -1,0 +1,42 @@
+body{
+    background-image: url("../assets/wood.jpg");
+    /*background-repeat: repeat-y;*/
+    background-size: 100%;
+}
+
+.login_box{
+    box-shadow: 0px 0px 4px 4px #00000099;
+    border-radius: .2em;
+    border: 2px solid #220405;
+    background-image: url('../assets/smog_background_dark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    width: max-content;
+    margin-top: 12px;
+}
+
+
+.button-primary {
+	box-shadow: 0px 0px 0px 2px #420609;
+	background:linear-gradient(to bottom, #4f0c10 5%, #290103 100%);
+	background-color:#4f0c10;
+	border-radius:10px;
+	border:1px solid #3d0005;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:2px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5c2a14;
+}
+.button-primary:hover {
+	background:linear-gradient(to bottom, #290103 5%, #4f0c10 100%);
+	background-color:#290103;
+}
+.button-primary:active {
+	position:relative;
+	top:1px;
+}
