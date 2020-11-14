@@ -4,6 +4,10 @@ var page_rotateY = 0;
 var page_translate = 0;
 var page_scale = 1;
 
+function show_editor_help(){
+    $("#editor_help_modal").modal("show");
+}
+
 function get_page_transform_string(){
     return ("rotateY(" + page_rotateY + 
     "deg) scale(" + page_scale + ")");// translate(" + parseInt(page_translate*page_scale) + "%)";

@@ -145,6 +145,69 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="editor_help_modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 id="dungeon-saga-quest-builder">dungeon-saga-quest-builder</h1>
+                    <button id="close-modal-login-button" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        
+                        <h3 aria-hidden="true">×</h3>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                
+<p>Hello, thanks for using this application, if you are here maybe you want to learn 
+how to create a custom mission for dungeon saga, don't you?<br>
+
+You are in the right place, let's introduce this editor.</p><br>
+<p>
+From the main menu you have the possibility to start a new project or to reopen a previously saved one from the backup files that you have.
+<img src="./repo_doc/main_menu.png" alt="Main menu demo" title="MAIN_MENU" style="width:100%; height: auto;"></p>
+
+<br>
+
+<p>
+<img src="./repo_doc/first_page.png?raw=true" alt="first page demo" title="FIRST_PAGE" style="width:100%; height: auto;"><br>
+In the page editor section <strong>you can edit all the text-areas</strong> in order to create a fantastic mission for dungeon saga.
+<br>the buttons to the left allow to <br>
+1) <strong>switch between the first and the second page of the mission.</strong><br>
+2) Adjust the zoom level in order to fit the sheet in the screen, or to make it fit the zoom level of your preference.<br>
+3) Change dimensions of the map in the second sheet.<br>
+4) The &quot;FINISH&quot; button allow you to conclude the project and export a PDF or download the backup of the project
+that you will be able to reopen from the main menu.<br>
+5) Return to main menu.</p>
+
+<p>A fantastic mission needs a fantastic dungeon map right? <br>
+This is shown in the second sheet of your mission, just click it to enter in the dungeon editor section.
+<img src="./repo_doc/second_page.png?raw=true" alt="second page demo" title="SECOND_PAGE" style="width:100%; height: auto;">
+</p>
+
+
+<p>In the dungeon editing mode all the pieces are arranged in the left panel and a drop down list (1) allow you to change pieces groups.
+The pieces are sorted with respect to their expansions, the last panel named as "markers and extra" has all markers and textboxes that you may want to put in the map. 
+Simply <strong>drag a piece from the left to the right</strong> for putting it into the map.
+For rotating a tile or any other element on the map simply <strong>right click with the mouse or double tap on mobile devices</strong>.
+Is possible to select multiple pieces just by dragging with the mouse for a multiple selection.
+Different pieces have different behaviours, see below in the html attributes explaination.
+Is possible to asjust the zoom of the map with the + and - top buttons.
+When the editing of the map is finished just <strong>press return to editor</strong>; the edited map will appear in the second sheet.
+Use the map zoom buttons in the editor for adjust the map dimension.<br>
+<img src="./repo_doc/the_map_editor.png?raw=true" alt="map editor demo" title="MAP_EDITOR_PAGE" style="width:100%; height: auto;"></p><br>
+
+<p>When you think your mission is ready to be played by the community <strong>click on the FINISH button and click "UPLOAD PDF"</strong>.
+A PDF will be sent to the community administrator, after a quick quality check it will be available for download for the community.
+Once the PDF has been sent, your browser will start the download of the PDF on your computer for your personal use.</p>
+<br>
+Contribute: <a href="https://github.com/LorenzoBalducci96/dungeon-saga-quest-builder">github.com/LorenzoBalducci96/dungeon-saga-quest-builder</a>
+<br>Copyright (c) 2020 Lorenzo Balducci 
+
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div class="modal fade" id="instant_login_modal">
         <div class="modal-dialog" role="document">
@@ -223,10 +286,10 @@
                     
 					<div class="row" style="margin-top: 8px;">
 						<div class="col-5 offset-1">
-							<label class="label_output_modal">Upload the PDF of you project to the community</label>
+							<label class="label_output_modal">Upload the PDF of your project to the community</label>
 						</div>
 						<div class="col-4 offset-1">
-							<label class="label_output_modal">Download a backup file of you project.
+							<label class="label_output_modal">Download a backup file of your project.
 							With this file you will be able to restore you project using the reopen quest from
 							backup button</label>
 						</div>
@@ -312,13 +375,13 @@
                         </div>
                     </div>
                     <div style="position: absolute; bottom:2px;">
-                        <button id="export_project_pdf_button" class="old_button" style="margin-bottom: 8px; padding: 2px; width: 90%;" onclick="finishProjectOptions()">FINISH</button>
-                        <button id="return-to-menu" class="old_button" style="padding:2px; width: 90%"  onclick="returnToMenu()">return to menu</button>
+                        <button id="export_project_pdf_button" class="old_button" style="margin-bottom: 8px; padding: 2px; width: 95%;" onclick="finishProjectOptions()">FINISH</button>
+                        <button id="return-to-menu" class="old_button" style="padding:1px; width: 45%"  onclick="returnToMenu()">home</button>
+                        <button id="help" class="old_button" style="padding:1px; width: 50%"  onclick="show_editor_help()">help</button>
                     </div>
                 </div>
 
                 
-
                 <div class="pages-container col-105 offset-15">
                     <div id="flip-pages" disply="text-align: center;">
                         <div id="pages-inner" disply="text-align: center;">

@@ -22,12 +22,14 @@
             $attachments = array($filePath);
             //echo json_encode(array('status'=>'200'));
             
+            
             if(wp_mail( $email_to, "dungeon saga mission", 
                     "custom mission created by community",$headers, $attachments)){
                 echo json_encode(array('status'=>'200'));//sent
             }else{
                 echo json_encode(array('status'=>'500'));//unexpected error
             }
+            
             unlink($filePath);
             
         }else{

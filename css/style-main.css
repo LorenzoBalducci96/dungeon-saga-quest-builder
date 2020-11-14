@@ -3,8 +3,8 @@
     --menu-width: 12vw;
     --transition-time: 0.5s;
 
-    --editor-menu-width: 120px;
-    --pages-container-width: calc(100vw - var(--editor-menu-width))
+    --editor-menu-width: 160px;
+    --pages-container-width: calc(100vw - var(--editor-menu-width) - 24px)
 }
 
 body{
@@ -149,6 +149,7 @@ body{
     width: var(--pages-container-width);
     left: var(--editor-menu-width);
     */
+    
     /*overflow: auto;*/
 }
 
@@ -177,7 +178,7 @@ body{
     width: 21cm;
     min-height: 29.7cm;
     max-height: 29.7cm;
-    margin: 1cm auto;
+    margin: 0.5cm auto;
     background-repeat: no-repeat;
     background-size: 100%;
 
