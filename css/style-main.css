@@ -158,6 +158,10 @@ body{
     margin: -2px;
 }
 
+#flip-pages{
+    min-width: 21cm;
+}
+
 .main-page{
     /*zoom: 0.5;*/
     width: 100%;
