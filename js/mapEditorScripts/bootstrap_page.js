@@ -152,6 +152,7 @@ function arrangeTiles(blockId) {
                 //offsetTopTiles[c] = 100*c;
             }
             let placeholderImage = document.createElement("img");
+            //placeholderImage.setAttribute("draggable", "false");
             placeholderImage.setAttribute("pieceType", "ghost");
             placeholderImage.setAttribute("set", document.getElementById(tiles[c]).getAttribute("set"));
             placeholderImage.setAttribute("image", document.getElementById(tiles[c]).getAttribute("image"));
