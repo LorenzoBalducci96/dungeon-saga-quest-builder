@@ -1,13 +1,15 @@
 <?php
-    // Check if user is logged in 
-    require_once("../wp-load.php");
+    // Check if user is logged in
+    include("./config.php");
+    require_once($wp_load);
     if ( !is_user_logged_in() ){
-        echo "<link rel='stylesheet' type='text/css' href='css/login_page.css'>
+        echo "
+        <link rel='icon' href='assets/icon.ico'>
+        <link rel='stylesheet' type='text/css' href='css/login_page.css'>
         <link rel='stylesheet' type='text/css' href='css/bootstrap/bootstrap.css'>
         <script src='js/jquery/jquery-3.4.1.min.js'></script>
         <script src='js/jquery/jquery-ui.js'></script>
         <script type='text/javascript' src='js/bootstrap/bootstrap.js'></script>
-
         <div class='container'>
             <div class='col-12'>
                 <div class='login_box'>
@@ -25,22 +27,16 @@
             </div>
         </div>
         ";
-        
-        die();
-        
-        
+        die();   
     }
-    
 ?>
 
-
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>Dungeon saga quest builder</title>
 </head>
-<link rel="icon" href="assets/icon.png">
+<link rel="icon" href="assets/icon.ico">
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css">
 <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
@@ -108,8 +104,9 @@
 
 <input type="file" id="restorePageInputFile" accept="text/html" style="display:none" />
 
-<?php
-        require_once("../wp-load.php");
+<?php   
+        include("./config.php");
+        require_once($wp_load);
         wp_nonce_field( 'send_pdf_nonce', 'send_pdf_nonce' );
 ?>
 
@@ -556,7 +553,14 @@ Contribute: <a href="https://github.com/LorenzoBalducci96/dungeon-saga-quest-bui
                                 <button class="innerMenuButton" style="width:90%;" id="loadOaBosses" onclick="loadElementsGroup('oaBosses', this)">bosses</button>
                             </div>
 
-                            <div id="elementsMenu7" setName="silouhette kings of war" style="display:none">
+                            <div id="elementsMenu7" setName="league of infamy" style="display:none">
+                                <button class="innerMenuButton" style="width:90%;" id="loadLoiA" onclick="loadElementsGroup('loiA', this)">side A</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadLoiB" onclick="loadElementsGroup('loiB', this)">side B</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadLoiHeroes" onclick="loadElementsGroup('loiHeroes', this)">Heroes</button>
+                                <button class="innerMenuButton" style="width:90%;" id="loadLoiBosses" onclick="loadElementsGroup('loiBosses', this)">Bosses</button>
+                            </div>
+
+                            <div id="elementsMenu8" setName="silouhette kings of war" style="display:none">
                                 
                                 <div id="an_inner_menu_group" style="display: none;">
                                    
@@ -619,7 +623,7 @@ Contribute: <a href="https://github.com/LorenzoBalducci96/dungeon-saga-quest-bui
                                 
                             </div>
 
-                            <div id="elementsMenu8" setName="markers and extra" style="display:none">
+                            <div id="elementsMenu9" setName="markers and extra" style="display:none">
                                 <button class="innerMenuButton" style="width:90%;" id="loadTextBoxes" onclick="loadElementsGroup('textBoxes', this)">Text</button>
                                 <button class="innerMenuButton" style="width:90%;" id="loadQrnMarkers" onclick="loadElementsGroup('qrnMarkers', this)">Markers</button>
                             </div>
@@ -1185,12 +1189,47 @@ Contribute: <a href="https://github.com/LorenzoBalducci96/dungeon-saga-quest-bui
     <image src="assets/tiles/saMinions/SA-Minion-warrior-salamander.png" set="saMinions" image="SA-Minion-warrior-salamander" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="no" oncontextmenu="return false;" id="SA-Minion-warrior-salamander_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
                     </div>
 
+                    <div class="sidenav" id="loiA" style="visibility: hidden;">
+    <image src="assets/tiles/loiA/LoI-Halfling-Expansion-Punch-board-1-A.png" set="loiA" image="LoI-Halfling-Expansion-Punch-board-1-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Halfling-Expansion-Punch-board-1-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LoI-Halfling-Expansion-Punch-board-2-A.png" set="loiA" image="LoI-Halfling-Expansion-Punch-board-2-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Halfling-Expansion-Punch-board-2-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LOI-Punch-board-1-10_10-A.png" set="loiA" image="LOI-Punch-board-1-10_10-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-1-10_10-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LOI-Punch-board-2-A.png" set="loiA" image="LOI-Punch-board-2-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-2-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LOI-Punch-board-3-A.png" set="loiA" image="LOI-Punch-board-3-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-3-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LOI-Punch-board-4-5_10-A.png" set="loiA" image="LOI-Punch-board-4-5_10-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-4-5_10-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LoI-Trident-Realm-Expansion-Punch-board-1-A.png" set="loiA" image="LoI-Trident-Realm-Expansion-Punch-board-1-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Trident-Realm-Expansion-Punch-board-1-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiA/LoI-Trident-Realm-Expansion-Punch-board-2-A.png" set="loiA" image="LoI-Trident-Realm-Expansion-Punch-board-2-A" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Trident-Realm-Expansion-Punch-board-2-A"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
 
+                    <div class="sidenav" id="loiB" style="visibility: hidden;">
+    <image src="assets/tiles/loiB/LoI-Halfling-Expansion-Punch-board-1-B.jpeg" set="loiB" image="LoI-Halfling-Expansion-Punch-board-1-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Halfling-Expansion-Punch-board-1-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LoI-Halfling-Expansion-Punch-board-2-B.jpeg" set="loiB" image="LoI-Halfling-Expansion-Punch-board-2-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Halfling-Expansion-Punch-board-2-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LOI-Punch-board-1-10_10-B.jpeg" set="loiB" image="LOI-Punch-board-1-10_10-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-1-10_10-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LOI-Punch-board-2-B.png" set="loiB" image="LOI-Punch-board-2-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-2-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LOI-Punch-board-3-B.jpeg" set="loiB" image="LOI-Punch-board-3-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-3-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LOI-Punch-board-4-5_10-B.jpeg" set="loiB" image="LOI-Punch-board-4-5_10-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LOI-Punch-board-4-5_10-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LoI-Trident-Realm-Expansion-Punch-board-1-B.jpeg" set="loiB" image="LoI-Trident-Realm-Expansion-Punch-board-1-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Trident-Realm-Expansion-Punch-board-1-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiB/LoI-Trident-Realm-Expansion-Punch-board-2-B.jpeg" set="loiB" image="LoI-Trident-Realm-Expansion-Punch-board-2-B" flippable="yes" orientation="0" onMapZIndex="-1" single="yes"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoI-Trident-Realm-Expansion-Punch-board-2-B"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
 
+                    <div class="sidenav" id="loiBosses" style="visibility: hidden;">
+    <image src="assets/tiles/loiBosses/LoiV-starting-position-boss.png" set="loiBosses" image="LoiV-starting-position-boss" flippable="no" orientation="0" onMapZIndex="2" single="no"pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoiV-starting-position-boss_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-abyssal-dwarf-pistolero.png" set="loiBosses" image="LoiV-Boss-abyssal-dwarf-pistolero" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-abyssal-dwarf-pistolero"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-Abyssal-Priest-Hunter.png" set="loiBosses" image="LoiV-Boss-Abyssal-Priest-Hunter" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-Abyssal-Priest-Hunter"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-Ninja-Goblins.png" set="loiBosses" image="LoiV-Boss-Ninja-Goblins" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-Ninja-Goblins"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-Ratkin-Brute.png" set="loiBosses" image="LoiV-Boss-Ratkin-Brute" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-Ratkin-Brute"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-Sorcerer.png" set="loiBosses" image="LoiV-Boss-Sorcerer" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-Sorcerer"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiBosses/LoiV-Boss-warrior-Vampire.png" set="loiBosses" image="LoiV-Boss-warrior-Vampire" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-Boss-warrior-Vampire"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
 
-
-
-
+                    <div class="sidenav" id="loiHeroes" style="visibility: hidden;">
+    <image src="assets/tiles/loiHeroes/LoiV-starting-position-hero.png" set="loiHeroes" image="LoiV-starting-position-hero" flippable="no" orientation="0" onMapZIndex="2" single="no" pieceType="tile" snap="yes" oncontextmenu="return false;" id="LoiV-starting-position-hero_1"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-abyssal-dwarf-pistolero.png" set="loiHeroes" image="LoiV-hero-abyssal-dwarf-pistolero" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-abyssal-dwarf-pistolero"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-Abyssal-Priest-Hunter.png" set="loiHeroes" image="LoiV-hero-Abyssal-Priest-Hunter" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-Abyssal-Priest-Hunter"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-Ninja-Goblins.png" set="loiHeroes" image="LoiV-hero-Ninja-Goblins" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-Ninja-Goblins"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-Ratkin-Brute.png" set="loiHeroes" image="LoiV-hero-Ratkin-Brute" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-Ratkin-Brute"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-Sorcerer.png" set="loiHeroes" image="LoiV-hero-Sorcerer" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-Sorcerer"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+    <image src="assets/tiles/loiHeroes/LoiV-hero-warrior-Vampire.png" set="loiHeroes" image="LoiV-hero-warrior-Vampire" flippable="no" orientation="0" onMapZIndex="2" single="yes"pieceType="tile" snap="no" oncontextmenu="return false;" id="LoiV-hero-warrior-Vampire"style="position: absolute; cursor: move; width: 100%;" onMap="no"></image>
+                    </div>
 
                     <div class="sidenav" id="textBoxes" style="visibility: hidden;">
                         <div class="card" set="textBoxes" orientation="0" oncontextmenu="return false;" single="no" pieceType="text"
@@ -1235,12 +1274,10 @@ Contribute: <a href="https://github.com/LorenzoBalducci96/dungeon-saga-quest-bui
                     </div>
                 </div>
 
-
                 <!--width="4096" height="3084"-->
                 <div id="canvasContainer" class="canvasContainer">
                     <canvas id="canvasDragShower" width="4096" height="3084"></canvas>
                 </div>
-
 
                 <div id="map" scale="1" class="map funny_scrollbar_blue" onscroll="adjustCanvasScroll()">
                     <label style="position: absolute; top: 3024px;" pieceType="placeholder" id="placeholder">.</label>

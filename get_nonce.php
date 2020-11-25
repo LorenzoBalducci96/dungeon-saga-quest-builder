@@ -1,5 +1,6 @@
 <?php
-    require_once("../wp-load.php");
+    include_once("./config.php");
+    require_once($wp_load);
 
     $response = json_decode(file_get_contents('php://input'), true);
     if($response['type'] == 'login'){

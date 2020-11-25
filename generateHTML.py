@@ -3,14 +3,14 @@ import cv2
 import matplotlib.pyplot as plt
 import os
 
-baseFolder = "assets/tiles/saMinions/"
-setName = "saMinions"
+baseFolder = "assets/tiles/loiHeroes/"
+setName = "loiHeroes"
 pieceType = "tile"
-single = "no"
+single = "yes"
 snap = "no"
 flippable = "no"
 onMapZIndex = "2"
-input_path = 'C:/xampp/htdocs/wordpress/dungeon-saga-quest-builder/assets/tiles/saMinions'
+input_path = 'C:/xampp/htdocs/wordpress/dungeon-saga-quest-builder/assets/tiles/loiHeroes'
 output_path = 'C:/xampp/htdocs/wordpress/dungeon-saga-quest-builder/assets/tiles/output.txt'
 file = open(output_path,"w+") 
 file.write("<div class=\"sidenav\" id=\"" + setName + "\" style=\"visibility: hidden;\">\n")
